@@ -1,0 +1,24 @@
+[33mcommit 40ccb631e62ad851c17ac20bee5e242bfdc71ad7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: c6ba0c5 db8ddfe
+Author: “shufan100” <“1549248097@qq.com”>
+Date:   Tue Mar 30 17:30:37 2021 +0800
+
+    Merge branch 'main' of github.com:shufan100/vue3Project
+
+[33mcommit c6ba0c5e9fa53c617ac83fa4b944fcd34199813a[m
+Author: “shufan100” <“1549248097@qq.com”>
+Date:   Tue Mar 30 17:30:06 2021 +0800
+
+    修改app.vue
+
+[33mcommit db8ddfee6331daf901973bf7e887e65822f9d81b[m
+Author: shufan100 <50441066+shufan100@users.noreply.github.com>
+Date:   Tue Mar 30 16:47:37 2021 +0800
+
+    Update README.md
+
+[33mcommit 6d230f563424516127cc0ca458d9de7cbdcffd4d[m
+Author: “shufan100” <“1549248097@qq.com”>
+Date:   Tue Mar 30 16:46:18 2021 +0800
+
+    frist name
