@@ -29,7 +29,7 @@ const en ={
         // iconfont:"Iconfont",
         // magnifying:'Magnifying',
         // exportPdf:'ExportPdf',
-        // dragAndDrop:'DragAndDrop',
+        dragAndDrop:'DragAndDrop',
         // dialog:'Dialog',
         // dragList:'DragList',
         EChartsCom:'EChartsCom',
