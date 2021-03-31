@@ -46,7 +46,7 @@ import '@/assets/icon/iconfont.css'
 import * as share from './utils/share'
 
 //防多次点击，重复提交
-import preventReClick from '@/utils/preventReClick' 
+import preventReClick from './utils/preventReClick' 
 // Vue.directive("preventReClick", preventReClick);
 
 //图片预览
