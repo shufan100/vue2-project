@@ -17,44 +17,44 @@
 </template>
 
 <script>
-import leftMenu from "./leftMenu"; //左边菜单
-import headNav from "./headNav"; //头部
-import breadcrumb from "./breadcrumb"; //面包屑
-import tags from "./tags"; //tags
+// import leftMenu from "./leftMenu"; //左边菜单
+// import headNav from "./headNav"; //头部
+// import breadcrumb from "./breadcrumb"; //面包屑
+// import tags from "./tags"; //tags
 
-import { mapState } from "vuex";
-import bus from "@/common/bus.js";
+// import { mapState } from "vuex";
+// import bus from "@/common/bus.js";
 
-export default {
-    name: "Home",
-    data() {
-        return {
-            tagsList: []
-        };
-    },
-    components: {
-        leftMenu,
-        headNav,
-        breadcrumb,
-        tags
-    },
-    computed: {
-        ...mapState(["sidebarWidth"])
-    },
-    created() {
-        // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
-        bus.$on("tags", msg => {
-            let arr = [];
-            for (let i = 0, len = msg.length; i < len; i++) {
-                msg[i].name && arr.push(msg[i].name);
-            }
-            this.tagsList = arr;
-        });
-    },
+// export default {
+//     name: "Home",
+//     data() {
+//         return {
+//             tagsList: []
+//         };
+//     },
+//     components: {
+//         leftMenu,
+//         headNav,
+//         breadcrumb,
+//         tags
+//     },
+//     computed: {
+//         ...mapState(["sidebarWidth"])
+//     },
+//     created() {
+//         // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
+//         bus.$on("tags", msg => {
+//             let arr = [];
+//             for (let i = 0, len = msg.length; i < len; i++) {
+//                 msg[i].name && arr.push(msg[i].name);
+//             }
+//             this.tagsList = arr;
+//         });
+//     },
 
-    mounted() {},
-    methods: {}
-};
+//     mounted() {},
+//     methods: {}
+// };
 </script>
 <style scoped lang="less">
 // 路由过过渡动画
