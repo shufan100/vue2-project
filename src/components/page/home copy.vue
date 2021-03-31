@@ -22,7 +22,6 @@
 </template>
 
 <script>
-require("echarts-liquidfill"); //引了这个插件
 export default {
     data() {
         return {
