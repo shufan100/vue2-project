@@ -1,6 +1,5 @@
 import router from '@/router';
 let routerObj ={}
-console.log(router.options.routes[0].children,'router.options.routes[0].children')
 for(let item of router.options.routes[0].children){
     routerObj[item.name] = item.name || '';
 }
@@ -43,5 +42,4 @@ const en ={
     }
 }
 Object.assign(en.i18n,routerObj)
-console.log(en)
 export default en;

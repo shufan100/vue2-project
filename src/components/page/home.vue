@@ -11,7 +11,7 @@
             <iframe class="iframe" :src="url"></iframe>
         </div>
         <i class="iconfont icondabiaoguanli"></i>
-        <el-button v-preventReClick @click="antiShake">防抖多次触发</el-button>
+        <!-- <el-button v-preventReClick @click="antiShake">防抖多次触发</el-button> -->  
     </div>
 </template>
 
