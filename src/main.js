@@ -47,7 +47,7 @@ import * as share from './utils/share'
 
 //防多次点击，重复提交
 import preventReClick from '@/utils/preventReClick' 
-Vue.directive("preventReClick", preventReClick);
+// Vue.directive("preventReClick", preventReClick);
 
 //图片预览
 import elImageViewer from 'element-ui/packages/image/src/image-viewer'
