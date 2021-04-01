@@ -35,7 +35,7 @@ import './common/routerPermissions.js';
 // import '@/common/routerPermissions';
 
 // ***** 中英文 ****
-import i18n from '@/lang';
+// import i18n from '@/lang';
 
 /// 引入iconfont class加iconfont
 import '@/assets/icon/iconfont.css'
@@ -74,6 +74,6 @@ Vue.prototype.$qs = qs;
 const vm = new Vue({
     router,
     store,
-    i18n,
+    // i18n,
     render: h => h(App)
 }).$mount('#app')
