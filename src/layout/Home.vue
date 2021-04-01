@@ -1,6 +1,6 @@
 <template>
     <div class="home rflex">
-        <!-- <left-menu></left-menu> -->
+        <left-menu></left-menu>
         <div class="menu_right wflex">
             <head-nav></head-nav>
             <tags></tags>

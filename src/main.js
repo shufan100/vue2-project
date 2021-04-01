@@ -35,7 +35,7 @@ import './common/routerPermissions.js';
 // import '@/common/routerPermissions';
 
 // ***** 中英文 ****
-// import i18n from '@/lang';
+import i18n from '@/lang';
 
 /// 引入iconfont class加iconfont
 import '@/assets/icon/iconfont.css'
@@ -60,7 +60,6 @@ Vue.prototype.$warning = msg.msgWarning;
 Vue.prototype.$info = msg.msgInfo;
 Vue.prototype.$error = msg.msgError;
 
-// Vue.prototype.shareConfig = shareConfig;
 Vue.prototype.shareConfig = share.shareConfig;
 Vue.prototype.$echarts = echarts //引入组件
 Vue.config.productionTip = false; //放开是生成模式，注释是开发模式
@@ -74,6 +73,6 @@ Vue.prototype.$qs = qs;
 const vm = new Vue({
     router,
     store,
-    // i18n,
+    i18n,
     render: h => h(App)
 }).$mount('#app')

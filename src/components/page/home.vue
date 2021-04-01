@@ -41,7 +41,6 @@ export default {
 //         pdf
 //     },
     mounted() {
-        console.log(Vue)
 //         // Watermark.set("水印内容")
 //         let name = "陈名勤";
 //         let char = "";
