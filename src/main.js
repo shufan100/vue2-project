@@ -69,7 +69,7 @@ Vue.prototype.$qs = qs;
 // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
 
 
-
+Vue.config.silent = false;
 const vm = new Vue({
     router,
     store,
