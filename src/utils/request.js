@@ -29,7 +29,7 @@ const rest = axios.create({
 // 拦截器分为request请求拦截器和response响应拦截器 //
 
 // request(请求)拦截器
-rest.interceptors.request.use(config => {
+// rest.interceptors.request.use(config => {
     // router.push('HiChild') //请求的话
     // store.dispatch('showLoading', true) //请求开启loading
     
@@ -54,29 +54,29 @@ rest.interceptors.request.use(config => {
     // }
     // config.withCredentials = true //关闭loading
     // config.timeout = 5000
-    return config
-}, error => { 
+    // return config
+// }, error => { 
     //请求超时才会走进来
     // store.dispatch('hideloading', false);
-    return Promise.reject(error);
-})
+    // return Promise.reject(error);
+// })
 
 // respone(响应)拦截器
-rest.interceptors.response.use(response => {
+// rest.interceptors.response.use(response => {
     // store.dispatch('hideloading', false)
     // if(!res.data.success){
     //     return Promise.resolve(res);
     // }
-    return response.data
-},error => {
+    // return response.data
+// },error => {
     // if(error.response.status===401){
     //     router.replace({ //跳转到登录页面
     //         path: '/user/login', 
     //     });
     // }
     // store.dispatch('hideloading', false)
-    return Promise.reject(error);
+    // return Promise.reject(error);
         
-})
+// })
 
 export default rest;
