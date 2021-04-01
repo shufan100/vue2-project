@@ -1,10 +1,10 @@
 <template>
     <div class="home rflex">
-        <!-- <left-menu></left-menu> -->
+        <left-menu></left-menu>
         <div class="menu_right wflex">
-            <!-- <head-nav></head-nav> -->
-            <!-- <tags></tags> -->
-            <!-- <breadcrumb></breadcrumb> -->
+            <head-nav></head-nav>
+            <tags></tags>
+            <breadcrumb></breadcrumb>
             <div class="content is-scroll-left">
                 <transition name="fade">
                     <keep-alive>

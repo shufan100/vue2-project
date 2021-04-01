@@ -22,32 +22,33 @@
 // import pinyin from "js-pinyin";
 // import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 // import pdf from 'vue-pdf'; //在线预览pdf
-// export default {
-//     data() {
-//         return {
-//             url:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-//             srcList: [
-//                 require('@/assets/images/01.jpg'),
-//                 require('@/assets/images/02.jpg'),
-// 			],
-// 			showViewer: false,
-//             guidePic:'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg', // 预览图片的地址
-//             pdfShow:false,
-//         };
-//     },
+export default {
+    data() {
+        return {
+            url:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+            srcList: [
+                require('@/assets/images/01.jpg'),
+                require('@/assets/images/02.jpg'),
+			],
+			showViewer: false,
+            guidePic:'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg', // 预览图片的地址
+            pdfShow:false,
+        };
+    },
 //     components: {
 // 		VueQr,
 //         ElImageViewer,
 //         pdf
 //     },
-//     mounted() {
+    mounted() {
+        console.log(Vue)
 //         // Watermark.set("水印内容")
 //         let name = "陈名勤";
 //         let char = "";
 //         pinyin.setOptions({ checkPolyphone: false, charCase: 0 });
 //         char = pinyin.getCamelChars(name);
 //         console.log(char, "char");
-// 	},
+	},
 // 	methods:{
 // 		closeViewer(){
 // 			this.showViewer = false
@@ -62,7 +63,7 @@
 //             console.log('1秒触发一次！')
 //         }
 // 	}
-// };
+};
 </script>
 <style lang="less">
 // .pdfs{

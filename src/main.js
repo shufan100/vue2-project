@@ -53,7 +53,7 @@ import elImageViewer from 'element-ui/packages/image/src/image-viewer'
 Vue.component("elImageViewer",elImageViewer);
 
 
-弹窗封装
+// 弹窗封装
 import * as msg from './utils/message'
 Vue.prototype.$success = msg.msgSuccess;
 Vue.prototype.$warning = msg.msgWarning;
@@ -63,7 +63,7 @@ Vue.prototype.$error = msg.msgError;
 // Vue.prototype.shareConfig = shareConfig;
 Vue.prototype.shareConfig = share.shareConfig;
 Vue.prototype.$echarts = echarts //引入组件
-// Vue.config.productionTip = false; //放开是生成模式，注释是开发模式
+Vue.config.productionTip = false; //放开是生成模式，注释是开发模式
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs;
 
