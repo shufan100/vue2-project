@@ -163,7 +163,7 @@ const routes = [
         path: '/echartsMap',
         name: 'echartsMap',
         component: () => import('@/components/echarts/echartsMap'),
-        meta: { title: 'ECharts组件/地图',path:'EChartsCom/echartsMap' ,permissions:true}
+        meta: { title: '地图组件/高德地图',path:'EChartsCom/echartsMap' ,permissions:true}
       },
     ]
   },

@@ -9,5 +9,8 @@ const mutations = {
   // sidebarWidthMutations: (state, newData) => {
   //   state.sidebarWidth = newData;
   // },
+  isEnglishMutations: (state, newData) => {
+    state.isEnglish = newData;
+  },
 }
 export default mutations;

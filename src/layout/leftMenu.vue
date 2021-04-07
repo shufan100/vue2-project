@@ -183,7 +183,7 @@ export default {
                 {
                     icon: "el-icon-pie-chart",
                     index: "EChartsCom",
-                    title: "ECharts组件",
+                    title: "地图组件",
                     subs:[
                         {
                             index: "echartsMap",

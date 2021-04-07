@@ -31,7 +31,7 @@ const zh = {
         dragAndDrop:'拖拽组件',
         // dialog:'拖拽弹窗',
         // dragList:'拖拽列表',
-        EChartsCom:'ECharts组件',
+        EChartsCom:'地图组件',
         // echartsMap:'ECharts地图',
         permissions:'权限设置',
         // pagePermissions:'页面权限',

@@ -3,7 +3,7 @@
         <ul class="home-left">
             <li class="home-left-box1"></li>
             <li class="home-left-box2">
-                <div id="mapChart" style="width: 100%;height:100%;"></div>
+                <div id="mapCharts" style="width: 100%;height:100%;"></div>
             </li>
             <li class="home-left-box3">
                 <div class="left-box3-left">
@@ -93,7 +93,7 @@ export default {
 	methods:{
         initMap() {
             this.$echarts.registerMap("shanxi", shanxi);
-            let myChart = this.$echarts.init(document.getElementById("mapChart"));
+            let myChart = this.$echarts.init(document.getElementById("mapCharts"));
             myChart.setOption({
                 tooltip: {
                     trigger: "item",
@@ -768,7 +768,7 @@ export default {
       width: 130px;
       height: 105px;
       padding: 10px;
-      background: #000;
+      background: #fff;
       span {
           display: block;
           color: #33bdfd;

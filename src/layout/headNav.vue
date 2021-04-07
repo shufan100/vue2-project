@@ -3,7 +3,7 @@
         <div class="header-user-con">
             <!-- 中英文 -->
             <div class="CE" @click="changeLocale">
-                <img :src="CE"  alt="">
+                <img :src="require('@/assets/images/CE.png')"  alt="">
             </div>
             <!-- <el-menu 
                 class="el-menu-demo" 
@@ -64,11 +64,8 @@
 </template>
 
 <script>
-
-import CE from "@/assets/images/CE.png";
-
+import { mapActions } from 'vuex'
 import { setToken } from '@/utils/jsCookie'
-
 export default {
     data() {
         return {
@@ -76,10 +73,10 @@ export default {
             message: 2,
             ms_username: localStorage.getItem('ms_username'),
             dotHidden:false,
-            CE:CE
         };
     },
     methods: {
+      ...mapActions(['isEnglishAction','infoAction']),
         // 全屏
         handleFullScreen() {
             let element = document.documentElement;
@@ -109,7 +106,6 @@ export default {
         },
          // 切换语言
         changeLocale(){
-            console.log(this.$i18n)
             let type = null;
             if(this.$i18n.locale === 'en'){
                 type = 'zh';
@@ -118,6 +114,8 @@ export default {
             }
             setToken('lang',type);
             this.$i18n.locale = type;
+            this.isEnglishAction(type)
+            this.infoAction(type)
         },
         // 退出
         handleCommand(command) {

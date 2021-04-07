@@ -5,5 +5,8 @@ const actions = {
     // sidebarWidthAction:(context, newData) =>{
     //     context.commit('sidebarWidthMutations',newData)
     // },
+    isEnglishAction:(context, newData) =>{
+      context.commit('isEnglishMutations',newData)
+  },
 };
 export default actions;

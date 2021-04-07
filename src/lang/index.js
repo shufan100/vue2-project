@@ -18,5 +18,4 @@ const i18n = new VueI18n({
         en:{...enLocale}
     }
 })
-console.log(i18n,'i18n')
 export default i18n;
