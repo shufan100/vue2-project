@@ -7,6 +7,9 @@
             </li>
             <li class="home-left-box3">
                 <div class="left-box3-left">
+                  
+                  <div id="faultEchart1" style="width: 50%;height:100%;float:left"></div>
+                  <div id="faultEchart2" style="width: 50%;height:100%;float:left"></div>      
                 </div>
                 <div class="left-box3-right">
                     <div id="defectsPartsEchart" style="width: 100%;height:100%;"></div>
@@ -145,6 +148,185 @@ export default {
                 console.log(params);
                 this.$success("暂无问题数据");
             });
+            // 故障统计1 
+            let faultEchart1 = this.$echarts.init(document.getElementById('faultEchart1'));
+            faultEchart1.setOption({
+                 title: {
+                    text: "",
+                    textStyle: {
+                        fontWeight: "normal",
+                        color: "#000",
+                        fontSize: 14
+                    },
+                },
+                tooltip: {
+                  top:60,
+                  trigger: 'item',
+                  formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                // legend: {
+                //   top:20,
+                //   right:0,
+                //   itemWidth:8,
+                //   itemHeight:15,
+                //   textStyle: {
+                //       color: "#000"
+                //   },
+                //   data: ["外部", "人员","运行", "设备"]
+                // },
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: '40%',
+                        center: ['50%', '50%'],
+                        center:['50%','55%'],
+                        data: [
+                            {value: 30, name: '外部',itemStyle:{normal:{color:'#00D9FB'}}},
+                            {value: 310, name: '人员',itemStyle:{normal:{color:'#FFFF00'}}},
+                            {value: 250, name: '运行',itemStyle:{normal:{color:'#E4007F'}}},
+                            {value: 180, name: '设备',itemStyle:{normal:{color:'#FEBE03'}}}
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                    show: true, 
+                                    color:'#000',
+                                    formatter: '{b} {d}% \n {c}'
+                                    // formatter: '{d}%'
+                                },
+                                labelLine :{show:true}
+                            } 
+                        },
+                    }
+                ]
+            })
+            // 故障统计2
+            let faultEchart2 = this.$echarts.init(document.getElementById('faultEchart2'));
+            faultEchart2.setOption({
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: '40%',
+                        center: ['50%', '50%'],
+                        center:['50%','55%'],
+                        data: [
+                            {value: 100, name: '外部',itemStyle:{normal:{color:'#00D9FB'}}},
+                            {value: 50, name: '人员',itemStyle:{normal:{color:'#FFFF00'}}},
+                            {value: 380, name: '运行',itemStyle:{normal:{color:'#E4007F'}}},
+                            {value: 400, name: '设备',itemStyle:{normal:{color:'#FEBE03'}}}
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                                
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                label:{
+                                    show: true, 
+                                    color:'#000',
+                                    formatter: '{b} {d}% \n {c}'
+                                    // formatter: '{d}%'
+                                },
+                                labelLine :{show:true}
+                            }
+                        },
+                    }
+                ]
+            })
+            let defectsPartsEchart = this.$echarts.init(document.getElementById('defectsPartsEchart'))
+            defectsPartsEchart.setOption({
+                title: {
+                    text: "单位：个",
+                    top:30,
+                    left:50,
+                    textStyle: {
+                        fontWeight: "normal",
+                        color: "#ff6428",
+                        fontSize: 13
+                    },
+                },
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
+                    }
+                },
+                grid: {
+                    left: "3%",
+                    right: "4%",
+                    bottom: "10%",
+                    containLabel: true
+                },
+                xAxis: {
+                    type: "value",
+                    axisLabel: {
+                        show: false,
+                    },
+                    axisLine:{
+                        show:false,
+                    },
+                    splitLine:{  //隐藏柱状图分割线
+                         show:false
+                    },
+                    axisTick: {
+                        show: false//不显示刻度线
+                    },
+                    boundaryGap: [0, 0.01]
+                },
+                yAxis: {
+                    type: "category",
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "#ff6428"
+                        }
+                    },
+                    axisLine:{ 
+                        show:false,
+                    },
+                    splitLine:{  //隐藏柱状图分割线
+                         show:false
+                    },
+                    axisTick: {//刻度
+                        show: false//不显示刻度线
+                    },
+                    data: [ "电缆通道","附属设施","电缆分支箱","在线监测装置","附属设备","终端","中间接头","电缆段","电缆"]
+                },
+                series: [
+                    {
+                        type: "bar",
+                        data: [900, 800, 700, 600, 500, 400, 300, 200, 100],
+                        itemStyle:{
+                            normal:{color:'#00F6FF'}
+                        },
+                        label:{
+                            normal:{
+                                show:true,
+                                position:'right',
+                                color:'#ff6428'
+                            }
+                        },
+                    }
+                ]
+            })
         },
         getInit(){
             let oldChart = this.$echarts.init(document.getElementById('oldEcharts'))
@@ -286,16 +468,22 @@ export default {
                       label: { //显示数字
                           normal: {
                               show: true,
-                              position: 'top'
+                              position: 'top',
+                              // formatter: "{active|未处理}" + "\n\r" + "{total|" + 42 + "}",
+                              // rich: {
+                              //   active: {
+                              //     fontFamily: "微软雅黑",
+                              //     fontSize: 18,
+                              //     color: "#21d2d2",
+                              //     lineHeight: 50
+                              //   },
+                              //   total: {
+                              //     fontSize: 35,
+                              //     fontFamily: "微软雅黑",
+                              //     color: "#f5b301"
+                              //   }
+                              // }
                           },
-                          // emphasis: { //鼠标移入环形名字变大
-                          //     show: false,
-                          //     textStyle: {
-                          //         fontSize: '30',
-                          //         fontWeight: 'bold',
-                                  
-                          //     }
-                          // }
                       },
                       labelLine: { //饼形不显示线
                           normal: {
@@ -500,85 +688,6 @@ export default {
                     }
                 ]
             })
-
-            // 缺陷部位
-            let defectsPartsEchart = this.$echarts.init(document.getElementById('defectsPartsEchart'))
-            defectsPartsEchart.setOption({
-                title: {
-                    text: "单位：个",
-                    top:30,
-                    left:50,
-                    textStyle: {
-                        fontWeight: "normal",
-                        color: "#ff6428",
-                        fontSize: 13
-                    },
-                },
-                tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
-                },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "10%",
-                    containLabel: true
-                },
-                xAxis: {
-                    type: "value",
-                    axisLabel: {
-                        show: false,
-                    },
-                    axisLine:{
-                        show:false,
-                    },
-                    splitLine:{  //隐藏柱状图分割线
-                         show:false
-                    },
-                    axisTick: {
-                        show: false//不显示刻度线
-                    },
-                    boundaryGap: [0, 0.01]
-                },
-                yAxis: {
-                    type: "category",
-                    axisLabel: {
-                        show: true,
-                        textStyle: {
-                            color: "#ff6428"
-                        }
-                    },
-                    axisLine:{ 
-                        show:false,
-                    },
-                    splitLine:{  //隐藏柱状图分割线
-                         show:false
-                    },
-                    axisTick: {//刻度
-                        show: false//不显示刻度线
-                    },
-                    data: [ "电缆通道","附属设施","电缆分支箱","在线监测装置","附属设备","终端","中间接头","电缆段","电缆"]
-                },
-                series: [
-                    {
-                        type: "bar",
-                        data: [900, 800, 700, 600, 500, 400, 300, 200, 100],
-                        itemStyle:{
-                            normal:{color:'#00F6FF'}
-                        },
-                        label:{
-                            normal:{
-                                show:true,
-                                position:'right',
-                                color:'#ff6428'
-                            }
-                        },
-                    }
-                ]
-            })
-
         },
 
 
@@ -659,7 +768,7 @@ export default {
       width: 130px;
       height: 105px;
       padding: 10px;
-      background: #fff;
+      background: #000;
       span {
           display: block;
           color: #33bdfd;
