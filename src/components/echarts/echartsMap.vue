@@ -21,11 +21,11 @@ export default {
     },
     watch:{
       isEnglish(){
-          this.getgdMap()
+          // this.getgdMap()
       }
     },
     mounted() {
-        this.getgdMap()
+        // this.getgdMap()
     },
     methods:{
       getgdMap () {
