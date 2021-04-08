@@ -1,41 +1,41 @@
 <template>
-    <div class="error-page">
-        <div class="error-code">
-            4<span>0</span>4
-        </div>
-        <div class="error-desc">啊哦~ 你所访问的页面不存在</div>
+  <div class="error-page">
+    <div class="error-code">
+      4<span>0</span>4
     </div>
+    <div class="error-desc">啊哦~ 你所访问的页面不存在</div>
+  </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        goBack() {
-            this.$router.go(-1);
-        }
+  methods: {
+    goBack () {
+      this.$router.go(-1);
     }
+  }
 };
 </script>
 <style lang="less" scoped>
 .error-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .error-code {
-        line-height: 1;
-        font-size: 250px;
-        font-weight: bolder;
-        color: #f02d2d;
-        span {
-            color: #00a854;
-        }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .error-code {
+    line-height: 1;
+    font-size: 250px;
+    font-weight: bolder;
+    color: #f02d2d;
+    span {
+      color: #00a854;
     }
-    .error-desc {
-        font-size: 30px;
-        color: #777;
-        display: block;
-    }
+  }
+  .error-desc {
+    font-size: 30px;
+    color: #777;
+    display: block;
+  }
 }
 </style>
 

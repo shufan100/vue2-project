@@ -38,9 +38,9 @@ export default {
             // });
             // console.log(temp, "4444");
             // console.log(temps, "12121");
-            return temp;
+            return temp;  
         },
-        ...mapState(['sidebarOpened'])
+        ...mapState(["sidebarOpened"])   
     },
      watch: {
       $route() {
