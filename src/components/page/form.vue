@@ -188,7 +188,7 @@ export default {
         const data = [
           {
             isOrg: false,
-            label: '国网太原供电公司',
+            label: '国网太原供电公11司',
             value: '057252DF490D45E6E050007F01007437'
           }
         ]
