@@ -22,28 +22,35 @@
     "qrcodejs2": "0.0.2",
     "vue": "^2.6.12",
     "vue-cropperjs": "^3.0.0",
+    "vue-i18n": "^8.24.2",
     "vue-pdf": "^4.2.0",
     "vue-qr": "^2.3.0",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.1",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
-    "xlsx": "^0.14.5",
-    "vue-i18n": "^8.24.2"
+    "xlsx": "^0.14.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.3",
     "@vue/cli-plugin-router": "^4.2.3",
     "@vue/cli-plugin-vuex": "^4.2.3",
     "@vue/cli-service": "^4.2.3",
+    
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "script-loader": "^0.7.2",
     "svg-sprite-loader": "^5.2.1",
     "vue-template-compiler": "^2.6.12"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+  }
 }
