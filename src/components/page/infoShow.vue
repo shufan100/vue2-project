@@ -88,7 +88,8 @@
         <el-col :span="6">
           <div class="area">
             <p class="title">
-              <icon-svg icon-class="iconpay3" />待收资产</p>
+              <icon-svg icon-class="iconpay3" />待收资产
+            </p>
             <p class="num"><span class="symbol">￥</span>78.00</p>
             <a class="detail dbgcolor">
               查看详情&nbsp;&nbsp;
@@ -99,7 +100,8 @@
         <el-col :span="6">
           <div class="area">
             <p class="title">
-              <icon-svg icon-class="iconpay3" />账户总资产</p>
+              <icon-svg icon-class="iconpay3" />账户总资产
+            </p>
             <p class="num"><span class="symbol">￥</span>2078.00</p>
             <a class="detail zbgcolor">
               查看详情&nbsp;&nbsp;
@@ -110,7 +112,8 @@
         <el-col :span="6">
           <div class="area">
             <p class="title">
-              <icon-svg icon-class="iconpay3" />已得回报</p>
+              <icon-svg icon-class="iconpay3" />已得回报
+            </p>
             <p class="num"><span class="symbol">￥</span>1000.00</p>
             <a class="detail dbgcolor">
               查看详情&nbsp;&nbsp;
@@ -121,7 +124,8 @@
         <el-col :span="6">
           <div class="area">
             <p class="title">
-              <icon-svg icon-class="iconpay3" />期待回报</p>
+              <icon-svg icon-class="iconpay3" />期待回报
+            </p>
             <p class="num"><span class="symbol">￥</span>3000.00</p>
             <a class="detail zbgcolor">
               查看详情&nbsp;&nbsp;
@@ -146,7 +150,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       bandata: [
         { url: 'http://www.baidu.com', data: 300 },
@@ -159,7 +163,7 @@ export default {
       toMPicimg: require('@/assets/images/toMPic02.png')
     }
   },
-  mounted() {},
+  mounted () { },
   methods: {}
 }
 </script>

@@ -80,7 +80,7 @@
 <script>
 import VueQr from 'vue-qr'
 export default {
-  data() {
+  data () {
     return {
       page: {
         pageNum: 1,
@@ -265,7 +265,7 @@ export default {
   components: {
     VueQr
   },
-  mounted() {
+  mounted () {
     this.page.pageTotal = this.tableData.length
     this.tableData2 = this.tableData
     this.loading = false
@@ -278,7 +278,7 @@ export default {
     // 在
   },
   methods: {
-    selectable(row, index) {
+    selectable (row, index) {
       // console.log(this.tableData,"000")
       let rowsId = this.rowsId //选中的id
       // console.log(this.rowsId,"999")
@@ -312,7 +312,7 @@ export default {
       }
     },
     // 单选中的全部表单 selection为选中所有数组，rows为选中当前表格对象
-    handleSelectionChange(selection, rows) {
+    handleSelectionChange (selection, rows) {
       this.multipleSelection = selection
       // 如果selected为true表示勾选，为false或者0表示取消勾选
       let selected = selection.length && selection.indexOf(rows) !== -1
@@ -330,22 +330,22 @@ export default {
       })
     },
     // 表单全选
-    handleSelectionAll(selection) {
+    handleSelectionAll (selection) {
       this.$nextTick(() => {
         // document.getElementsByClassName('el-checkbox__input').addClass("is-disabled");
       })
     },
 
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
       this.page.pageSize = val
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
       this.page.pageNum = val
     },
     // 编辑操作
-    handleEdit(index, row) {
+    handleEdit (index, row) {
       console.log(row, 'row')
       this.idx = index
       this.oldForm = JSON.parse(JSON.stringify(row))
@@ -353,7 +353,7 @@ export default {
       this.editVisible = true
     },
     // 删除操作
-    handleDelete(index, row) {
+    handleDelete (index, row) {
       // 二次确认删除
       this.$confirm('确定要删除吗？', '提示', {
         type: 'warning'
@@ -362,20 +362,20 @@ export default {
           this.$message.success('删除成功')
           this.tableData.splice(index, 1)
         })
-        .catch(() => {})
+        .catch(() => { })
     },
     // 弹窗保存编辑
-    saveEdit() {
+    saveEdit () {
       this.editVisible = false
       this.$message.success(`修改第 ${this.idx + 1} 行成功`)
       this.$set(this.tableData, this.idx, this.oldForm)
     },
     // 弹窗取消编辑
-    cancelEdit() {
+    cancelEdit () {
       this.editVisible = false
     },
     // 正则验证
-    changCode() {
+    changCode () {
       this.$nextTick(() => {
         if (this.formData.searchVal != null) {
           this.formData.searchVal = this.formData.searchVal.replace(
@@ -386,7 +386,7 @@ export default {
       })
     },
     // 查询
-    Inquire() {
+    Inquire () {
       let searchVal = this.formData.searchVal
       if (searchVal) {
         this.tableData = this.tableData.filter(
@@ -397,35 +397,35 @@ export default {
       } else {
         this.tableData = this.tableData2
       }
-      this.page.pageTotal = this.tableData.length
+      this.page.pageTotal = this.tableData.length;
     },
     // 导出表格
-    export2Excel() {
+    export2Excel () {
       require.ensure([], () => {
         const {
           export_json_to_excel
-        } = require('../../utils/excel/Export2Excel')
-        const tHeader = ['日期', '姓名', '头像', '地址']
+        } = require('../../utils/excel/Export2Excel');
+        const tHeader = ['日期', '姓名', '头像', "地址"]
         // 上面设置Excel的表格第一行的标题
         const filterVal = ['date', 'name', 'thumb', 'address']
         // 上面的index、nickName、name是tableData里对象的属性
         const list = this.tableData //把data里的tableData存到list
         const data = this.formatJson(filterVal, list)
-        export_json_to_excel(tHeader, data, '列表excel')
+        export_json_to_excel(tHeader, data, '列表excel');
       })
     },
 
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
+    formatJson (filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]));
     },
     // 打印表格中的二维码
-    setPrint() {
-      if (this.multipleSelection.length == 0)
-        return this.$message.warning('请选择打印的数据！')
+    setPrint () {
+      if (this.multipleSelection.length == 0);
+      return this.$message.warning('请选择打印的数据！');
       this.$print(this.$refs.prints)
     },
     // 关闭查看更多图片
-    closeViewer() {
+    closeViewer () {
       this.showViewer = false
     }
   }

@@ -42,7 +42,7 @@
 
 <script>
 import QRCode from 'qrcodejs2'
-import { shareUrl } from "@/utils/env";
+import { shareUrl } from "@/utils/env"
 
 export default {
   name: 'inviteShare',

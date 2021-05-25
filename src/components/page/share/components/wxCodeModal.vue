@@ -9,10 +9,10 @@
 
 <script>
 import QRCode from 'qrcodejs2'
-import { shareUrl } from "@/utils/env";
+import { shareUrl } from '@/utils/env'
 
 export default {
-  name: 'wxCodeModal',
+  name: "wxCodeModal",
   data () {
     return {
       qrcodeObj: {
@@ -23,15 +23,12 @@ export default {
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
       }
-
     }
   },
   props: {
     wxModal: Object
   },
-  mounted () {
-
-  },
+  mounted () { },
   methods: {
     creatQrCode () {
       const qrcode = new QRCode(this.$refs.qrCodeUrl5, this.qrcodeObj)
@@ -39,13 +36,12 @@ export default {
     handleClose () {
       this.$emit('hideWxCodeModal')
     }
-
   },
   watch: {
     'wxModal.show': {
       handler (newName, oldName) {
         console.log(newName)
-        newName ? this.creatQrCode() : '';
+        newName ? this.creatQrCode() : ''
       },
       deep: true,
       immediate: true

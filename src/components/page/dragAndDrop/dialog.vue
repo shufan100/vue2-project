@@ -25,81 +25,80 @@ export default {
   data () {
     return {
       visible: false
-    };
+    }
   },
   mounted () {
-    var box = document.getElementById("box");
-    var box2 = document.getElementById("box2");
-    var box3 = document.getElementById("box3");
+    var box = document.getElementById('box')
+    var box2 = document.getElementById('box2')
+    var box3 = document.getElementById('box3')
     this.moves(box, 'blue')
     this.moves(box2, 'yellow')
     this.moves(box3, 'green')
   },
   methods: {
     moves (boxs, colors) {
-      var wrap = document.getElementById("dialog");
-      var box = boxs;
+      var wrap = document.getElementById('dialog')
+      var box = boxs
       box.onmousedown = function (event) {
-        //设置样式
-        box.style.cursor = 'move';
-        box.style.backgroundColor = 'red';
+        // 设置样式
+        box.style.cursor = 'move'
+        box.style.backgroundColor = 'red'
         // 鼠标点击的坐标
-        var evt = event || window.event;
+        var evt = event || window.event
         // if (evt.preventDefault) {
         //     evt.preventDefault();
         // } else {
         //     evt.returnValue = false;
         // }
-        var mouseX = evt.clientX; //鼠标点击点距离浏览器可视窗口左的坐标
-        var mouseY = evt.clientY; //鼠标点击点距离浏览器可视窗口上的坐标
+        var mouseX = evt.clientX // 鼠标点击点距离浏览器可视窗口左的坐标
+        var mouseY = evt.clientY // 鼠标点击点距离浏览器可视窗口上的坐标
         console.log(mouseX, mouseY)
 
-        var disX = mouseX - box.offsetLeft; // 减 网页被卷去的左
-        var disY = mouseY - box.offsetTop; // 减 网页被卷去的高
+        var disX = mouseX - box.offsetLeft // 减 网页被卷去的左
+        var disY = mouseY - box.offsetTop // 减 网页被卷去的高
         console.log(box.offsetLeft, box.offsetTop)
 
         document.onmousemove = function (event) {
-          var evt = event || window.event;
+          var evt = event || window.event
           // if (evt.preventDefault) {
           //     evt.preventDefault();
           // } else {
           //     evt.returnValue = false;
           // }
 
-          var endX = evt.clientX;
-          var endY = evt.clientY;
+          var endX = evt.clientX
+          var endY = evt.clientY
 
-          //计算移动后的左偏移量和顶部的偏移量
-          var posX = endX - disX;
-          var posY = endY - disY;
+          // 计算移动后的左偏移量和顶部的偏移量
+          var posX = endX - disX
+          var posY = endY - disY
 
           if (posX <= 0) {
-            posX = 0;
+            posX = 0
           }
           if (posY <= 0) {
-            posY = 0;
+            posY = 0
           }
           console.log(wrap.clientWidth, 'wrap.clientWidth')
           if (posX >= wrap.clientWidth - box.offsetWidth) {
-            posX = wrap.clientWidth - box.offsetWidth;
+            posX = wrap.clientWidth - box.offsetWidth
           }
           if (posY >= wrap.clientHeight - box.offsetHeight) {
-            posY = wrap.clientHeight - box.offsetHeight;
+            posY = wrap.clientHeight - box.offsetHeight
           }
-          box.style.left = posX + "px";
-          box.style.top = posY + "px";
-        };
-      };
+          box.style.left = posX + 'px'
+          box.style.top = posY + 'px'
+        }
+      }
       box.onmouseup = function () {
         // 清除鼠标绑定移动事件
-        document.onmousemove = null;
-        box.style.cursor = 'default';
-        box.style.backgroundColor = colors;
-      };
-
-    },
+        document.onmousemove = null
+        box.style.cursor = 'default'
+        box.style.backgroundColor = colors
+      }
+    }
   }
-};
+}
 </script>
 <style lang="less">
 .dialog {
@@ -140,4 +139,3 @@ export default {
   }
 }
 </style>
-
