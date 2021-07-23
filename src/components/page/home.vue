@@ -126,6 +126,7 @@ export default {
     pdf
   },
   mounted () {
+    console.log('mixin:', this.mixinName)
     //         // Watermark.set("水印内容")
     // let name = "陈名勤";
     // let char = "";

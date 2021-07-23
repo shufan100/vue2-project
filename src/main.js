@@ -35,14 +35,19 @@ import preventReClick from './utils/preventReClick'
 import elImageViewer from 'element-ui/packages/image/src/image-viewer'
 // 弹窗封装
 import * as msg from './utils/message'
+// mixin
+import indexMixin from './mixin/index'
 
 // 注册全局指令
 Vue.directive('preventReClick', preventReClick)
 Vue.use(ElementUI)
 Vue.use(Print)
 Vue.use(htmlToPdf)
+
 // 注册全局组件
 Vue.component('elImageViewer', elImageViewer)
+// 混合模式
+Vue.mixin(indexMixin)
 // 挂载vue原型
 Vue.prototype.$success = msg.msgSuccess
 Vue.prototype.$warning = msg.msgWarning
