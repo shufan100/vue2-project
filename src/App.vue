@@ -1,17 +1,17 @@
 <template>
-    <div id="app">
-        <router-view />
-    </div>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 <script>
-import Watermark from '@/utils/watermark';  //路径不要写错
+import Watermark from '@/utils/watermark' // 路径不要写错
 export default {
-    //随便写的注释
+  // 随便写的注释
 }
 </script>
 
 <style lang="less">
-    @import './assets/style/common';
-    @import './assets/style/scrollBar';
-    @import './assets/style/element-ui';
+@import './assets/style/common';
+@import './assets/style/scrollBar';
+@import './assets/style/element-ui';
 </style>

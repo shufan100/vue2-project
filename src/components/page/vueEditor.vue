@@ -5,6 +5,18 @@
     </div>
     <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>
     <el-button class="editor-btn" type="primary" @click="submit">提交</el-button>
+    <p>gsgdsgs</p>
+    <p>hjklsdhg</p>
+    <ul>
+      <li>rewtewtew</li>
+      <li>twetew</li>
+    </ul>
+    <ol>
+      <li>twetewtew</li>
+      <li>ewtywete</li>
+      <li><s>sdsdsdsds</s></li>
+      <li><strong>sadadada</strong></li>
+    </ol>
   </div>
 </template>
 
