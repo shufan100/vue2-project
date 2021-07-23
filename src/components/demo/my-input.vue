@@ -1,4 +1,5 @@
 <template>
+  <!-- v-model实现原理 -->
   <div class="my-input">
     <input type="text" class="my-input__inner" @input="handleInput" />
   </div>
@@ -7,14 +8,15 @@
 <script>
 export default {
   name: 'myinput',
-  props: {
-    value: { // 获取父组件的数据value
-      type: String,
-      default: ''
-    }
-  },
+  // props: {
+  //   value: { // 获取父组件的数据value
+  //     type: String,
+  //     default: ''
+  //   }
+  // },
   methods: {
     handleInput (e) {
+      // 2、触发输入事件input
       this.$emit('input', e.target.value) // 触发父组件的input事件
     }
   }

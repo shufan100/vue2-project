@@ -19,8 +19,9 @@
     <hr />
     {{username}}
     <br />
-    <!-- v-model等同于下面input -->
-    <input class="input" type="text" :value="username" @input="username=$event.target.value">
+    <!-- v-model是value+input的语法糖，1.绑得value，2.触发输入事件@input -->
+    <!-- <input class="input" type="text" :value="username" @input="username=$event.target.value"> -->
+    <!-- 1'绑得value -->
     <my-input type="text" v-model="username"></my-input>
   </div>
 </template>
