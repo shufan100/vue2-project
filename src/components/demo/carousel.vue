@@ -28,7 +28,7 @@ export default {
     return {
       recommendThemeList: [
         { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
-        { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
+        { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinrygyztemzsgeydqnsxnv4hsr3tlbmhiltkobtv6mrsgr4dcobqa.jpg' },
         { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
         { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
         { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
