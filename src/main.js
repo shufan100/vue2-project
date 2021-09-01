@@ -17,8 +17,6 @@ import htmlToPdf from './utils/htmlToPdf'
 import echarts from 'echarts'
 // ***** 拖拽指令****
 import './common/directives'
-// ***** iconfont****
-import '@/assets/icon/iconfont.css'
 // 路由权限
 import './common/routerPermissions.js'
 // import '@/common/routerPermissions';
@@ -37,6 +35,10 @@ import elImageViewer from 'element-ui/packages/image/src/image-viewer'
 import * as msg from './utils/message'
 // mixin
 import indexMixin from './mixin/index'
+
+// 轮播图(npm install swiper@3 --save-dev)
+import 'swiper/dist/css/swiper.min.css'
+import 'swiper/dist/js/swiper.min'
 
 // 注册全局指令
 Vue.directive('preventReClick', preventReClick)
