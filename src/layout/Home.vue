@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import leftMenu from './leftMenu' //左边菜单
-import headNav from './headNav' //头部
-import breadcrumb from './breadcrumb' //面包屑
-import tags from './tags' //tags
+import leftMenu from './leftMenu' // 左边菜单
+import headNav from './headNav' // 头部
+import breadcrumb from './breadcrumb' // 面包屑
+import tags from './tags' // tags
 
 import { mapState } from 'vuex'
 import bus from '@/common/bus.js'
 
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       tagsList: []
     }
@@ -41,10 +41,10 @@ export default {
   computed: {
     ...mapState(['sidebarWidth'])
   },
-  created () {
+  created() {
     // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
-    bus.$on('tags', msg => {
-      let arr = []
+    bus.$on('tags', (msg) => {
+      const arr = []
       for (let i = 0, len = msg.length; i < len; i++) {
         msg[i].name && arr.push(msg[i].name)
       }
@@ -52,11 +52,15 @@ export default {
     })
   },
 
-  mounted () { },
+  mounted() {},
   methods: {}
 }
 </script>
 <style scoped lang="less">
+// @color: red;
+.home {
+  background: @color;
+}
 // 路由过过渡动画
 
 .fade-enter {

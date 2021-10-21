@@ -11,6 +11,7 @@ export default {
 </script>
 
 <style lang="less">
+@color: yellow;
 @import './assets/style/common';
 @import './assets/style/scrollBar';
 @import './assets/style/element-ui';

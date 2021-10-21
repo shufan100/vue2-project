@@ -1,48 +1,82 @@
-body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figcaption {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    font-style: normal;
-    text-decoration: none;
-    border: none;
-    font-family: "Microsoft Yahei",sans-serif;
-    -webkit-tap-highlight-color:transparent;
-    -webkit-font-smoothing: antialiased;
-    &:focus {
-        outline: none;
-    }
+body,
+div,
+span,
+header,
+footer,
+nav,
+section,
+aside,
+article,
+ul,
+dl,
+dt,
+dd,
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+textarea,
+button,
+input,
+select,
+figure,
+figcaption {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  border: none;
+  font-family: 'Microsoft Yahei', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  &:focus {
+    outline: none;
+  }
 }
 
-
-
-input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
-    -webkit-appearance: none;
+input[type='button'],
+input[type='submit'],
+input[type='search'],
+input[type='reset'] {
+  -webkit-appearance: none;
 }
 
-textarea { -webkit-appearance: none;}   
-
-html,body,#app{
-    height: 100%;
-    width: 100%;
-}
-.clear:after{
-    content: '';
-    display: block;
-    clear: both;
+textarea {
+  -webkit-appearance: none;
 }
 
-.clear{
-    zoom:1;
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
+.clear:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
-.rflex{
-    display: flex;
-    flex-direction: row; //水平
+.clear {
+  zoom: 1;
 }
-.cflex{
-    display: flex;
-    flex-direction: column; //垂直
+
+.rflex {
+  display: flex;
+  flex-direction: row; //水平
 }
-.wflex{
-    flex:1;
+.cflex {
+  display: flex;
+  flex-direction: column; //垂直
+}
+.wflex {
+  flex: 1;
 }

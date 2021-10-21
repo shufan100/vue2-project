@@ -40,6 +40,12 @@ import indexMixin from './mixin/index'
 import 'swiper/dist/css/swiper.min.css'
 import 'swiper/dist/js/swiper.min'
 
+// 签名
+// import VueSignaturePad from 'vue-signature-pad'
+// Vue.use(VueSignaturePad)
+// import VueSignature from 'vue-signature-pad'
+// Vue.use(VueSignature)
+
 // 注册全局指令
 Vue.directive('preventReClick', preventReClick)
 Vue.use(ElementUI)

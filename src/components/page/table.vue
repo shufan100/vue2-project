@@ -71,7 +71,7 @@
     </el-dialog>
     <!-- 二维码 -->
     <div ref="prints">
-      <VueQr v-for="(item, index) of multipleSelection" :key="index" :text="item.code" :size="200"></VueQr>
+      <VueQr v-for="(item, index) of multipleSelection" :key="index" :row-key='index' :text="item.code" :size="400"></VueQr>
     </div>
     <!-- 查看更多图片 -->
     <el-image-viewer v-if="showViewer" :on-close="closeViewer" :url-list="srcList"></el-image-viewer>
@@ -280,54 +280,54 @@ export default {
   methods: {
     selectable (row, index) {
       // console.log(this.tableData,"000")
-      let rowsId = this.rowsId //选中的id
-      // console.log(this.rowsId,"999")
-      if (rowsId || rowsId == 0) {
-        let tableDataArr = this.tableData //拿到记录选中表单的数组
-        let arr = []
-        for (let ite in tableDataArr) {
-          if (tableDataArr[ite].checkBox == true) {
-            arr.push(ite)
-          }
-        }
-        // console.log(arr,"拿到选中的索引值数组")
-        let indexs1
-        if (rowsId > 0) {
-          indexs1 = arr[0] - 1
-        } else {
-          indexs1 = 0
-        }
-        let indexs2 = parseInt(arr[arr.length - 1]) + 1 //最后一个加1
-        if (
-          row.id == indexs1 ||
-          row.id == indexs2 ||
-          row.id == arr[0] ||
-          row.id == arr[arr.length - 1] ||
-          arr.length == 0
-        ) {
-          return 1
-        }
-      } else {
-        return 1 //初始全部可勾选
-      }
+      // const rowsId = this.rowsId // 选中的id
+      // // console.log(this.rowsId,"999")
+      // if (rowsId || rowsId == 0) {
+      //   const tableDataArr = this.tableData // 拿到记录选中表单的数组
+      //   const arr = []
+      //   for (const ite in tableDataArr) {
+      //     if (tableDataArr[ite].checkBox == true) {
+      //       arr.push(ite)
+      //     }
+      //   }
+      //   // console.log(arr,"拿到选中的索引值数组")
+      //   let indexs1
+      //   if (rowsId > 0) {
+      //     indexs1 = arr[0] - 1
+      //   } else {
+      //     indexs1 = 0
+      //   }
+      //   const indexs2 = parseInt(arr[arr.length - 1]) + 1 // 最后一个加1
+      //   if (
+      //     row.id == indexs1 ||
+      //     row.id == indexs2 ||
+      //     row.id == arr[0] ||
+      //     row.id == arr[arr.length - 1] ||
+      //     arr.length == 0
+      //   ) {
+      //     return 1
+      //   }
+      // } else {
+      return 1 // 初始全部可勾选
+      // }
     },
     // 单选中的全部表单 selection为选中所有数组，rows为选中当前表格对象
     handleSelectionChange (selection, rows) {
       this.multipleSelection = selection
       // 如果selected为true表示勾选，为false或者0表示取消勾选
-      let selected = selection.length && selection.indexOf(rows) !== -1
-      let tableDataArr = this.tableData
-      for (let ite in tableDataArr) {
-        if (rows.id == ite) {
-          tableDataArr[ite].checkBox = selected
-        }
-      }
-      // console.log(this.tableData,"77")
-      this.rowsId = rows.id //将当前选择的id(索引)
-      this.$nextTick(() => {
-        // let cc = document.getElementsByClassName('el-checkbox__input')
-        // document.getElementsByClassName('el-checkbox__input').addClass("is-disabled");
-      })
+      // const selected = selection.length && selection.indexOf(rows) !== -1
+      // const tableDataArr = this.tableData
+      // for (const ite in tableDataArr) {
+      //   if (rows.id == ite) {
+      //     tableDataArr[ite].checkBox = selected
+      //   }
+      // }
+      // // console.log(this.tableData,"77")
+      // this.rowsId = rows.id // 将当前选择的id(索引)
+      // this.$nextTick(() => {
+      //   // let cc = document.getElementsByClassName('el-checkbox__input')
+      //   // document.getElementsByClassName('el-checkbox__input').addClass("is-disabled");
+      // })
     },
     // 表单全选
     handleSelectionAll (selection) {
@@ -387,7 +387,7 @@ export default {
     },
     // 查询
     Inquire () {
-      let searchVal = this.formData.searchVal
+      const searchVal = this.formData.searchVal
       if (searchVal) {
         this.tableData = this.tableData.filter(
           data =>
@@ -397,31 +397,30 @@ export default {
       } else {
         this.tableData = this.tableData2
       }
-      this.page.pageTotal = this.tableData.length;
+      this.page.pageTotal = this.tableData.length
     },
     // 导出表格
     export2Excel () {
       require.ensure([], () => {
         const {
           export_json_to_excel
-        } = require('../../utils/excel/Export2Excel');
-        const tHeader = ['日期', '姓名', '头像', "地址"]
+        } = require('../../utils/excel/Export2Excel')
+        const tHeader = ['日期', '姓名', '头像', '地址']
         // 上面设置Excel的表格第一行的标题
         const filterVal = ['date', 'name', 'thumb', 'address']
         // 上面的index、nickName、name是tableData里对象的属性
-        const list = this.tableData //把data里的tableData存到list
+        const list = this.tableData // 把data里的tableData存到list
         const data = this.formatJson(filterVal, list)
-        export_json_to_excel(tHeader, data, '列表excel');
+        export_json_to_excel(tHeader, data, '列表excel')
       })
     },
 
     formatJson (filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]));
+      return jsonData.map(v => filterVal.map(j => v[j]))
     },
     // 打印表格中的二维码
     setPrint () {
-      if (this.multipleSelection.length == 0);
-      return this.$message.warning('请选择打印的数据！');
+      if (this.multipleSelection.length === 0) return this.$message.warning('请选择打印的数据！')
       this.$print(this.$refs.prints)
     },
     // 关闭查看更多图片
@@ -433,7 +432,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #tables {
-  overflow: hidden;
+  // overflow: hidden;
 }
 .table-td-thumb {
   display: block;
