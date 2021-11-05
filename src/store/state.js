@@ -6,5 +6,5 @@ const state = {
 }
 export default state
 
-// mutations同步提交 this.$store.commit('changetest','参数')
-// actions异步提交 this.$store.dispatch('changetest','参数')
+// mutations同步提交 this.$store.commit('sidebarOpenedMutations','参数')
+// actions异步提交 this.$store.dispatch('isEnglishAction','参数')
