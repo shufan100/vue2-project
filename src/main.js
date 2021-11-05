@@ -19,7 +19,6 @@ import echarts from 'echarts'
 import './common/directives'
 // 路由权限
 import './common/routerPermissions.js'
-// import '@/common/routerPermissions';
 // ***** 中英文 ****
 import i18n from '@/lang'
 /// 引入iconfont class加iconfont
@@ -66,10 +65,12 @@ Vue.prototype.$echarts = echarts // 引入组件
 Vue.config.productionTip = false // 放开是生成模式，注释是开发模式
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
+Vue.prototype.$store = store
 
 // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
 
 Vue.config.silent = false
+// eslint-disable-next-line no-unused-vars
 const vm = new Vue({
   router,
   store,

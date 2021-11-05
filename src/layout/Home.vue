@@ -27,7 +27,7 @@ import bus from '@/common/bus.js'
 
 export default {
   name: 'Home',
-  data() {
+  data () {
     return {
       tagsList: []
     }
@@ -41,7 +41,7 @@ export default {
   computed: {
     ...mapState(['sidebarWidth'])
   },
-  created() {
+  created () {
     // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
     bus.$on('tags', (msg) => {
       const arr = []
@@ -52,14 +52,14 @@ export default {
     })
   },
 
-  mounted() {},
+  mounted () { },
   methods: {}
 }
 </script>
 <style scoped lang="less">
 // @color: red;
 .home {
-  background: @color;
+  // background: @color;
 }
 // 路由过过渡动画
 

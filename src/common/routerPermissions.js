@@ -1,6 +1,8 @@
+import Vue from 'vue'
 import router from '../router'
 //  ***** Progress 顶部进度条 ****
 import NProgress from 'nprogress'
+// eslint-disable-next-line no-unused-expressions
 import('nprogress/nprogress.css')
 
 // 使用钩子函数对路由进行权限跳转
