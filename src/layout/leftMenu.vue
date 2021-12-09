@@ -15,7 +15,7 @@
             <el-submenu :index="item.index" :key="index">
               <!-- 一级菜单（有子级标题） -->
               <template slot="title">
-                <i :class="item.icon"></i>
+                <i :class="[item.icon,'iconfont']"></i>
                 <!-- <span slot="title">{{item.title}}</span> -->
                 <span slot="title">{{$t(`i18n.${item.index}`)}}</span>
               </template>
@@ -43,7 +43,7 @@
           <template v-else>
             <!-- 一级菜单 -->
             <el-menu-item :index="item.index" :key="index">
-              <i :class="item.icon"></i>
+              <i :class="[item.icon,'iconfont']"></i>
               <!-- <span slot="title">{{item.title}}</span> -->
               <span slot="title">{{$t(`i18n.${item.index}`)}}</span>
             </el-menu-item>
@@ -63,12 +63,12 @@ export default {
       opened: true,
       items: [
         {
-          icon: 'el-icon-s-home',
+          icon: 'icon-shouyefill',
           index: 'home',
           title: '首页'
         },
         {
-          icon: 'el-icon-s-order',
+          icon: 'icon-17',
           index: 'form',
           title: '表单',
           subs: [
@@ -98,7 +98,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-info',
+          icon: 'icon-xinxitishi',
           index: 'info',
           title: '信息管理',
           subs: [
@@ -113,17 +113,17 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-s-comment',
+          icon: 'icon-xiaoxi',
           index: 'msgCenter',
           title: '消息中心'
         },
         {
-          icon: 'el-icon-share',
+          icon: 'icon-fenxiang',
           index: 'share',
           title: '分享功能'
         },
         {
-          icon: 'el-icon-menu',
+          icon: 'icon-anli',
           index: 'demo',
           title: '案例',
           subs: [
@@ -166,7 +166,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-rank',
+          icon: 'icon-yidong_huaban',
           index: 'dragAndDrop',
           title: '拖拽组件',
           subs: [
@@ -181,7 +181,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-pie-chart',
+          icon: 'icon-ditu',
           index: 'EChartsCom',
           title: '地图组件',
           subs: [
@@ -192,7 +192,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-setting',
+          icon: 'icon-quanxian',
           index: 'permissions',
           title: '权限设置',
           subs: [
@@ -207,7 +207,7 @@ export default {
           ]
         },
         {
-          icon: 'el-icon-error',
+          icon: 'icon-cuowu',
           index: 'errorPage',
           title: '错误页面',
           subs: [
@@ -280,10 +280,21 @@ export default {
     z-index: 10;
     box-shadow: 0 0 10px 0 rgba(230, 224, 224, 0.5);
   }
+  .iconfont {
+    font-size: 18px;
+    padding-right: 6px;
+  }
+  .icon-xinxitishi,
+  .icon-anli,
+  .icon-yidong_huaban,
+  .icon-ditu,
+  .icon-quanxian {
+    font-size: 22px;
+  }
 }
 </style>
 
-<style>
+<style lang="less">
 /* 菜单选中背景 */
 .el-menu--inline .is-active {
   background: #000 !important;

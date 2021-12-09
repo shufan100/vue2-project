@@ -18,11 +18,11 @@
         <el-col :span="5">
           <div class="area">
             <div class="namearea">
-              <p>姓名：王小川</p>
-              <p>昵称：PW68061826</p>
+              <p>姓名：舒 梵</p>
+              <p>昵称：PW84695268</p>
               <p>投资年限：5年</p>
-              <p>绑定邮箱：9061446xx@qq.com</p>
-              <p>绑定手机：189xxxx9028</p>
+              <p>绑定邮箱：11012138@qq.com</p>
+              <p>绑定手机：188xxxx8088</p>
               <p class="awards">
                 <i class="el-icon-date el-icon--left"></i>签到有奖
               </p>

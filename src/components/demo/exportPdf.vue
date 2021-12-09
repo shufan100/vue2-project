@@ -263,6 +263,22 @@ export default {
           window.URL.revokeObjectURL(link.href)
         }
       })
+    },
+    // 根据地址下载图片
+    // 下载图片（无需接口）
+    downloadImg (item) {
+      var name = this.getFileName(item.originUrl)
+      var res = new XMLHttpRequest()
+      res.open('GET', item.originUrl, true) // 异步请求
+      res.responseType = 'blob'
+      res.onload = function (e) {
+        var blob = new Blob([res.response])
+        var a = document.createElement('a') // 页面上创建一个标签
+        a.setAttribute('href', URL.createObjectURL(blob)) // 设置a 标签的href，
+        a.setAttribute('download', name) // 设置a 标签的download 属性，并限定下载文件名。
+        a.click() // 出发a点击事件，下载文件
+      }
+      res.send()
     }
 
   }

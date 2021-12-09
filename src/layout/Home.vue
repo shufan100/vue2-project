@@ -53,7 +53,7 @@ export default {
   },
 
   mounted () {
-    this.$watermark.set(`SHUFAN`)
+    // this.$watermark.set(`SHUFAN`)
   },
   methods: {}
 }
@@ -119,7 +119,6 @@ export default {
     .main {
       // min-height: calc(100% - 50px);
       // overflow: hidden;
-      position: relative;
       overflow: auto;
       height: calc(100% - 50px);
       margin: 0 10px 15px 15px;
