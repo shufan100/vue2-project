@@ -16,6 +16,7 @@ export default {
       console.log('hello from mixin')
     },
     func_one () {
+      const a = '1221'
       console.log('func_one from mixin')
     },
     func_two () {

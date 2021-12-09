@@ -1,3 +1,4 @@
+
 module.exports = {
   outputDir: 'dist', // build打包后的文件名
   // assetsDir: 'assets', //静态资源目录（js, css, img）
@@ -21,6 +22,9 @@ module.exports = {
         }
       }
     }
-  }
+  },
+
+
+
 
 }
