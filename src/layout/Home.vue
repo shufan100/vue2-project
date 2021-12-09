@@ -59,10 +59,6 @@ export default {
 }
 </script>
 <style scoped lang="less">
-// @color: red;
-.home {
-  // background: @color;
-}
 // 路由过过渡动画
 
 .fade-enter {

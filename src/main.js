@@ -41,6 +41,8 @@ import 'swiper/dist/js/swiper.min'
 
 // 防伪
 import watermark from '@/utils/watermark'
+// 文字超出省略号
+import wordlimit from '@/utils/wordlimit'
 
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
@@ -70,6 +72,7 @@ Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$store = store
 Vue.prototype.$watermark = watermark
+Vue.prototype.$wordlimit = wordlimit
 
 // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
 
