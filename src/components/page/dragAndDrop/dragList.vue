@@ -1,5 +1,4 @@
 <template>
-  <!-- <section class="main"> -->
   <div class="dragList">
     <div class="plugins-tips">
       Vue.Draggable：基于 Sortable.js 的 Vue 拖拽组件。

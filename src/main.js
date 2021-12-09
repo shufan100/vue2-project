@@ -39,6 +39,9 @@ import indexMixin from './mixin/index'
 import 'swiper/dist/css/swiper.min.css'
 import 'swiper/dist/js/swiper.min'
 
+// 防伪
+import watermark from '@/utils/watermark'
+
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
 // Vue.use(VueSignaturePad)
@@ -46,7 +49,7 @@ import 'swiper/dist/js/swiper.min'
 // Vue.use(VueSignature)
 
 // 注册全局指令
-Vue.directive('preventReClick', preventReClick)
+Vue.directive('preventReClick', preventReClick) //全局注册防抖指令
 Vue.use(ElementUI)
 Vue.use(Print)
 Vue.use(htmlToPdf)
@@ -66,6 +69,7 @@ Vue.config.productionTip = false // 放开是生成模式，注释是开发模�
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$store = store
+Vue.prototype.$watermark = watermark
 
 // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
 

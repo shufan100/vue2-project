@@ -132,6 +132,12 @@ const routes = [
         component: () => import('@/components/demo/carousel'),
         meta: { parentTitle: 'Carousel', title: '轮播图', path: 'demo/carousel', permissions: true }
       },
+      {
+        path: '/antiShake',
+        name: 'antiShake',
+        component: () => import('@/components/demo/antiShake'),
+        meta: { parentTitle: 'AntiShake', title: '防抖指令', path: 'demo/antiShake', permissions: true }
+      },
       // 拖拽组件 dragAndDrop
       {
         path: '/dialog',

@@ -1,6 +1,6 @@
 <template>
   <div id="exportPdf">
-    <el-button @click="getPdf()">导出PDF</el-button>
+    <el-button @click="getPdf('名称ssss')">导出PDF</el-button>
     <el-button @click="exportPic()">下载图片</el-button>
 
     <div class="row" id="canvasPic">

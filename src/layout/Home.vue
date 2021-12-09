@@ -5,7 +5,7 @@
       <head-nav></head-nav>
       <tags></tags>
       <breadcrumb></breadcrumb>
-      <div class="content is-scroll-left">
+      <div class="content is-scroll-left" id="contentId">
         <transition name="fade">
           <keep-alive>
             <router-view class="main"></router-view>
@@ -52,7 +52,9 @@ export default {
     })
   },
 
-  mounted () { },
+  mounted () {
+    this.$watermark.set(`SHUFAN`)
+  },
   methods: {}
 }
 </script>
@@ -121,6 +123,7 @@ export default {
     .main {
       // min-height: calc(100% - 50px);
       // overflow: hidden;
+      position: relative;
       overflow: auto;
       height: calc(100% - 50px);
       margin: 0 10px 15px 15px;

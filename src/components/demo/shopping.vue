@@ -17,6 +17,9 @@
     <div>{{numbers}}件商品</div>
     <div>总计：{{total}}</div>
     <hr />
+
+    <!--  -->
+    <h2>input实现vue双向数据绑定</h2>
     {{username}}
     <br />
     <!-- v-model是value+input的语法糖，1.绑得value，2.触发输入事件@input -->

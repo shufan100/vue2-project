@@ -1,11 +1,11 @@
 // 导出页面为PDF格式
 import html2Canvas from 'html2canvas'
 import JsPDF from 'jspdf'
-export default{
+export default {
   install (Vue, options) {
-    Vue.prototype.getPdf = function () {
-      var title = this.htmlTitle
-      html2Canvas(document.querySelector('#pdfDom'), {
+    Vue.prototype.getPdf = function (titles) {
+      var title = titles
+      html2Canvas(document.querySelector('#canvasPic'), {
         allowTaint: true
       }).then(function (canvas) {
         let contentWidth = canvas.width

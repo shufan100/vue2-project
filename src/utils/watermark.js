@@ -29,14 +29,31 @@ let setWatermark = (str) => {
   let div = document.createElement('div');
   div.id = id;
   div.style.pointerEvents = 'none';
-  div.style.top = '0px';
-  div.style.left = '0px';
+  div.style.bottom = '0px';
+  div.style.right = '15px';
   div.style.position = 'fixed';
   div.style.zIndex = '100000';
-  div.style.width = document.documentElement.clientWidth + 'px';
-  div.style.height = document.documentElement.clientHeight + 'px';
-  div.style.background = 'url(' + can.toDataURL('image/png') + ') left top repeat';
-  document.body.appendChild(div);
+  // div.style.width = document.documentElement.clientWidth + 'px';
+  // div.style.height = document.documentElement.clientHeight + 'px';
+  // div.style.width = document.documentElement.clientWidth + 'px';
+  // div.style.height = document.documentElement.clientHeight + 'px';
+  // div.style.background = 'url(' + can.toDataURL('image/png') + ') left top repeat';
+  // document.body.appendChild(div);
+  // 
+  // if (document.getElementById('antiShake')) {
+  //   div.style.width = document.getElementById('antiShake').clientWidth + 'px';
+  //   div.style.height = document.getElementById('antiShake').clientHeight + 'px';
+  //   div.style.background = 'url(' + can.toDataURL('image/png') + ') left top repeat';
+  //   document.getElementById('antiShake').appendChild(div)
+  // }
+
+  console.log(document.getElementById('contentId'), this, '------------')
+  if (document.getElementById('contentId')) {
+    div.style.width = document.getElementById('contentId').clientWidth + 'px';
+    div.style.height = document.getElementById('contentId').clientHeight + 'px';
+    div.style.background = 'url(' + can.toDataURL('image/png') + ') left top repeat';
+    document.getElementById('contentId').appendChild(div)
+  }
   return id;
 }
 

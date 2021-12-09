@@ -158,6 +158,10 @@ export default {
             {
               index: 'carousel',
               title: '轮播图'
+            },
+            {
+              index: 'antiShake',
+              title: '轮播图'
             }
           ]
         },
@@ -222,7 +226,9 @@ export default {
     },
     ...mapState(['sidebarOpened', 'sidebarWidth'])
   },
-  mounted () { },
+  mounted () {
+
+  },
   methods: {
     handleOpen (key, keyPath) {
       // console.log(key, keyPath);
