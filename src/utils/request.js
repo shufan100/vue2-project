@@ -7,7 +7,7 @@ import router from '@/router'
 const rest = axios.create({
   // baseURL: 'http://192.168.2.89:8012',  //请求地址前缀，将自动加在 url 前面，除非 url 是个绝对地址 、不配置的话就直接在接口前写
   baseURL: 'api', // 设置默认ip
-  // baseURL:window.IP_URL,
+  // baseURL:process.env.VUE_APP_URL, //使用环境配置
   timeout: 5000, // 请求时间
   headers: {
     get: {
@@ -23,7 +23,7 @@ const rest = axios.create({
   withCredentials: true,
   // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
   validateStatus: function () {
-  	return true
+    return true
   }
 })
 
@@ -57,7 +57,7 @@ rest.interceptors.request.use(config => {
   config.timeout = 5000
   return config
 }, error => {
-// 请求超时才会走进来
+  // 请求超时才会走进来
   // store.dispatch('hideloading', false)
   return Promise.reject(error)
 })
