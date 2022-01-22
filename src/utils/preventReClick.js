@@ -5,12 +5,15 @@ const preventReClick = Vue.directive('preventReClick', {
     el.addEventListener('click', () => {
       if (!el.disabled) {
         el.disabled = true
-        setTimeout(() => {
+
+        var timess = setTimeout(() => {
           el.disabled = false
         }, binding.value || 1000)
+        clearTimeout(timess)
+        console.log(timess, 'timess')
       }
     })
   }
-});
+})
 
 export default preventReClick

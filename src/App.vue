@@ -4,9 +4,11 @@
   </div>
 </template>
 <script>
-import Watermark from '@/utils/watermark' // 路径不要写错
 export default {
   // 随便写的注释111
+  mounted () {
+    console.log('app.vue')
+  }
 }
 </script>
 

@@ -9,23 +9,28 @@
       <img src="../../assets/images/img5.jpg" alt id="rightimg11" />
     </div>
 
+    <img :src="srcs" alt="">
   </div>
 </template>
 <script>
 export default {
   data () {
-    return {}
+    return {
+      srcs: ''
+    }
   },
   mounted () {
     this.init()
+    console.log(111111)
+    this.srcs = JSON.parse(sessionStorage.getItem('file')).url
   },
   methods: {
     init () {
-      let box = document.getElementById('box11')
-      let drapper = document.getElementById('drapper11') // 放大镜
-      let rightshow = document.getElementById('rightshow11') // 放大镜展示
-      let leftimg = document.getElementById('leftimg11')
-      let rightimg = document.getElementById('rightimg11')
+      const box = document.getElementById('box11')
+      const drapper = document.getElementById('drapper11') // 放大镜
+      const rightshow = document.getElementById('rightshow11') // 放大镜展示
+      const leftimg = document.getElementById('leftimg11')
+      const rightimg = document.getElementById('rightimg11')
 
       box.onmouseover = function (e) {
         // 鼠标移上去，就显示出来
@@ -38,13 +43,12 @@ export default {
           // offsetLeft：获取该元素对应父容器的左边距；
           // offsetTop：获取该元素对应父容器的上边距；
 
-
-          let evt = e || window.event
+          const evt = e || window.event
           let movX = evt.clientX - box.offsetLeft - drapper.offsetWidth / 2
           let movY = evt.clientY - box.offsetTop - drapper.offsetHeight / 2
-          let maxX = box.clientWidth - drapper.offsetWidth
-          let maxY = box.clientHeight - drapper.offsetHeight
-          console.log(evt.clientX, box.offsetLeft, movX);
+          const maxX = box.clientWidth - drapper.offsetWidth
+          const maxY = box.clientHeight - drapper.offsetHeight
+          // console.log(evt.clientX, box.offsetLeft, movX)
 
           if (movX < 0) {
             movX = 0
@@ -65,7 +69,7 @@ export default {
           drapper.style.top = movY + 'px'
 
           // 放大镜的效果
-          let num = rightimg.offsetWidth / leftimg.offsetWidth // 原图与放大图的比例
+          const num = rightimg.offsetWidth / leftimg.offsetWidth // 原图与放大图的比例
           rightshow.scrollLeft = movX * num // 进行比例移动
           rightshow.scrollTop = movY * num // 进行比例移动
         }
@@ -76,7 +80,7 @@ export default {
         drapper.style.display = 'none'
         rightshow.style.display = 'none'
       }
-    },
+    }
 
   }
 }
@@ -97,7 +101,7 @@ export default {
     }
   }
   .drap {
-    display: block; /*默认隐藏*/
+    display: none; /*默认隐藏*/
     position: absolute;
     width: 100px;
     height: 100px;

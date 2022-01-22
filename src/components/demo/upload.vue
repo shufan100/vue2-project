@@ -1,16 +1,29 @@
 <template>
   <div>
     <div class="container">
-      <div class="content-title">支持拖拽</div>
-      <div class="plugins-tips">
-        Element UI自带上传组件。
-        访问地址：<a href="http://element.eleme.io/#/zh-CN/component/upload" target="_blank">Element UI Upload</a>
-      </div>
-      <el-upload class="upload-demo" drag action="http://jsonplaceholder.typicode.com/api/posts/" multiple>
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+
+      <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-change='handleChange'>
+        <i slot="default" class="el-icon-plus"></i>
+        <div slot="file" slot-scope="{file}">
+          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
+          <span class="el-upload-list__item-actions">
+            <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
+              <i class="el-icon-zoom-in"></i>
+            </span>
+            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
+              <i class="el-icon-download"></i>
+            </span>
+            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
+              <i class="el-icon-delete"></i>
+            </span>
+          </span>
+        </div>
       </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
+
+      <!-- 999999999999 -->
       <div class="content-title">支持裁剪</div>
       <div class="plugins-tips">
         vue-cropperjs：一个封装了 cropperjs 的 Vue 组件。
@@ -31,13 +44,13 @@
         </span>
       </el-dialog>
     </div>
-    <el-button @click="exports">下载/xls/pdf/png</el-button>
+    <!-- <el-button @click="exports">下载/xls/pdf/png</el-button>  -->
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import VueCropper from 'vue-cropperjs';
+import VueCropper from 'vue-cropperjs'
 export default {
   name: 'upload',
   data: function () {
@@ -46,35 +59,37 @@ export default {
       fileList: [],
       imgSrc: '',
       cropImg: '',
+      dialogImageUrl: '',
       dialogVisible: false,
+      disabled: false
     }
   },
   components: {
     VueCropper
   },
   created () {
-    this.cropImg = this.defaultSrc;
+    this.cropImg = this.defaultSrc
   },
   methods: {
     setImage (e) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
       if (!file.type.includes('image/')) {
-        return;
+        return
       }
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = (event) => {
-        this.dialogVisible = true;
-        this.imgSrc = event.target.result;
-        this.$refs.cropper && this.$refs.cropper.replace(event.target.result);
-      };
-      reader.readAsDataURL(file);
+        this.dialogVisible = true
+        this.imgSrc = event.target.result
+        this.$refs.cropper && this.$refs.cropper.replace(event.target.result)
+      }
+      reader.readAsDataURL(file)
     },
     cropImage () {
-      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL()
     },
     cancelCrop () {
-      this.dialogVisible = false;
-      this.cropImg = this.defaultSrc;
+      this.dialogVisible = false
+      this.cropImg = this.defaultSrc
     },
     imageuploaded (res) {
       console.log(res)
@@ -83,46 +98,61 @@ export default {
       this.$notify.error({
         title: '上传失败',
         message: '图片上传接口上传失败，可更改为自己的服务器接口'
-      });
+      })
     },
+    handleChange (file) {
+      sessionStorage.setItem('file', JSON.stringify(file))
+      this.$router.push('/magnifying')
+    },
+    handleRemove (file) {
+      console.log(file)
+    },
+    handlePictureCardPreview (file) {
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
+    },
+    handleDownload (file) {
+      console.log(file)
+    },
+
     // 确定
     confirm () {
-      this.dialogVisible = false;
+      this.dialogVisible = false
       console.log(this.imgSrc, 'imgSrc')
     },
     // 下载文件
     async exports () {
-      let data = {
+      const data = {
         cityId: this.formInline.cityId,
         countyId: this.formInline.countyId,
         currPage: this.page.pageCurr,
         pageSize: this.page.pageSize,
         iscId: this.loginInfo.iscId
-      };
-      this.downloadModule(data, "quality/exportStageProgressCompare");
+      }
+      this.downloadModule(data, 'quality/exportStageProgressCompare')
     },
     async downloadModule (data, url) {
       axios({
         url: `${window.SERVER_URL}${url}`,
-        method: "post",
-        responseType: "blob",
+        method: 'post',
+        responseType: 'blob',
         data: data
       }).then(function (res) {
-        let blob = new Blob([res.data], {
-          type: "application/json;charset=UTF-8"
-        });
-        let downloadElement = document.createElement("a");
-        let href = window.URL.createObjectURL(blob); //创建下载的链接
-        downloadElement.href = href;
-        downloadElement.download = `分期数据治理对比统计.xls`; //下载后文件名
-        document.body.appendChild(downloadElement);
-        downloadElement.click(); //点击下载
-        document.body.removeChild(downloadElement); //下载完成移除元素
-        window.URL.revokeObjectURL(href); //释放掉blob对象
-      });
+        const blob = new Blob([res.data], {
+          type: 'application/json;charset=UTF-8'
+        })
+        const downloadElement = document.createElement('a')
+        const href = window.URL.createObjectURL(blob) // 创建下载的链接
+        downloadElement.href = href
+        downloadElement.download = '分期数据治理对比统计.xls' // 下载后文件名
+        document.body.appendChild(downloadElement)
+        downloadElement.click() // 点击下载
+        document.body.removeChild(downloadElement) // 下载完成移除元素
+        window.URL.revokeObjectURL(href) // 释放掉blob对象
+      })
     }
 
-  },
+  }
 
 }
 </script>
