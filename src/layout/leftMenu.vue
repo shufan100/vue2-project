@@ -161,7 +161,15 @@ export default {
             },
             {
               index: 'antiShake',
-              title: '轮播图'
+              title: '防抖指令'
+            },
+            {
+              index: 'seamless',
+              title: '无缝滚动'
+            },
+            {
+              index: 'video',
+              title: '视频播放'
             }
           ]
         },

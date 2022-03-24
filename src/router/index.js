@@ -138,6 +138,19 @@ const routes = [
         component: () => import('@/components/demo/antiShake'),
         meta: { parentTitle: 'AntiShake', title: '防抖指令', path: 'demo/antiShake', permissions: true }
       },
+      {
+        path: '/seamless',
+        name: 'seamless',
+        component: () => import('@/components/demo/seamless'),
+        meta: { parentTitle: 'Seamless', title: '无缝滚动', path: 'demo/seamless', permissions: true }
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: () => import('@/components/demo/video'),
+        meta: { parentTitle: 'Video', title: '视频播放', path: 'demo/video', permissions: true }
+      },
+
       // 拖拽组件 dragAndDrop
       {
         path: '/dialog',

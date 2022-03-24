@@ -43,6 +43,17 @@ import 'swiper/dist/js/swiper.min'
 import watermark from '@/utils/watermark'
 // 文字超出省略号
 import wordlimit from '@/utils/wordlimit'
+// 无缝滚动
+import scroll from 'vue-seamless-scroll'
+
+// 图片裁剪
+// import '@/assets/cropper/cropper.min.css'
+import '@/assets/cropper/cropper.min.js'
+// import '@/assets/cropper/ImgCropping.css'
+import ImgCutter from 'vue-img-cutter'
+Vue.use(scroll)
+Vue.use(ImgCutter)
+Vue.component('ImgCutter', ImgCutter)
 
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
@@ -51,7 +62,7 @@ import wordlimit from '@/utils/wordlimit'
 // Vue.use(VueSignature)
 
 // 注册全局指令
-Vue.directive('preventReClick', preventReClick) //全局注册防抖指令
+Vue.directive('preventReClick', preventReClick) // 全局注册防抖指令
 Vue.use(ElementUI)
 Vue.use(Print)
 Vue.use(htmlToPdf)

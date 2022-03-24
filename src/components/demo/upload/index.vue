@@ -1,28 +1,8 @@
 <template>
   <div>
     <div class="container">
-
-      <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-change='handleChange'>
-        <i slot="default" class="el-icon-plus"></i>
-        <div slot="file" slot-scope="{file}">
-          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
-          <span class="el-upload-list__item-actions">
-            <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
-              <i class="el-icon-zoom-in"></i>
-            </span>
-            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
-              <i class="el-icon-download"></i>
-            </span>
-            <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
-              <i class="el-icon-delete"></i>
-            </span>
-          </span>
-        </div>
-      </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-      </el-dialog>
-
+      <h2>ImgCutter裁剪</h2>
+      <ImgCutter/>
       <!-- 999999999999 -->
       <div class="content-title">支持裁剪</div>
       <div class="plugins-tips">
@@ -37,7 +17,8 @@
       </div>
 
       <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
-        <vue-cropper ref='cropper' :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage" style="width:100%;height:300px;"></vue-cropper>
+        <vue-cropper ref='cropper' :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage" :canScale="option.canScale" :autoCrop="option.autoCrop" :fixedNumber="option.fixedNumber" :centerBox="option.centerBox" style="width:100%;height:300px;">
+        </vue-cropper>
         <span slot="footer" class="dialog-footer">
           <el-button @click="cancelCrop">取 消</el-button>
           <el-button type="primary" @click="confirm">确 定</el-button>
@@ -45,32 +26,102 @@
       </el-dialog>
     </div>
     <!-- <el-button @click="exports">下载/xls/pdf/png</el-button>  -->
+    <uploadCom tipTitle="比例=16：9" :aspectRatio='16 / 9' :minWidth="800" :minHeight="450" :originalUrl='cover1' :cropperUrl='coverCropper1' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg1" @getUrl='getUrl' />
+    <uploadCom tipTitle="比例=4：3" :aspectRatio='4 / 3' :minWidth="800" :minHeight="600" :originalUrl='cover2' :cropperUrl='coverCropper2' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg2" @getUrl='getUrl' />
+    <uploadCom tipTitle="比例=1：1" :isCropper='false' :aspectRatio='1 / 1' :minWidth="600" :minHeight="600" :originalUrl='cover3' :cropperUrl='coverCropper3' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg3" @getUrl='getUrl' />
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import VueCropper from 'vue-cropperjs'
+import uploadCom from './uploadCom.vue'
+import ImgCutter from './imgCutter.vue'
 export default {
   name: 'upload',
-  data: function () {
+  data () {
     return {
-      defaultSrc: require('../../assets/images/img.jpg'),
+      defaultSrc: require('../../../assets/images/img.jpg'),
       fileList: [],
       imgSrc: '',
       cropImg: '',
       dialogImageUrl: '',
       dialogVisible: false,
-      disabled: false
+      disabled: false,
+
+      cover1: '',
+      coverCropper1: '',
+      cover2: '',
+      coverCropper2: '',
+      cover3: '',
+      coverCropper3: '',
+      policyData: {},
+
+      option: {
+        img: '', // 裁剪图片的地址
+        outputSize: 1, // 裁剪生成图片的质量(可选0.1 - 1)
+        outputType: 'jpeg', // 裁剪生成图片的格式（jpeg || png || webp）
+        info: true, // 图片大小信息
+        canScale: true, // 图片是否允许滚轮缩放
+        autoCrop: true, // 是否默认生成截图框
+        // autoCropWidth: 230, // 默认生成截图框宽度
+        // autoCropHeight: 150, // 默认生成截图框高度
+        fixed: true, // 是否开启截图框宽高固定比例
+        fixedNumber: [16, 9], // 截图框的宽高比例
+        full: false, // false按原比例裁切图片，不失真
+        fixedBox: true, // 固定截图框大小，不允许改变
+        canMove: false, // 上传图片是否可以移动
+        canMoveBox: true, // 截图框能否拖动
+        original: false, // 上传图片按照原始比例渲染
+        centerBox: true, // 截图框是否被限制在图片里面
+        height: true, // 是否按照设备的dpr 输出等比例图片
+        infoTrue: false, // true为展示真实输出图片宽高，false展示看到的截图框宽高
+        maxImgSize: 3000, // 限制图片最大宽度和高度
+        enlarge: 1, // 图片根据截图框输出比例倍数
+        mode: '230px 150px' // 图片默认渲染方式
+      }
     }
   },
   components: {
-    VueCropper
+    VueCropper,
+    uploadCom,
+    ImgCutter
   },
   created () {
     this.cropImg = this.defaultSrc
+    this.GenPostPolicy()
   },
   methods: {
+    // 获取阿里云直传的配置参数
+    GenPostPolicy () {
+      axios.post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
+        data: {
+          module: 'CUMS',
+          upfilePath: 'OA'
+        },
+        sign: 'B99DD86F2011A98622A37F472570B5C4',
+        sysName: 'Front_CUMS',
+        ts: '1647934436000',
+        version: '1.0.0'
+      }).then(res => {
+        this.policyData = res.data.data
+      })
+    },
+    getUrl (data) {
+      if (data.type === 'coverImg1') {
+        this.cover1 = data.originalUrl
+        this.coverCropper1 = data.cropperUrl
+      }
+      if (data.type === 'coverImg2') {
+        this.cover2 = data.originalUrl
+        this.coverCropper2 = data.cropperUrl
+      }
+      if (data.type === 'coverImg3') {
+        this.cover3 = data.originalUrl
+        this.coverCropper3 = data.cropperUrl
+      }
+    },
     setImage (e) {
       const file = e.target.files[0]
       if (!file.type.includes('image/')) {
@@ -111,6 +162,7 @@ export default {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
+
     handleDownload (file) {
       console.log(file)
     },
@@ -120,6 +172,7 @@ export default {
       this.dialogVisible = false
       console.log(this.imgSrc, 'imgSrc')
     },
+
     // 下载文件
     async exports () {
       const data = {

@@ -5,7 +5,7 @@
     <p v-for="(item,index) in list" :key="index">{{item}}</p>
     <br />
     <el-button @click="postMsg">postMsg</el-button>
-    <!-- <iframe ref="iframes" class="iframe" src="http://192.168.1.131:3008/"></iframe> -->
+    <iframe ref="iframes" class="iframe" src="http://192.168.1.131:3008/"></iframe>
   </div>
 </template>
 <script>
