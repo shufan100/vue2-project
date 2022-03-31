@@ -38,6 +38,14 @@
     <img :src="cutterUrl" alt="">
   </div>
 </template>
+<script lang="ts" setup>
+import { defineComponent } from '@vue/composition-api'
+
+export default defineComponent({
+ 
+})
+</script>
+
 <script>
 export default {
   data () {
