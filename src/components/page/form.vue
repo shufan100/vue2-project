@@ -62,11 +62,15 @@
     <!-- 懒加载树 -->
     <el-tree :props="props" :load="loadNode" lazy :default-expanded-keys="[defaaultExpend]">
     </el-tree>
+    <!--  -->
+    <selectTree></selectTree>
   </div>
 </template>
 
 <script>
+import selectTree from './selectTree'
 export default {
+  components: { selectTree },
   data () {
     return {
       ruleForm: {

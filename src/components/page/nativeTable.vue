@@ -1,9 +1,9 @@
 <template>
   <div id="nativeTable">
-    <!-- 
+    <!--
             2. cellpadding 规定单元格与其内容之间的空白
             3.cellspacing   规定单元格之间的空白
-            4.border-collapse: collapse;去掉这些空白的属性,如果不设置table标签的这些属性值为0，可以直接在样式里面设置border-collapse: collapse;也可以去掉这些空白的！ 
+            4.border-collapse: collapse;去掉这些空白的属性,如果不设置table标签的这些属性值为0，可以直接在样式里面设置border-collapse: collapse;也可以去掉这些空白的！
         -->
     <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
       <thead></thead>
@@ -211,6 +211,67 @@ export default {
   data () {
     return {
 
+    }
+  },
+  async created () {
+    console.log(1)
+    const d = await this.get()
+    console.log(d, 2)
+    const d1 = await this.get()
+    console.log(d1, 3)
+  },
+  async mounted () {
+    console.log(4)
+    const d = await this.get()
+    console.log(d, 5)
+
+    // 1 4 ok-2 ok-5 ok-3------------------------------------------
+
+    console.log(1)
+    async function main1 () {
+      await main2()
+      console.log(2)
+    }
+    async function main2 () {
+      console.log(3)
+    }
+    main1()
+    setTimeout(() => { console.log(9) }, 100)
+    setTimeout(() => { console.log(4) }, 0)
+    new Promise((resolve) => {
+      console.log(5)
+      resolve()
+    }).then(() => {
+      console.log(6)
+    }).then(() => {
+      console.log(7)
+    })
+    console.log(8)
+
+    // 1 3 5 8  2 6 7 4  9
+
+    setImmediate(() => {
+	  console.log(1)
+    })
+    console.log(2)
+    setTimeout(() => { console.log(3) }, 0)// 第一次放入任务队列中，事件循环加载，然后走setImmediate
+    setTimeout(() => { console.log(4) }, 100)// 100毫秒后第二次放入任务队列中，所以这个打印在setImmediate后
+    console.log(5)
+    new Promise((resolve) => {
+	  console.log(6) // 同步
+	  resolve() 	// 加这个，promise才会走then方法
+    }).then(() => {
+	  console.log(7)
+    })
+    process.nextTick(() => {
+	  console.log(8)
+    })
+  },
+  methods: {
+    get () {
+      return new Promise((resolve, reject) => {
+        resolve('ok')
+      })
     }
   }
 }

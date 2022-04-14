@@ -9,6 +9,8 @@
       <img src="../../assets/images/img5.jpg" alt id="rightimg11" />
     </div>
     <img :src="srcs" alt="">
+    <el-input ref="refi" v-show="isshow" v-model="inputVal" />
+    <el-button @click="click1">按钮</el-button>
 
   </div>
 </template>
@@ -45,7 +47,9 @@ export default {
       }, {
         title: '无缝滚动第九行无缝滚动第九行',
         date: '2017-12-16'
-      }]
+      }],
+      isshow: false,
+      inputVal: '9999'
     }
   },
   mounted () {
@@ -108,6 +112,12 @@ export default {
         drapper.style.display = 'none'
         rightshow.style.display = 'none'
       }
+    },
+    click1 () {
+      // 点击事件后，数据更改后，vue并没有直接去更新模板，而是继续走了设置焦点的方法，再去渲染模板
+      this.isshow = true
+      // 这个执行了,页面的input还没有在页面显示呢
+      this.$refs.refi.focus()
     }
 
   }
@@ -115,7 +125,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #magnifying {
-  .seamless-warp-table{
+  .seamless-warp-table {
     width: 400px;
     height: 400px;
     background: red;
