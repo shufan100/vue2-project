@@ -1,5 +1,5 @@
 <template>
-  <el-select ref="selectTree" v-model="form.id" filterable placeholder="请选择...">
+  <el-select ref="selectTree" v-model="form.id" filterable placeholder="请选择..." clearable @clear='clear'>
     <el-option :key="form.id" :value="form.id" :label="form.label" style="height: auto" hidden />
     <el-tree ref="tree" :data="data" :props="defaultProps" node-key="id" accordion @node-click="handleClickNode" />
   </el-select>
@@ -81,8 +81,11 @@ export default {
       this.form.label = data.label
       // 选择器执行完成后，使其失去焦点隐藏下拉框的效果
       // this.$refs.selectTree.blur()
-      const aa = this.$refs.tree.getNode()
       console.log(data)
+    },
+    clear () {
+      this.form.id = ''
+      this.form.label = ''
     }
   }
 }
