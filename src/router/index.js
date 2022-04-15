@@ -150,6 +150,12 @@ const routes = [
         component: () => import('@/components/demo/video'),
         meta: { parentTitle: 'Video', title: '视频播放', path: 'demo/video', permissions: true }
       },
+      {
+        path: '/slots',
+        name: 'slots',
+        component: () => import('@/components/demo/slots'),
+        meta: { parentTitle: 'slots', title: '插槽', path: 'demo/slots', permissions: true }
+      },
 
       // 拖拽组件 dragAndDrop
       {

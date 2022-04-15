@@ -170,6 +170,10 @@ export default {
             {
               index: 'video',
               title: '视频播放'
+            },
+            {
+              index: 'slots',
+              title: '插槽'
             }
           ]
         },
