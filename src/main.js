@@ -95,3 +95,4 @@ const vm = new Vue({
   i18n,
   render: h => h(App)
 }).$mount('#app')
+console.log('@@@ ~ file: main.js ~ line 98 ~ vm', vm)

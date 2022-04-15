@@ -1,7 +1,7 @@
 <template>
   <ul id="slots">
     <li>
-      <h1>默认插槽</h1>
+      <h1>默认插槽 {{_data.namess}}</h1>
       <defaultSlot>
         <!-- 默认插槽内容 -->
         <div>
@@ -56,7 +56,10 @@ export default {
     domainSlot
   },
   data () {
+    return {
 
+      name4: '1121'
+    }
   }
 }
 </script>
