@@ -48,7 +48,7 @@ import pdf from 'vue-pdf' // 在线预览pdf
 import shanxi from '@/assets/json/sx.json'
 import china from '@/assets/json/china.json'
 export default {
-  data () {
+  data() {
     return {
       url:
         'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -125,7 +125,7 @@ export default {
     ElImageViewer,
     pdf
   },
-  mounted () {
+  mounted() {
     console.log('mixin:', this.mixinName)
     //         // Watermark.set("水印内容")
     // let name = "陈名勤";
@@ -138,7 +138,7 @@ export default {
     this.getInit2()
   },
   methods: {
-    initMap () {
+    initMap() {
       this.$echarts.registerMap('shanxi', china)
       const myChart = this.$echarts.init(document.getElementById('mapCharts'))
       myChart.setOption({
@@ -149,16 +149,16 @@ export default {
             params = {
               data: { total: 200, ques: 8, rate: 5, up: true, chagne: 2 }
             }
-            $(dom).html(`
-                        <div id="plan">
-                            <span>台区数量: ${params.data.total}</span>
-                          <span>问题数: ${params.data.ques}</span>
-                            <span>占比: ${params.data.rate}%</span>
-                            <span class='${params.data.up ? 'active5' : ''
-              }'>较上周: <i class="${params.data.up ? this.up : this.down
-              }"></i>${params.data.chagne}%</span>
-                        </idv>
-                      `)
+            // $(dom).html(`
+            //             <div id="plan">
+            //                 <span>台区数量: ${params.data.total}</span>
+            //               <span>问题数: ${params.data.ques}</span>
+            //                 <span>占比: ${params.data.rate}%</span>
+            //                 <span class='${params.data.up ? 'active5' : ''
+            //   }'>较上周: <i class="${params.data.up ? this.up : this.down
+            //   }"></i>${params.data.chagne}%</span>
+            //             </idv>
+            //           `)
           }
         },
         visualMap: {
@@ -179,7 +179,7 @@ export default {
         },
         series: [
           {
-            name: '山西省',
+            name: '中国',
             type: 'map',
             mapType: 'shanxi', // 自定义扩展图表类型
             zoom: 1.2,
@@ -422,7 +422,7 @@ export default {
         ]
       })
     },
-    getInit () {
+    getInit() {
       const oldChart = this.$echarts.init(
         document.getElementById('oldEcharts')
       )
@@ -527,7 +527,7 @@ export default {
         ]
       })
     },
-    getInit2 () {
+    getInit2() {
       const reliableEcharts = this.$echarts.init(
         document.getElementById('reliableEcharts')
       )
@@ -816,18 +816,18 @@ export default {
       })
     },
 
-    closeViewer () {
+    closeViewer() {
       this.showViewer = false
     },
-    getPreview () {
+    getPreview() {
       this.guidePic
         ? (this.showViewer = true)
         : this.$message.info('当前没有可预览的图片')
     },
-    pdfCheck () {
+    pdfCheck() {
       this.$refs.pdf.print()
     },
-    antiShake () {
+    antiShake() {
       console.log('1秒触发一次！')
     }
   }
