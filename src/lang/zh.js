@@ -3,7 +3,7 @@ const routerObj = {};
 for (const item of router.options.routes[0].children) {
   routerObj[item.name] = item.meta.title || '';
 }
-// console.log(routerObj);
+console.log(routerObj);
 const zh = {
   i18n: {
     userName: '舒梵',

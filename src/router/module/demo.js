@@ -131,5 +131,16 @@ const demoRouter = [
       permissions: true,
     },
   },
+  {
+    path: '/writing',
+    name: 'writing',
+    component: () => import('@/components/demo/writing'),
+    meta: {
+      parentTitle: 'writing',
+      title: '基础写法',
+      path: 'demo/writing',
+      permissions: true,
+    },
+  },
 ];
 export default demoRouter;

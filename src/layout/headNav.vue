@@ -64,7 +64,7 @@
 import { mapActions } from 'vuex'
 import { setToken } from '@/utils/jsCookie'
 export default {
-  data () {
+  data() {
     return {
       fullscreen: false,
       message: 2,
@@ -75,7 +75,7 @@ export default {
   methods: {
     ...mapActions(['isEnglishAction', 'infoAction']),
     // 全屏
-    handleFullScreen () {
+    handleFullScreen() {
       let element = document.documentElement
       if (this.fullscreen) {
         if (document.exitFullscreen) {
@@ -102,7 +102,7 @@ export default {
       this.fullscreen = !this.fullscreen
     },
     // 切换语言
-    changeLocale () {
+    changeLocale() {
       let type = null
       if (this.$i18n.locale === 'en') {
         type = 'zh'
@@ -115,7 +115,7 @@ export default {
       this.infoAction(type)
     },
     // 退出
-    handleCommand (command) {
+    handleCommand(command) {
       if (command == 'login') {
         localStorage.removeItem('ms_username')
       }

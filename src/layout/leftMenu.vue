@@ -57,7 +57,7 @@
 import { mapState } from 'vuex'
 import logoImg from '@/assets/images/logo.png'
 export default {
-  data () {
+  data() {
     return {
       logo: logoImg,
       opened: true,
@@ -128,6 +128,10 @@ export default {
           title: '案例',
           subs: [
             {
+              index: 'writing',
+              title: '基础写法'
+            },
+            {
               index: 'shopping',
               title: '购物车'
             },
@@ -135,10 +139,10 @@ export default {
               index: 'magnifying',
               title: '放大镜'
             },
-            // {
-            //     index:'threeD',
-            //     title:'3D旋转图'
-            // },
+            {
+              index: 'threeD',
+              title: '3D旋转图'
+            },
             {
               index: 'upload',
               title: '文件上传'
@@ -174,7 +178,8 @@ export default {
             {
               index: 'slots',
               title: '插槽'
-            }
+            },
+
           ]
         },
         {
@@ -233,19 +238,19 @@ export default {
     }
   },
   computed: {
-    onRoutes () {
+    onRoutes() {
       return this.$route.path.replace('/', '')
     },
     ...mapState(['sidebarOpened', 'sidebarWidth'])
   },
-  mounted () {
+  mounted() {
 
   },
   methods: {
-    handleOpen (key, keyPath) {
+    handleOpen(key, keyPath) {
       // console.log(key, keyPath);
     },
-    handleClose (key, keyPath) {
+    handleClose(key, keyPath) {
       // console.log(key, keyPath);
     }
   }
