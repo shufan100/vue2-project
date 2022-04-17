@@ -1,8 +1,9 @@
 <template>
   <div id="writing">
     <h1 style="text-align: center">基础语法</h1>
+    <!-- 事件 -->
+    <el-divider>事件</el-divider>
     <a :href="url" @click.prevent="clicks">阻止默认事件</a>
-    <!--  -->
     <div class="gl">
       <ul @scroll="scroll1">
         <li>1</li>
@@ -16,31 +17,31 @@
       </ul>
     </div>
     <!-- 键盘事件 -->
-    <hr />
+    <el-divider>键盘事件</el-divider>
     <div style="width: 300px">
       <!-- 2、借助vue修饰符 -->
       <input type="text" placeholder="输入按回车再触发" @keyup.space="showInfo" />
       <el-input v-model="value" @input="showInfo" />
     </div>
+
     <!-- computed计算属性 -->
-    <hr />
+    <el-divider>computed计算属性</el-divider>
     <h4>{{ fullname }}</h4>
     <h4>{{ fullname }}</h4>
     <h4>{{ fullname }}</h4>
     <el-input type="text" v-model="name" />
     <h3>{{ full2 }}</h3>
     <h3>{{ full2 }}</h3>
-    <!-- watch -->
-    <hr />
-    <h4>今天天气很{{ info }}</h4>
-    <button @click="isHot = !isHot">修改</button>
 
+    <!--计算属性例子1：  -->
+    <el-divider>计算属性例子1：</el-divider>
     <h4>{{ obj.a }}--{{ obj.b }}</h4>
     <button @click="add('a')">添加a</button>
     <button @click="add('b')">添加b</button>
-    <button @click="add('add')">添加a,b</button>
-    <!-- 条件渲染  -->
-    <hr />
+    <button @click="add('add')">添加a,b</button><br />
+
+    <!--计算属性例子2：  -->
+    <el-divider>计算属性例子2：</el-divider>
     <el-input style="width:200px" placeholder="模糊搜索" v-model="keyval" />
     <button @click="type=1">升序</button>
     <button @click="type=2">降序</button>
@@ -51,6 +52,20 @@
       </li>
     </ul>
 
+    <!-- watch侦听 -->
+    <el-divider>watch侦听</el-divider>
+    <h4>今天天气很{{ info }}</h4>
+    <button @click="isHot = !isHot">修改</button>
+
+    <!-- filters过滤器 -->
+    <el-divider>filters过滤器</el-divider>
+    <h4>{{ time | timeFilter }}</h4>
+    <h4>{{ time | timeFilter('YYYY_MM_DD') }}</h4>
+
+    <!-- 自定义指令 -->
+    <el-divider>自定义指令</el-divider>
+    <button v-preventReClick>11</button>
+    <input type="text" v-fbind:value='obj.a'>
   </div>
 </template>
 <script>
@@ -73,7 +88,9 @@ export default {
         { id: '004', name: '艾伦', age: 10 }
       ],
       keyval: '',
-      type: 0
+      type: 0,
+      time: 1621561377603,
+      ivalue: 100
     }
   },
   // computed：1有缓存; 2初始调用多次只会触发一次; 3当所依赖的数据发生变化会触发计算属性
@@ -112,12 +129,12 @@ export default {
   },
   watch: {
     // 正常写法-----------------------------------
-    isHot: {
-      immediate: false, // true初始化让handler调用一下（默认false）
-      handler(newVal, oldVal) {
-        console.log(newVal, oldVal)
-      }
-    },
+    // isHot: {
+    //   immediate: false, // true初始化让handler调用一下（默认false）
+    //   handler(newVal, oldVal) {
+    //     console.log(newVal, oldVal)
+    //   }
+    // },
     // 深度监听
     obj: {
       deep: true, // 开启深度监听
@@ -126,9 +143,9 @@ export default {
       }
     },
     // 简写----------------------
-    // isHot() {
-    //   console.log(this.isHot, '---watch监听isHot')
-    // },
+    isHot() {
+      console.log(this.isHot, '---watch监听isHot')
+    },
     'obj.a'() {
       // 监听对象的单个属性
       console.log('监听属性a')
@@ -139,6 +156,12 @@ export default {
         console.log(this, '---这里的this是指向window')
       }, 100)
       console.log('监听属性b')
+    }
+  },
+  filters: {
+    // 可以接收多个参数，第一个是数据，第二个是参数
+    timeFilter(value, type) {
+      return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
   },
   methods: {
@@ -177,12 +200,12 @@ export default {
     ul {
       background: goldenrod;
       width: 200px;
-      height: 300px;
+      height: 100px;
       margin-right: 10px;
       overflow-y: scroll;
       li {
         width: 100%;
-        height: 200px;
+        height: 50px;
       }
     }
   }
