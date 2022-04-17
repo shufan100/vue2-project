@@ -3,14 +3,7 @@
     <router-view />
   </div>
 </template>
-<script>
-export default {
-  // 随便写的注释111
-  mounted () {
-    console.log('app.vue')
-  }
-}
-</script>
+
 
 <style lang="less">
 @color: yellow;

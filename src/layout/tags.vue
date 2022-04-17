@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-import bus from '@/common/bus.js';
+import bus from '@/common/bus.js'
 export default {
   data() {
     return {
@@ -22,79 +22,77 @@ export default {
   },
   computed: {
     showTags() {
-
-      return this.tagsList.length > 0;
+      return this.tagsList.length > 0
     }
   },
   watch: {
     $route(newValue, oldValue) {
-      this.setTags(newValue);
+      this.setTags(newValue)
     }
   },
   filters: {
     filtersEditTitle(item) {
-      let arr = item.split('/')
+      const arr = item.split('/')
       return arr.length > 1 ? arr[arr.length - 1] : item
-
     }
   },
   created() {
     // 初始化设置首页标签
-    this.setTags(this.$route);
+    this.setTags(this.$route)
     // 监听关闭当前页面的标签页
     bus.$on('close_current_tags', () => {
       for (let i = 0, len = this.tagsList.length; i < len; i++) {
-        const item = this.tagsList[i];
+        const item = this.tagsList[i]
         if (item.path === this.$route.fullPath) {
           if (i < len - 1) {
-            this.$router.push(this.tagsList[i + 1].path);
+            this.$router.push(this.tagsList[i + 1].path)
           } else if (i > 0) {
-            this.$router.push(this.tagsList[i - 1].path);
+            this.$router.push(this.tagsList[i - 1].path)
           } else {
-            this.$router.push('/');
+            this.$router.push('/')
           }
-          this.tagsList.splice(i, 1);
-          break;
+          this.tagsList.splice(i, 1)
+          break
         }
       }
-
     })
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     isActive(path) {
       // console.log(this.$route.fullPath,'获取路由path')
-      return path === this.$route.fullPath;
+      return path === this.$route.fullPath
     },
 
     // 设置标签
     setTags(route) {
       const isExist = this.tagsList.some(item => {
-        return item.path === route.fullPath;
+        return item.path === route.fullPath
       })
       if (!isExist) {
         if (this.tagsList.length >= 8) {
-          this.tagsList.shift();
+          this.tagsList.shift()
         }
         this.tagsList.push({
           title: route.meta.title,
           path: route.fullPath,
-          name: route.name,
+          name: route.name
         })
       }
-      bus.$emit('tags', this.tagsList);
+      bus.$emit('tags', this.tagsList)
     },
     // 关闭单个标签
     closeTags(index) {
-      const delItem = this.tagsList.splice(index, 1)[0];
-      const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
+      const delItem = this.tagsList.splice(index, 1)[0]
+      const item = this.tagsList[index]
+        ? this.tagsList[index]
+        : this.tagsList[index - 1]
       if (item) {
-        delItem.path === this.$route.fullPath && this.$router.push(item.path);
+        delItem.path === this.$route.fullPath && this.$router.push(item.path)
       } else {
-        this.$router.push('/');
+        this.$router.push('/')
       }
-    },
+    }
   }
 }
 </script>
