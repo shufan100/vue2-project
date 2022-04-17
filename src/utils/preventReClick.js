@@ -44,5 +44,4 @@ Vue.directive('fbind', {
     console.log('update')
     el.value = binding.value // 值绑定到节点上
   }
-
 })

@@ -91,6 +91,13 @@ const vm = new Vue({
   router,
   store,
   i18n,
+  // components: { school },
   render: h => h(App)
 }).$mount('#app')
 console.log('@@@  vm', vm)
+
+const school = Vue.extend({
+
+})
+// VueComponents.prototype.__proto__ === Vue.portotype
+console.dir(school)
