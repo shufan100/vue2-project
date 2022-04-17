@@ -9,6 +9,7 @@ export default {
   // 所有组件的生命周期都有加想要加的东西
   created () {
     // this.hello()
+    console.log('mixin--created生命周期钩子')
   },
   // 所有组件都有这些方法
   methods: {
@@ -16,7 +17,6 @@ export default {
       console.log('hello from mixin')
     },
     func_one () {
-      const a = '1221'
       console.log('func_one from mixin')
     },
     func_two () {

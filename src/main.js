@@ -51,6 +51,11 @@ import scroll from 'vue-seamless-scroll'
 import '@/assets/cropper/cropper.min.js'
 // import '@/assets/cropper/ImgCropping.css'
 import ImgCutter from 'vue-img-cutter'
+
+// 第三方插件
+import plugins from './utils/plugins'
+Vue.use(plugins)
+
 Vue.use(scroll)
 Vue.use(ImgCutter)
 Vue.component('ImgCutter', ImgCutter)

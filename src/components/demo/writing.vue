@@ -23,6 +23,7 @@
       <input type="text" placeholder="输入按回车再触发" @keyup.space="showInfo" />
       <el-input v-model="value" @input="showInfo" />
     </div>
+    <button @click="getHello">全局方法</button>
 
     <!-- computed计算属性 -->
     <el-divider>computed计算属性</el-divider>
@@ -61,11 +62,13 @@
     <el-divider>filters过滤器</el-divider>
     <h4>{{ time | timeFilter }}</h4>
     <h4>{{ time | timeFilter('YYYY_MM_DD') }}</h4>
+    <h4>{{ time | winFilter }}</h4>
 
     <!-- 自定义指令 -->
     <el-divider>自定义指令</el-divider>
     <button v-preventReClick>11</button>
     <input type="text" v-fbind:value='obj.a'>
+    <input type="text" v-sbind:value='obj.b'>
   </div>
 </template>
 <script>
@@ -163,6 +166,9 @@ export default {
     timeFilter(value, type) {
       return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
+  },
+  created() {
+    console.log('writing组件--created生命周期钩子')
   },
   methods: {
     clicks() {
