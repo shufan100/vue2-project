@@ -99,7 +99,7 @@ const vm = new Vue({
   // components: { school },
   render: h => h(App),
   beforeCreate () {
-    Vue.prototype.$bus = this
+    Vue.prototype.$bus = this // 安装全局事件总线
   }
 }).$mount('#app')
 console.log('@@@  vm', vm)
