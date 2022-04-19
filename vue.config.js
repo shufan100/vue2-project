@@ -6,6 +6,7 @@ module.exports = {
   assetsDir: 'assets', // 放置生成的静态资源 (js、css、img、fonts)
   lintOnSave: false, // 是否开启eslint (否在开发环境下通过 eslint-loader 在每次保存时 lint 代码) （值为boolean | 'warning' | 'default' | 'error'）
   productionSourceMap: false, // (编译后生成的map.js，提示打印文件位置) 默认true
+  // 开启代理服务器
   devServer: {
     open: true, // 是否自动弹出浏览器页面
     // host: "localhost",
