@@ -15,10 +15,10 @@ module.exports = {
     https: false, // 是否使用https协议
     hotOnly: false, // 是否开启热更新
     proxy: {
-      '/api': { // 请求前缀（发起的请求地址有 /api就会走代理）
-        target: 'http://localhost:5000', // 5000端口服务器
+      '/api': { // 请求前缀（匹配所有以 '/api'开头的请求路径）
+        target: 'http://localhost:5000', // 5000端口服务器（代理目标的基础路径）
         ws: true, // 用于支持websockets
-        changeOrigin: true, // (默认true)告诉服务器请求来自哪里：false就暴露自己实际的请求地址（localhost:8080），true就说自己的和请求的服务器一样的地址（localhost:5000）
+        changeOrigin: true, // (默认true)告诉服务器请求来自哪里：false就暴露自己实际的请求地址（服务器的请求头收到的是localhost:8080），true就说自己的和请求的服务器一样的地址（服务器的请求头收到的是localhost:5000）
         pathRewrite: { // 重写路径 比如'/api/aaa/ccc'重写为'/aaa/ccc'
           '^/api': ''
         }
