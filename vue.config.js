@@ -22,6 +22,14 @@ module.exports = {
         pathRewrite: { // 重写路径 比如'/api/aaa/ccc'重写为'/aaa/ccc'
           '^/api': ''
         }
+      },
+      '/jpi': {
+        target: 'http://localhost:5001',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/jpi': ''
+        }
       }
     }
   }
