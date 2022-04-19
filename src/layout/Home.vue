@@ -23,13 +23,13 @@ import breadcrumb from './breadcrumb' // 面包屑
 import tags from './tags' // tags
 
 import { mapState } from 'vuex'
-import bus from '@/common/bus.js'
 
 export default {
   name: 'Home',
-  data() {
+  data () {
     return {
-      tagsList: []
+      tagsList: [],
+      pubId: ''
     }
   },
   components: {
@@ -41,49 +41,37 @@ export default {
   computed: {
     ...mapState(['sidebarWidth'])
   },
-  created() {
+  created () {
     // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
-    bus.$on('tags', (msg) => {
+    this.$bus.$on('tags', (msg) => {
       const arr = []
       for (let i = 0, len = msg.length; i < len; i++) {
         msg[i].name && arr.push(msg[i].name)
       }
       this.tagsList = arr
     })
-  },
 
-  mounted() {
-    // this.$watermark.set(`SHUFAN`)
-    window.addEventListener('message', function (event) {
-      if (event.data.type === 'hightLight') {
-
-      }
+    // $bus组件挂载完毕，立即绑定全局事件 (绑定事件的组件一定要渲染成功，兄弟组件触发才能触发到)
+    this.$bus.$on('busClick', param => {
+      this.$message.success(`组件挂载完毕：$bus全局事件总线在(Home组件)绑定BusClick的事件--接收的参数${param}`)
     })
-    // function add () {
-    //   // 第一次执行时，定义一个数组专门用来存储所有的参数
-    //   var _args = Array.prototype.slice.call(arguments)
-
-    //   // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
-    //   var _adder = function () {
-    //     _args.push(...arguments)
-    //     return _adder
-    //   }
-
-    //   // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
-    //   _adder.toString = function () {
-    //     return _args.reduce(function (a, b) {
-    //       return a + b
-    //     })
-    //   }
-    //   return _adder
-    // }
-    // add(1)(2)(3) // 6
-    // add(1, 2, 3)(4) // 10
-    // add(1)(2)(3)(4)(5) // 15
-    // add(2, 6)(1) // 9
-    // console.log(add(1)(2)(3))
   },
-  methods: {
+  mounted () {
+    // 消息订阅
+    this.pubId = this.$pubSub.subscribe('pubsubClick', (msgName, data) => {
+      this.$message.success(`消息订阅绑定pubsubClick事件--方法名：${msgName}--参数：${data}`)
+    })
+    // this.$watermark.set(`SHUFAN`)
+    // window.addEventListener('message', function (event) {
+    //   if (event.data.type === 'hightLight') {
+
+    //   }
+    // })
+  },
+  beforeDestroy () {
+    this.$bus.$off('tags')
+    this.$bus.$off('busClick')
+    this.$pubSub.unsubscribe(this.pubId) // 取消订阅
   }
 }
 </script>

@@ -43,12 +43,11 @@
 import Watermark from '@/utils/watermark' // 路径不要写错
 import VueQr from 'vue-qr'
 import pinyin from 'js-pinyin'
-import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import pdf from 'vue-pdf' // 在线预览pdf
 import shanxi from '@/assets/json/sx.json'
 import china from '@/assets/json/china.json'
 export default {
-  data() {
+  data () {
     return {
       url:
         'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
@@ -122,10 +121,9 @@ export default {
   },
   components: {
     VueQr,
-    ElImageViewer,
     pdf
   },
-  mounted() {
+  mounted () {
     console.log('mixin:', this.mixinName)
     //         // Watermark.set("水印内容")
     // let name = "陈名勤";
@@ -138,7 +136,7 @@ export default {
     this.getInit2()
   },
   methods: {
-    initMap() {
+    initMap () {
       this.$echarts.registerMap('shanxi', china)
       const myChart = this.$echarts.init(document.getElementById('mapCharts'))
       myChart.setOption({
@@ -422,7 +420,7 @@ export default {
         ]
       })
     },
-    getInit() {
+    getInit () {
       const oldChart = this.$echarts.init(
         document.getElementById('oldEcharts')
       )
@@ -527,7 +525,7 @@ export default {
         ]
       })
     },
-    getInit2() {
+    getInit2 () {
       const reliableEcharts = this.$echarts.init(
         document.getElementById('reliableEcharts')
       )
@@ -816,18 +814,18 @@ export default {
       })
     },
 
-    closeViewer() {
+    closeViewer () {
       this.showViewer = false
     },
-    getPreview() {
+    getPreview () {
       this.guidePic
         ? (this.showViewer = true)
         : this.$message.info('当前没有可预览的图片')
     },
-    pdfCheck() {
+    pdfCheck () {
       this.$refs.pdf.print()
     },
-    antiShake() {
+    antiShake () {
       console.log('1秒触发一次！')
     }
   }

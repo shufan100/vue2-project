@@ -13,30 +13,29 @@
   </div>
 </template>
 <script>
-import bus from '@/common/bus.js'
 export default {
-  data() {
+  data () {
     return {
       tagsList: []
     }
   },
   computed: {
-    showTags() {
+    showTags () {
       return this.tagsList.length > 0
     }
   },
   watch: {
-    $route(newValue, oldValue) {
+    $route (newValue, oldValue) {
       this.setTags(newValue)
     }
   },
   filters: {
-    filtersEditTitle(item) {
+    filtersEditTitle (item) {
       const arr = item.split('/')
       return arr.length > 1 ? arr[arr.length - 1] : item
     }
   },
-  created() {
+  created () {
     // 初始化设置首页标签
     this.setTags(this.$route)
     // 监听关闭当前页面的标签页
@@ -57,15 +56,15 @@ export default {
       }
     })
   },
-  mounted() {},
+  mounted () { },
   methods: {
-    isActive(path) {
+    isActive (path) {
       // console.log(this.$route.fullPath,'获取路由path')
       return path === this.$route.fullPath
     },
 
     // 设置标签
-    setTags(route) {
+    setTags (route) {
       const isExist = this.tagsList.some(item => {
         return item.path === route.fullPath
       })
@@ -79,10 +78,10 @@ export default {
           name: route.name
         })
       }
-      bus.$emit('tags', this.tagsList)
+      this.$bus.$emit('tags', this.tagsList)
     },
     // 关闭单个标签
-    closeTags(index) {
+    closeTags (index) {
       const delItem = this.tagsList.splice(index, 1)[0]
       const item = this.tagsList[index]
         ? this.tagsList[index]

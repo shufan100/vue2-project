@@ -9,7 +9,7 @@ export default {
   // 所有组件的生命周期都有加想要加的东西
   created () {
     // this.hello()
-    console.log('mixin--created生命周期钩子')
+    // console.log('mixin--created生命周期钩子')
   },
   // 所有组件都有这些方法
   methods: {

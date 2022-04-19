@@ -52,6 +52,9 @@ import '@/assets/cropper/cropper.min.js'
 // import '@/assets/cropper/ImgCropping.css'
 import ImgCutter from 'vue-img-cutter'
 
+// 消息订阅
+import PubSub from 'pubsub-js'
+
 // 第三方插件
 import plugins from './utils/plugins'
 Vue.use(plugins)
@@ -87,6 +90,7 @@ Vue.prototype.$qs = qs
 Vue.prototype.$store = store
 Vue.prototype.$watermark = watermark
 Vue.prototype.$wordlimit = wordlimit
+Vue.prototype.$pubSub = PubSub
 
 // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
 
@@ -102,10 +106,8 @@ const vm = new Vue({
     Vue.prototype.$bus = this // 安装全局事件总线
   }
 }).$mount('#app')
-console.log('@@@  vm', vm)
+// console.log('@@@  vm', vm)
 
-const school = Vue.extend({
-
-})
+const school = Vue.extend({})
 // VueComponents.prototype.__proto__ === Vue.portotype
 console.dir(school)

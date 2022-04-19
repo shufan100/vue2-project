@@ -69,11 +69,18 @@
     <button v-preventReClick>11</button>
     <input type="text" v-fbind:value='obj.a'>
     <input type="text" v-sbind:value='obj.b'>
+
+    <el-divider>全局事件总线（$bus兄弟通信）</el-divider>
+    <span>绑定事件的组件一定要渲染成功，兄弟组件触发才能触发到</span><br />
+    <el-button @click="globalEvent">触发兄弟事件</el-button>
+
+    <el-divider>消息订阅（pubsub）</el-divider>
+    <el-button @click="pubsubEvent">触发消息订阅</el-button>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       url: 'https://www.baidu.com/',
       value: '',
@@ -100,23 +107,23 @@ export default {
   computed: {
     fullname: {
       // 这个get就是vue的数据劫持 的Objet.definePorperty()方法内的get和set方法
-      get() {
+      get () {
         console.log('计算属性-----get被调用了 ')
         return this.name + this.sex
       },
-      set(value) {
+      set (value) {
         return value
       }
     },
     // 简写--------------------------
-    full2() {
+    full2 () {
       console.log(1111)
       return this.name
     },
-    info() {
+    info () {
       return this.isHot ? '炎热' : '凉爽'
     },
-    newperson() {
+    newperson () {
       const arr = this.person.filter(i => {
         return i.name.indexOf(this.keyval) !== -1
       })
@@ -141,21 +148,21 @@ export default {
     // 深度监听
     obj: {
       deep: true, // 开启深度监听
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         console.log('监听obj对象里所有苏属性', this.obj)
       }
     },
     // 简写----------------------
-    isHot() {
+    isHot () {
       console.log(this.isHot, '---watch监听isHot')
     },
-    'obj.a'() {
+    'obj.a' () {
       // 监听对象的单个属性
       console.log('监听属性a')
     },
-    'obj.b'() {
+    'obj.b' () {
       // 要写成箭头函数
-      setTimeout(function() {
+      setTimeout(function () {
         console.log(this, '---这里的this是指向window')
       }, 100)
       console.log('监听属性b')
@@ -163,38 +170,47 @@ export default {
   },
   filters: {
     // 可以接收多个参数，第一个是数据，第二个是参数
-    timeFilter(value, type) {
+    timeFilter (value, type) {
       return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
   },
-  created() {
+  created () {
     console.log('writing组件--created生命周期钩子')
   },
   methods: {
-    clicks() {
+    clicks () {
       alert(111)
     },
-    scroll1() {
+    scroll1 () {
       console.log('滚动条动了就会一直触发（滚轮和上下键都会触发）')
     },
-    wheel1() {
+    wheel1 () {
       console.log('滚轮动了就会触发，不管滚动条有没有到底（上下键不会触发）')
     },
     // 按下回车触发
-    showInfo(e) {
+    showInfo (e) {
       // 1、按键编码 回车编码===13
       // if (e.keyCode !== 13) return
       console.log(e.keyCode, e.key)
       console.log(e.target.value)
       // console.log(this.value)
     },
-    add(type) {
+    add (type) {
       type === 'a' && this.obj.a++
       type === 'b' && this.obj.b++
       if (type === 'add') {
         this.obj.a++
         this.obj.b++
       }
+    },
+    // 触发全局事件总线$bus绑定的事件
+    globalEvent () {
+      console.log(122222)
+      this.$bus.$emit('busClick', '数据123')
+    },
+    // 触发消息订阅
+    pubsubEvent () {
+      this.$pubSub.publish('pubsubClick', '99999')
     }
   }
 }
