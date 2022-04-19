@@ -39,7 +39,7 @@ export default {
     // 初始化设置首页标签
     this.setTags(this.$route)
     // 监听关闭当前页面的标签页
-    bus.$on('close_current_tags', () => {
+    this.$bus.$on('close_current_tags', () => {
       for (let i = 0, len = this.tagsList.length; i < len; i++) {
         const item = this.tagsList[i]
         if (item.path === this.$route.fullPath) {

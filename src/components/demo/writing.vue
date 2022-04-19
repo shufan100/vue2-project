@@ -1,6 +1,6 @@
 <template>
   <div id="writing">
-    <h1 style="text-align: center">基础语法</h1>
+    <h1>基础语法</h1>
     <!-- 事件 -->
     <el-divider>事件</el-divider>
     <a :href="url" @click.prevent="clicks">阻止默认事件</a>
@@ -76,6 +76,33 @@
 
     <el-divider>消息订阅（pubsub）</el-divider>
     <el-button @click="pubsubEvent">触发消息订阅</el-button>
+
+    <el-divider>动画效果（transition）</el-divider>
+    <button @click="isShow = !isShow">显示/隐藏</button>
+    <!-- name='tans1':定义了name,样式就要改 appear：初始动画 -->
+    <transition name='trans1' appear>
+      <h1 v-show="isShow" style="background:red">欢迎！！！</h1>
+    </transition>
+
+    <el-divider>过渡效果</el-divider>
+    <button @click="isShow1 = !isShow1">显示/隐藏</button>
+    <!-- name='tans1':定义了name,样式就要改 appear：初始动画 -->
+    <transition name='trans2' appear>
+      <h1 v-show="isShow1" style="background:red">欢迎！！！</h1>
+    </transition>
+    <!-- 多个过渡 -->
+    <transition-group name='trans2' appear>
+      <h1 v-show="isShow1" key="1" style="background:red">欢迎！！！</h1>
+      <h1 v-show="!isShow1" key="2" style="background:red">欢迎！！！</h1>
+    </transition-group>
+
+    <el-divider>过渡效果(插件animate.css)</el-divider>
+
+    <!-- name是固定写法 -->
+    <transition-group name='animate__animated animate__bounce' appear enter-active-class="animate__zoomInDown" leave-active-class="animate__rollOut">
+      <h1 v-show="isShow1" key="11" style="background:red">欢迎！！！</h1>
+      <h1 v-show="isShow1" key="22" style="background:red">欢迎！！！</h1>
+    </transition-group>
   </div>
 </template>
 <script>
@@ -100,7 +127,9 @@ export default {
       keyval: '',
       type: 0,
       time: 1621561377603,
-      ivalue: 100
+      ivalue: 100,
+      isShow: true,
+      isShow1: true
     }
   },
   // computed：1有缓存; 2初始调用多次只会触发一次; 3当所依赖的数据发生变化会触发计算属性
@@ -230,6 +259,42 @@ export default {
         height: 50px;
       }
     }
+  }
+  //------------------动画写法-----------------------------
+  //进入需要激活的动画
+  .trans1-enter-active {
+    // .v-enter-active {
+    animation: trans1 0.5s linear;
+  }
+  //离开需要激活的动画
+  .trans1-leave-active {
+    // .v-leave-active {
+    // reverse反转
+    animation: trans1 0.5s reverse;
+  }
+  @keyframes trans1 {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  }
+
+  //------------------过渡写法-----------------------------
+  .trans2-enter-active,
+  .trans2-leave-active {
+    transition: 0.5s linear;
+  }
+  // 进入的起点、离开的终点
+  .trans2-enter,
+  .trans2-leave-to {
+    transform: translateX(-100%);
+  }
+  // 进入的终点、离开的起点
+  .trans2-enter-to,
+  .trans2-leave {
+    transform: translateX(0);
   }
 }
 </style>

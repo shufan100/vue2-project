@@ -55,6 +55,9 @@ import ImgCutter from 'vue-img-cutter'
 // 消息订阅
 import PubSub from 'pubsub-js'
 
+// 引入动画样式
+import 'animate.css'
+
 // 第三方插件
 import plugins from './utils/plugins'
 Vue.use(plugins)
