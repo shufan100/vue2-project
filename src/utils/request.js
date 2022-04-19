@@ -6,8 +6,8 @@ import router from '@/router'
 // 创建axios的实例
 const rest = axios.create({
   // baseURL: 'http://192.168.2.89:8012',  //请求地址前缀，将自动加在 url 前面，除非 url 是个绝对地址 、不配置的话就直接在接口前写
-  baseURL: 'api', // 设置默认ip
-  // baseURL:process.env.VUE_APP_URL, //使用环境配置
+  // baseURL: 'api', // 设置默认ip
+  baseURL: process.env.VUE_APP_URL, // 使用环境配置
   timeout: 5000, // 请求时间
   headers: {
     get: {
