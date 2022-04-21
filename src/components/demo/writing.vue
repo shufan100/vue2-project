@@ -55,7 +55,7 @@
 
     <!-- watch侦听 -->
     <el-divider>watch侦听</el-divider>
-    <h4>今天天气很{{ info }}</h4>
+    <h4>今天天气很{{ HotComputed }}</h4>
     <button @click="isHot = !isHot">修改</button>
 
     <!-- filters过滤器 -->
@@ -97,15 +97,41 @@
     </transition-group>
 
     <el-divider>过渡效果(插件animate.css)</el-divider>
-
     <!-- name是固定写法 -->
     <transition-group name='animate__animated animate__bounce' appear enter-active-class="animate__zoomInDown" leave-active-class="animate__rollOut">
       <h1 v-show="isShow1" key="11" style="background:red">欢迎！！！</h1>
       <h1 v-show="isShow1" key="22" style="background:red">欢迎！！！</h1>
     </transition-group>
+
+    <el-divider>Vuex</el-divider>
+    <h2>计算属性读取vuex的state值 / getters计算后的值</h2>
+    <ul>
+      <li>原生读取state: {{codexxx}}</li>
+      <li>------</li>
+      <li>对象读取state: {{xxs}}</li>
+      <li>对象读取state模块对象: {{func1}}</li>
+      <li>对象读取state模块对象内的值: {{info}}</li>
+      <li>------</li>
+      <li>数组读取state: {{sum}}</li>
+      <li>数组读取state模块对象: {{func}}</li>
+      <li>{{func === func1}}</li>
+    </ul>
+    <hr />
+    <ul>
+      <li>原本值sum: {{sum}}</li>
+      <li>放大10倍sum: {{bigSum}}</li>
+      <li>缩小2倍sum: {{smallSum}}</li>
+    </ul>
+    <button @click="addSumA">数组写法：action ++</button>
+    <button @click="addSumA1(2)">对象写法(带参)：action ++1</button>
+    <button @click="addSumA2">对象写法(不带参)：action ++1</button>
+    <br />
+    <button @click="addSumM">数组写法：mutation ++</button>
+    <button @click="addSumM1()">对象写法：mutation ++</button>
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -134,6 +160,23 @@ export default {
   },
   // computed：1有缓存; 2初始调用多次只会触发一次; 3当所依赖的数据发生变化会触发计算属性
   computed: {
+    // ------------------------------------------------组件内的计算属性读取vuex(state,getters)------------------------------------------------------------
+    // # 借助mapState生成计算属性，从state中读取数据（对象写法，数组写法）
+    codexxx () {
+      return this.$store.state.codes
+    },
+    // 对象写法
+    ...mapState({ xxs: 'counts' }),
+    ...mapState({
+      func1: state => state.func,
+      info: state => state.func.info
+    }),
+    // 数组写法
+    ...mapState(['sum', 'func']),
+
+    // # 借助mapGetters生成计算属性，从state中读取数据（数组写法）
+    ...mapGetters(['bigSum', 'smallSum']),
+    // ------------------------------------------------组件内的计算属性------------------------------------------------------------
     fullname: {
       // 这个get就是vue的数据劫持 的Objet.definePorperty()方法内的get和set方法
       get () {
@@ -146,10 +189,9 @@ export default {
     },
     // 简写--------------------------
     full2 () {
-      console.log(1111)
       return this.name
     },
-    info () {
+    HotComputed () {
       return this.isHot ? '炎热' : '凉爽'
     },
     newperson () {
@@ -206,7 +248,26 @@ export default {
   created () {
     console.log('writing组件--created生命周期钩子', this)
   },
+  mounted () {
+    console.log(mapState({ sum: 'sum' }), '00')
+  },
   methods: {
+    // vuex
+    // action---------------------------------------------
+    ...mapActions(['jiasum']), // mutations 数组写法
+    ...mapActions({ addSumA1: 'jiasum', addSumA2: 'jiasum1' }), // mutations 对象写法(接收一个参数)
+    addSumA () {
+      this.jiasum(1)
+      // this.$store.dispatch('jiasum', 1) // 原始写法
+    },
+    // mutation---------------------------------------------
+    ...mapMutations(['JIASUM']), // action 数组写法
+    ...mapMutations({ addSumM1: 'JIASUM' }), // action 对象写法(接收一个参数)
+    addSumM () {
+      this.JIASUM(1)
+      // this.$store.commit('JIASUM', 1) // 原始写法
+    },
+    // -------------------------------------------------------
     clicks () {
       alert(111)
     },
@@ -234,13 +295,13 @@ export default {
     },
     // 触发全局事件总线$bus绑定的事件
     globalEvent () {
-      console.log(122222)
       this.$bus.$emit('busClick', '数据123')
     },
     // 触发消息订阅
     pubsubEvent () {
       this.$pubSub.publish('pubsubClick', '99999')
     }
+
   }
 }
 </script>

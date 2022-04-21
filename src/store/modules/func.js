@@ -1,7 +1,8 @@
 import { getToken } from '@/utils/jsCookie'
 const func = {
   state: {
-    info: getToken('lang') || 'zh_cn'
+    info: getToken('lang') || 'zh_cn',
+    name1: 'sss'
   },
   mutations: {
     infoMutation (state, newData) {

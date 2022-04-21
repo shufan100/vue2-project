@@ -1,4 +1,4 @@
-// mutations -- 用于操作数据
+// mutations -- 用于操作数据（mutations方法一般大写）
 const mutations = {
 
   sidebarOpenedMutations: (state, newData) => {
@@ -10,6 +10,10 @@ const mutations = {
   // },
   isEnglishMutations: (state, newData) => {
     state.isEnglish = newData
+  },
+  JIASUM (state, value) {
+    state.sum += value
   }
+
 }
 export default mutations
