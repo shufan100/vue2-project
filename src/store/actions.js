@@ -1,5 +1,5 @@
 // actions -- 用于响应组件中动作
-const actions = {
+export default {
   sidebarOpenedAction: (context, newData) => {
     context.commit('sidebarOpenedMutations', newData)
   },
@@ -20,4 +20,3 @@ const actions = {
     }
   }
 }
-export default actions

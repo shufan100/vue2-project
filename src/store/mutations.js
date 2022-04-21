@@ -1,5 +1,5 @@
 // mutations -- 用于操作数据（mutations方法一般大写）
-const mutations = {
+export default {
 
   sidebarOpenedMutations: (state, newData) => {
     state.sidebarOpened = newData
@@ -13,7 +13,9 @@ const mutations = {
   },
   JIASUM (state, value) {
     state.sum += value
+  },
+  JIASUM2 (state, value) {
+    state.sum += 2
   }
 
 }
-export default mutations

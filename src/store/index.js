@@ -9,6 +9,7 @@ import actions from './actions'
 
 // 模块
 import func from './modules/func'
+import user from './modules/user'
 Vue.use(Vuex)
 
 // 导出Store
@@ -18,6 +19,7 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules: {
-    func
+    func,
+    user
   }
 })

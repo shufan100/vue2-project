@@ -108,13 +108,18 @@
     <ul>
       <li>原生读取state: {{codexxx}}</li>
       <li>------</li>
-      <li>对象读取state: {{xxs}}</li>
+      <li>对象读取state: {{xxs1}}</li>
       <li>对象读取state模块对象: {{func1}}</li>
       <li>对象读取state模块对象内的值: {{info}}</li>
       <li>------</li>
       <li>数组读取state: {{sum}}</li>
       <li>数组读取state模块对象: {{func}}</li>
-      <li>{{func === func1}}</li>
+      <li style="color:red">数组读取state模块对象内的值: {{userName}}</li>
+      <li style="color:red">数组读取state模块对象内的值: {{datas}}</li>
+      <!-- <li>{{func === func1}}</li> -->
+      <li>------</li>
+      <li>数组读取getters修改的state: {{gName1}}</li>
+      <li>数组读取命名空间的getters修改的state: {{gUserName}}</li>
     </ul>
     <hr />
     <ul>
@@ -127,7 +132,14 @@
     <button @click="addSumA2">对象写法(不带参)：action ++1</button>
     <br />
     <button @click="addSumM">数组写法：mutation ++</button>
-    <button @click="addSumM1()">对象写法：mutation ++</button>
+    <button @click="addSumM1">对象写法：mutation ++</button>
+    <br />
+    <button @click="cs">cs</button>
+    <button @click="cs2">cs2</button>
+    <button @click="CS">CS</button>
+    <button @click="CS2">CS2</button>
+    <br />
+    <span>{{name1}}</span>---<button @click="axionsCs2">请求</button>
   </div>
 </template>
 <script>
@@ -166,16 +178,19 @@ export default {
       return this.$store.state.codes
     },
     // 对象写法
-    ...mapState({ xxs: 'counts' }),
     ...mapState({
-      func1: state => state.func,
-      info: state => state.func.info
+      xxs1: 'counts', // 直接读取state
+      func1: state => state.func, // 读取模块对象
+      info: state => state.func.info, // 读取模块对象属性
+      name1: state => state.func.name1 // 读取模块对象属性
     }),
     // 数组写法
-    ...mapState(['sum', 'func']),
+    ...mapState(['sum', 'func']), // 读取state 和 模块对象
+    ...mapState('user', ['userName', 'datas']), // 直接读取模块对象里的值（模块对象命名空间要设计》》 namespaced: true, // 命名空间）
 
     // # 借助mapGetters生成计算属性，从state中读取数据（数组写法）
-    ...mapGetters(['bigSum', 'smallSum']),
+    ...mapGetters(['bigSum', 'smallSum', 'gName1']),
+    ...mapGetters('user', ['gUserName']), // getter 数组写法 //因为设置了命名空间
     // ------------------------------------------------组件内的计算属性------------------------------------------------------------
     fullname: {
       // 这个get就是vue的数据劫持 的Objet.definePorperty()方法内的get和set方法
@@ -246,7 +261,7 @@ export default {
     }
   },
   created () {
-    console.log('writing组件--created生命周期钩子', this)
+    console.log('writing组件--created生命周期钩子', this.$store)
   },
   mounted () {
     console.log(mapState({ sum: 'sum' }), '00')
@@ -254,15 +269,17 @@ export default {
   methods: {
     // vuex
     // action---------------------------------------------
-    ...mapActions(['jiasum']), // mutations 数组写法
+    ...mapActions(['jiasum', 'cs2', 'axionsCs2']), // mutations 数组写法
+    ...mapActions('user', ['cs']), // mutations 数组写法 //因为设置了命名空间
     ...mapActions({ addSumA1: 'jiasum', addSumA2: 'jiasum1' }), // mutations 对象写法(接收一个参数)
     addSumA () {
       this.jiasum(1)
       // this.$store.dispatch('jiasum', 1) // 原始写法
     },
     // mutation---------------------------------------------
-    ...mapMutations(['JIASUM']), // action 数组写法
-    ...mapMutations({ addSumM1: 'JIASUM' }), // action 对象写法(接收一个参数)
+    ...mapMutations(['JIASUM', 'CS2']), // action 数组写法
+    ...mapMutations('user', ['CS']), // mutations 数组写法 //因为设置了命名空间
+    ...mapMutations({ addSumM1: 'JIASUM2' }), // action 对象写法(接收一个参数)
     addSumM () {
       this.JIASUM(1)
       // this.$store.commit('JIASUM', 1) // 原始写法
@@ -275,7 +292,7 @@ export default {
       console.log('滚动条动了就会一直触发（滚轮和上下键都会触发）')
     },
     wheel1 () {
-      console.log('滚轮动了就会触发，不管滚动条有没有到底（上下键不会触发）')
+      console.log('滚轮动了就会触发，不管滚动条有没有到底（上下键不会触发）') // https://api.uixsj.cn/hitokoto/get?type=social
     },
     // 按下回车触发
     showInfo (e) {
