@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+
+// ***** 引入store *****
 import store from './store'
 
 // ***** axios *****
@@ -90,7 +92,7 @@ Vue.prototype.$echarts = echarts // 引入组件
 Vue.config.productionTip = false // 放开是生成模式，注释是开发模式
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
-Vue.prototype.$store = store
+// Vue.prototype.$store = store  // vue 会自定在实例身上加$store
 Vue.prototype.$watermark = watermark
 Vue.prototype.$wordlimit = wordlimit
 Vue.prototype.$pubSub = PubSub
@@ -101,16 +103,11 @@ Vue.config.silent = false
 // eslint-disable-next-line no-unused-vars
 const vm = new Vue({
   router,
-  store,
+  store, // 这边就是引入的store，vue会自动加在实例身上，名为$store
   i18n,
-  // components: { school },
   render: h => h(App),
   beforeCreate () {
     Vue.prototype.$bus = this // 安装全局事件总线
   }
 }).$mount('#app')
-// console.log('@@@  vm', vm)
-
-const school = Vue.extend({})
-// VueComponents.prototype.__proto__ === Vue.portotype
-console.dir(school)
+console.log('vm:', vm)

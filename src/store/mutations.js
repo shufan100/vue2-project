@@ -1,4 +1,4 @@
-
+// mutations -- 用于操作数据
 const mutations = {
 
   sidebarOpenedMutations: (state, newData) => {

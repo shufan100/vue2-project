@@ -204,7 +204,7 @@ export default {
     }
   },
   created () {
-    console.log('writing组件--created生命周期钩子')
+    console.log('writing组件--created生命周期钩子', this)
   },
   methods: {
     clicks () {

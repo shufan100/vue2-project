@@ -1,3 +1,4 @@
+// state -- 用于存储数据
 import { getToken } from '@/utils/jsCookie'
 const state = {
   sidebarOpened: false, // 侧边栏默认和logo展开
