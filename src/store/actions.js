@@ -11,7 +11,7 @@ export default {
     context.dispatch('jiasum2', value)
   },
   jiasum1 (context) {
-    context.dispatch('jiasum2', 1)
+    context.dispatch('jiasum2', 2)
   },
   jiasum2 (context, value) {
     console.log('context:>>>>', context, value)
