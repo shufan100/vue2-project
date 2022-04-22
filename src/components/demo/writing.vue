@@ -260,17 +260,6 @@ export default {
       return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
   },
-  /**
-    1）通过keep-alive缓存的组件，才会触发的新生命周期钩子
-    2）通过keep-alive缓存的组件，当路由切换离开当前组件，（组件未销毁）不会触发 beforeDestroy 和 destroyed生命周期
-    3）activated 替代 mounted; deactivated 替代 beforeDestroy
-   */
-  activated () {
-    console.log('激活writing组件（进入组件） -- 结合keep-alive的新生命周期钩子')
-  },
-  deactivated () {
-    console.log('失活writing组件（离开组件） -- 结合keep-alive的新生命周期钩子')
-  },
 
   created () {
     console.log('writing组件--created生命周期钩子', this.$store)
@@ -333,6 +322,30 @@ export default {
       this.$pubSub.publish('pubsubClick', '99999')
     }
 
+  },
+
+  /**
+    1）通过keep-alive缓存的组件，才会触发的新生命周期钩子
+    2）通过keep-alive缓存的组件，当路由切换离开当前组件，（组件未销毁）不会触发 beforeDestroy 和 destroyed生命周期
+    3）activated 替代 mounted; deactivated 替代 beforeDestroy
+   */
+  activated () {
+    console.log('激活writing组件（进入组件） -- 结合keep-alive的新生命周期钩子')
+  },
+  deactivated () {
+    console.log('失活writing组件（离开组件） -- 结合keep-alive的新生命周期钩子')
+  },
+
+  /**
+   * 组件内路由守卫
+   */
+  // 通过路由规则，进入该组件之前被调用
+  beforeRouteEnter (to, from, next) {
+    // ...
+  },
+  // 通过路由规则，离开该组件之前被调用
+  beforeRouteLeave (to, from, next) {
+    // ...
   }
 }
 </script>

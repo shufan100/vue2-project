@@ -7,8 +7,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '购物车',
       path: 'demo/shopping',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/magnifying',
@@ -18,8 +18,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '放大镜',
       path: 'demo/magnifying',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/threeD',
@@ -29,8 +29,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '3D旋转图',
       path: 'demo/3D',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/upload',
@@ -40,8 +40,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '文件上传',
       path: 'demo/upload',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/printer',
@@ -51,8 +51,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '打印机',
       path: 'demo/printer',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/exportPdf',
@@ -62,8 +62,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '导出PDF',
       path: 'demo/exportPdf',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/iconfont',
@@ -73,8 +73,8 @@ const demoRouter = [
       parentTitle: 'Demo',
       title: '矢量图标',
       path: 'demo/iconfont',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/carousel',
@@ -84,8 +84,8 @@ const demoRouter = [
       parentTitle: 'Carousel',
       title: '轮播图',
       path: 'demo/carousel',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/antiShake',
@@ -95,8 +95,8 @@ const demoRouter = [
       parentTitle: 'AntiShake',
       title: '防抖指令',
       path: 'demo/antiShake',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/seamless',
@@ -106,8 +106,8 @@ const demoRouter = [
       parentTitle: 'Seamless',
       title: '无缝滚动',
       path: 'demo/seamless',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/video',
@@ -117,8 +117,8 @@ const demoRouter = [
       parentTitle: 'Video',
       title: '视频播放',
       path: 'demo/video',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/slots',
@@ -128,8 +128,8 @@ const demoRouter = [
       parentTitle: 'slots',
       title: '插槽',
       path: 'demo/slots',
-      permissions: true,
-    },
+      permissions: true
+    }
   },
   {
     path: '/writing',
@@ -139,8 +139,14 @@ const demoRouter = [
       parentTitle: 'writing',
       title: '基础写法',
       path: 'demo/writing',
-      permissions: true,
+      permissions: true
     },
-  },
-];
-export default demoRouter;
+    // 独享路由守卫（路由进入之前） 和 全局的前置路由守卫一样
+    beforeEnter: (to, from, next) => {
+      console.log('@@@ ~ beforeEnter')
+      // ...
+      !to.meta.permissions ? next('/403') : next()
+    }
+  }
+]
+export default demoRouter

@@ -83,7 +83,7 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/layout/Login.vue'),
-    meta: { title: '404' }
+    meta: { title: '登录' }
 
   },
   {

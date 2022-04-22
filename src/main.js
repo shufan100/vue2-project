@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 
-// ***** 引入store *****
+// ***** router *****
+import router from './router'
+// 路由权限
+import './common/routerPermissions.js'
+
+// ***** vuex *****
 import store from './store'
 
 // ***** axios *****
@@ -19,8 +23,7 @@ import htmlToPdf from './utils/htmlToPdf'
 import echarts from 'echarts'
 // ***** 拖拽指令****
 import './common/directives'
-// 路由权限
-import './common/routerPermissions.js'
+
 // ***** 中英文 ****
 import i18n from '@/lang'
 /// 引入iconfont class加iconfont
