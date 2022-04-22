@@ -260,10 +260,24 @@ export default {
       return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
   },
+  /**
+    1）通过keep-alive缓存的组件，才会触发的新生命周期钩子
+    2）通过keep-alive缓存的组件，当路由切换离开当前组件，（组件未销毁）不会触发 beforeDestroy 和 destroyed生命周期
+    3）activated 替代 mounted; deactivated 替代 beforeDestroy
+   */
+  activated () {
+    console.log('激活writing组件（进入组件） -- 结合keep-alive的新生命周期钩子')
+  },
+  deactivated () {
+    console.log('失活writing组件（离开组件） -- 结合keep-alive的新生命周期钩子')
+  },
+
   created () {
     console.log('writing组件--created生命周期钩子', this.$store)
   },
   mounted () {
+    console.log(this.$router)
+    console.log(this.$route)
     console.log(mapState({ sum: 'sum' }), '00')
   },
   methods: {

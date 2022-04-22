@@ -73,6 +73,7 @@ export default {
     this.$bus.$off('busClick')
     this.$pubSub.unsubscribe(this.pubId) // 取消订阅
   }
+
 }
 </script>
 <style scoped lang="less">

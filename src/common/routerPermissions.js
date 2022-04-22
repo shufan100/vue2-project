@@ -7,7 +7,7 @@ import('nprogress/nprogress.css')
 
 // 使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-  NProgress.start()
+  NProgress.start() // 进度条
   document.title = `${to.meta.title} | SF` // 设置地址栏title
   const role = localStorage.getItem('ms_username')
   if (!role && to.path !== '/login') {
