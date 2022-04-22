@@ -97,7 +97,10 @@ const routes = [
 
 // 创建一个路由器
 const router = new VueRouter({
-  mode: 'history',
+  // history: /  >> /后面的全部都会发送给服务器  ：兼容略差
+  // hash:   /#/ >> (#)后面的路径不会发给服务器 ：兼容性好
+
+  mode: 'history', // 默认hash
   routes
 })
 

@@ -342,10 +342,12 @@ export default {
   // 通过路由规则，进入该组件之前被调用
   beforeRouteEnter (to, from, next) {
     // ...
+    next()
   },
   // 通过路由规则，离开该组件之前被调用
   beforeRouteLeave (to, from, next) {
     // ...
+    next()
   }
 }
 </script>
