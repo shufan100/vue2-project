@@ -40,13 +40,17 @@
 </template>
 
 <script>
-import Watermark from '@/utils/watermark' // 路径不要写错
-import VueQr from 'vue-qr'
-import pinyin from 'js-pinyin'
-import pdf from 'vue-pdf' // 在线预览pdf
-import shanxi from '@/assets/json/sx.json'
+// import Watermark from '@/utils/watermark' // 路径不要写错
+// import VueQr from 'vue-qr'
+// import pinyin from 'js-pinyin'
+// import pdf from 'vue-pdf' // 在线预览pdf
+// import shanxi from '@/assets/json/sx.json'
 import china from '@/assets/json/china.json'
 export default {
+  // components: {
+  //   VueQr,
+  //   pdf
+  // },
   data () {
     return {
       url:
@@ -59,7 +63,7 @@ export default {
       guidePic:
         'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg', // 预览图片的地址
       pdfShow: false,
-      mapData: [
+      mapData1: [
         { name: '太原市', value: 100 },
         { name: '阳泉市', value: 2000 },
         { name: '大同市', value: 39990 },
@@ -119,11 +123,9 @@ export default {
       ]
     }
   },
-  components: {
-    VueQr,
-    pdf
-  },
+
   mounted () {
+    console.log(this)
     console.log('mixin:', this.mixinName)
     //         // Watermark.set("水印内容")
     // let name = "陈名勤";
