@@ -22,7 +22,7 @@ const rest = axios.create({
   // 跨域请求时是否需要使用凭证
   withCredentials: true,
   // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
-  validateStatus: function () {
+  validateStatus: function() {
     return true
   }
 })
@@ -30,53 +30,62 @@ const rest = axios.create({
 // 拦截器分为request请求拦截器和response响应拦截器 //
 
 // request(请求)拦截器
-rest.interceptors.request.use(config => {
-  router.push('HiChild') // 请求的话
-  // store.dispatch('showLoading', true) // 请求开启loading
-
-  // 判断改变入参类型
-  if (config.method === 'post') {
-    config.data = qs.stringify(config.data)
-  }
-
-  // 提交文件类型
-  if (config.data instanceof FormData) {
-    config.headers = {
-      'Content-Type': 'multipart/form-data'
-      // Authorization: store.state.token ? store.state.token : ''
+rest.interceptors.request.use(
+  config => {
+    if (config.type === 'mock') {
+      config.baseURL = '/dev-api'
     }
-  } else {
-    // 常规请求
-    config.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
-      // Authorization: store.state.token ? store.state.token : ''
+    // router.push('HiChild') // 请求的话
+    // store.dispatch('showLoading', true) // 请求开启loading
+
+    // 判断改变入参类型
+    if (config.method === 'post') {
+      config.data = qs.stringify(config.data)
     }
-    config.data = qs.stringify(config.data)
+
+    // 提交文件类型
+    if (config.data instanceof FormData) {
+      config.headers = {
+        'Content-Type': 'multipart/form-data'
+        // Authorization: store.state.token ? store.state.token : ''
+      }
+    } else {
+      // 常规请求
+      config.headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+        // Authorization: store.state.token ? store.state.token : ''
+      }
+      config.data = qs.stringify(config.data)
+    }
+    config.withCredentials = true // 关闭loading
+    config.timeout = 5000
+    return config
+  },
+  error => {
+    // 请求超时才会走进来
+    // store.dispatch('hideloading', false)
+    return Promise.reject(error)
   }
-  config.withCredentials = true // 关闭loading
-  config.timeout = 5000
-  return config
-}, error => {
-  // 请求超时才会走进来
-  // store.dispatch('hideloading', false)
-  return Promise.reject(error)
-})
+)
 
 // respone(响应)拦截器
-rest.interceptors.response.use(response => {
-  // store.dispatch('hideloading', false)
-  if (!response.data.success) {
-    return Promise.resolve(response)
+rest.interceptors.response.use(
+  response => {
+    if (!response.data.success) {
+      return Promise.resolve(response)
+    }
+    return response.data
+  },
+  error => {
+    if (error.response.code === 401) {
+      router.replace({
+        // 跳转到登录页面
+        path: '/login'
+      })
+    }
+    // store.dispatch('hideloading', false)
+    return Promise.reject(error)
   }
-  return response.data
-}, error => {
-  if (error.response.status === 401) {
-    router.replace({ // 跳转到登录页面
-      path: '/login'
-    })
-  }
-  // store.dispatch('hideloading', false)
-  return Promise.reject(error)
-})
+)
 
 export default rest

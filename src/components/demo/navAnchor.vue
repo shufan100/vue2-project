@@ -35,17 +35,17 @@
             <template slot-scope="scope">
               <div class="blurb">
                 <img :src="scope.row.imageUrl" alt="" />
-                <div>
-                  <p>{{ scope.row.productName }}</p>
-                  <p style="color: #999">SKU：{{ scope.row.skuCode }}</p>
-                  <p style="color: #999">成品ID：{{ scope.row.layoutId }}</p>
-                  <p>{{ scope.row.sku }}</p>
+                <div style="text-align: left">
+                  <p>{{ scope.row.title }}</p>
+                  <p style="color: #999">SKU：{{ scope.row.id }}</p>
+                  <p style="color: #999">成品ID：{{ scope.row.id }}</p>
+                  <p>{{ scope.row.title }}</p>
                 </div>
               </div>
             </template>
           </el-table-column>
           <el-table-column prop="orderCode" label="销售订单编号"> </el-table-column>
-          <el-table-column prop="num" label="数量"> </el-table-column>
+          <el-table-column prop="number" label="数量"> </el-table-column>
           <el-table-column prop="price" label="单价(元)"> </el-table-column>
           <el-table-column prop="weight" label="单品重量KG)"> </el-table-column>
           <el-table-column label="备注">
@@ -79,12 +79,13 @@
   </div>
 </template>
 <script>
+import { getList } from '@/api/mockApi'
 export default {
   name: 'DeliverDetail',
   data() {
     return {
       navIndex: 0,
-      navList: ['订单详情', '产品信息', '补发记录'],
+      navList: ['订单详情', '列表信息', '补发记录'],
       details: {},
       tableData: [],
       addList: [],
@@ -99,19 +100,10 @@ export default {
   methods: {
     // 获取列表
     async getDetalis() {
+      const { data } = await getList()
+      console.log(data)
       this.details = {}
-      this.tableData = [
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' },
-        { num: '111' }
-      ]
+      this.tableData = data.data
       this.addList = []
     },
     // 监听滚轮
@@ -121,7 +113,6 @@ export default {
       for (let i = scrollItems.length - 1; i >= 0; i--) {
         // 判断滚动条滚动距离是否大于当前滚动项可滚动距离
         const judge = e.target.scrollTop >= scrollItems[i].offsetTop - scrollItems[0].offsetTop
-        console.log(judge)
         if (judge) {
           this.navIndex = i
           break
@@ -213,7 +204,6 @@ export default {
   }
   .deliverDetail_nav {
     height: 60px;
-    margin-bottom: 14px;
     background: #fff;
     z-index: 9;
     display: flex;
@@ -236,13 +226,12 @@ export default {
   }
   .nav_fixe {
     position: sticky;
-    position: -webkit-sticky;
     top: 0px;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+    box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 8%);
   }
   .deliverDetail_info {
     padding: 24px;
-    margin-bottom: 14px;
+    margin-top: 14px;
     background: #fff;
     border-radius: 4px;
     ul {
@@ -321,33 +310,6 @@ export default {
     }
   }
 
-  footer {
-    position: fixed;
-    left: -24px;
-    bottom: 0;
-    width: calc(100% + 24px);
-    height: 60px;
-    padding-right: 120px;
-    background: #ffffff;
-    line-height: 60px;
-    text-align: right;
-    box-shadow: 9px -2px 8px 4px rgba(49, 97, 254, 0.05);
-    .el-button:nth-last-child(1) {
-      background: #2858f8;
-      color: #fff;
-      border-color: #2858f8;
-    }
-    .backBtn {
-      background: #fff !important;
-      color: #606266 !important;
-      border-color: #dcdfe6 !important;
-      &:hover {
-        color: #2858f8 !important;
-        border-color: #bfcdfd !important;
-        background-color: #eaeefe !important;
-      }
-    }
-  }
   .flex {
     display: flex;
     flex-wrap: wrap;

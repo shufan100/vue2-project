@@ -63,6 +63,9 @@ import PubSub from 'pubsub-js'
 // 引入动画样式
 import 'animate.css'
 
+// ***** mock ****
+import '@/mock'
+
 // ***挂载vue实例上***
 import plugins from './utils/plugins'
 Vue.use(plugins)
