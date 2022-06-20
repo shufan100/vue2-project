@@ -132,6 +132,17 @@ const demoRouter = [
     }
   },
   {
+    path: '/navAnchor',
+    name: 'navAnchor',
+    component: () => import('@/components/demo/navAnchor'),
+    meta: {
+      parentTitle: 'navAnchor',
+      title: '导航锚点',
+      path: 'demo/navAnchor',
+      permissions: true
+    }
+  },
+  {
     path: '/writing',
     name: 'writing',
     component: () => import('@/components/demo/writing'),

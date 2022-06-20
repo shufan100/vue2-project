@@ -2,32 +2,36 @@
 <template>
   <div id="antiShake" class="antiShake">
     <el-button v-preventReClick @click="antiShake">防抖多次触发</el-button>
-    <p v-for="(item,index) in list" :key="index">{{item}}</p>
+    <p v-for="(item, index) in list" :key="index">{{ item }}</p>
     <br />
-    <el-button @click="postMsg">postMsg</el-button>
-    <iframe ref="iframes" class="iframe" src="http://192.168.1.131:3008/"></iframe>
+    <input type="text" v-fbind:value="val" />
+    {{ value }}
+    <!-- <el-button @click="postMsg">postMsg</el-button>
+    <iframe ref="iframes" class="iframe" src="http://192.168.1.131:3008/"></iframe> -->
   </div>
 </template>
 <script>
-
 export default {
-  data () {
+  data() {
     return {
-      list: []
+      list: [],
+      val: 1,
+      value: ''
     }
   },
-  created () {
+  created() {
     console.log(window, '00')
   },
-  mounted () {
+  mounted() {
     // this.$watermark.set(`SHUFAN`)
   },
   methods: {
-    antiShake () {
+    antiShake() {
       console.dir('1秒触发一次！')
       this.list.push('1秒触发一次！')
+      console.log(this.list)
     },
-    postMsg () {
+    postMsg() {
       const data = { token: 'f4009a55f2a04d46b7496ff820d3bf81', refreshToken: 'e72851df067241d286a0e39af0fe76ec' }
       // iframe传值
       // this.$refs.iframes.contentWindow.postMessage(data, '*')

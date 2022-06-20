@@ -1,51 +1,48 @@
 <!-- 放大镜 -->
 <template>
   <div id="seamless">
-    <div class="seamless-content" >
-
-      <vue-seamless-scroll :class-option="classOption" :data="tableList" class="warp" >
-        <div v-for="(item, index) in tableList" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+    <div class="seamless-content">
+      <vue-seamless-scroll :class-option="classOption" :data="tableList" class="warp">
+        <div v-for="(item, index) in tableList" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
       <vue-seamless-scroll :class-option="classOption2" :data="tableList2" class="warp">
-        <div v-for="(item, index) in tableList2" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+        <div v-for="(item, index) in tableList2" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
       <vue-seamless-scroll :class-option="classOption" :data="tableList" class="warp">
-        <div v-for="(item, index) in tableList" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+        <div v-for="(item, index) in tableList" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
       <vue-seamless-scroll :class-option="classOption2" :data="tableList2" class="warp">
-        <div v-for="(item, index) in tableList2" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+        <div v-for="(item, index) in tableList2" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
       <vue-seamless-scroll :class-option="classOption" :data="tableList2" class="warp">
-        <div v-for="(item, index) in tableList2" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+        <div v-for="(item, index) in tableList2" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
       <vue-seamless-scroll :class-option="classOption2" :data="tableList2" class="warp">
-        <div v-for="(item, index) in tableList2" :key="index" :style="{height:item.isLong?'390px':'240px'}">
+        <div v-for="(item, index) in tableList2" :key="index" :style="{ height: item.isLong ? '390px' : '240px' }">
           <img :src="item.src" alt />
         </div>
       </vue-seamless-scroll>
     </div>
-
   </div>
 </template>
 <script>
-import vueSeamlessScroll from 'vue-seamless-scroll'
+import vueSeamlessScroll from 'vue-seamless-scroll';
 export default {
   components: {
     vueSeamlessScroll
   },
-  data () {
+  data() {
     return {
-
       tableList: [
         { src: 'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004654762456443.png', isLong: true },
         { src: 'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20210624/ge3denbvgmzdoojzhe3tcnzxgm4toltqnztv6mrygv4deobva.jpg', isLong: false },
@@ -86,20 +83,19 @@ export default {
       },
       activeName: '授权',
       themeTitle: ''
-    }
+    };
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    beforeTabLeave (newVal, oldVal) {
+    beforeTabLeave(newVal, oldVal) {
       if (newVal === '素材' && this.themeTitle) {
-        this.$message.warning('主题作品不能发布至素材区')
-        return false
+        this.$message.warning('主题作品不能发布至素材区');
+        return false;
       }
     },
-    handleClick (tab, event) {
+    handleClick(tab, event) {
       if (tab.name === '素材') {
-        console.log(1111111111)
+        console.log(1111111111);
         // this.workData.buyOutPrice = ''
         // this.realBuyOutPrice = ''
         // this.workData.categoryPrice = ''
@@ -107,7 +103,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 #seamless {
@@ -128,7 +124,7 @@ export default {
     height: 1000px;
     margin-right: 20px;
     background: #f1f1f1;
-    transform:rotate(-45deg);
+    // transform:rotate(-45deg);
 
     div {
       display: block;

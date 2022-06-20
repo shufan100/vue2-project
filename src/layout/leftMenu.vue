@@ -1,51 +1,57 @@
 <template>
   <div class="menu_left cflex">
     <div class="menu_page_top rflex">
-      <img :class="['logo',{'closeLogo':sidebarOpened}]" :src="logo" alt="小爱admin" />
+      <img :class="['logo', { closeLogo: sidebarOpened }]" :src="logo" alt="小爱admin" />
       <span class="title" v-show="!sidebarOpened">
-        {{$t(`i18n.userName`)}}
+        {{ $t(`i18n.userName`) }}
         <i>Admin</i>
       </span>
     </div>
     <div class="menu_page_bottom is-scroll-left wflex">
-      <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" active-text-color="#ff6428" @select="handleOpen" @close="handleClose" :collapse="sidebarOpened" router>
-        <template v-for="(item,index) in items">
+      <el-menu
+        class="el-menu-vertical-demo"
+        :default-active="onRoutes"
+        active-text-color="#ff6428"
+        @select="handleOpen"
+        @close="handleClose"
+        :collapse="sidebarOpened"
+        router
+      >
+        <template v-for="(item, index) in items">
           <!-- 1、判断一级菜单是否有子级 -->
           <template v-if="item.subs">
             <el-submenu :index="item.index" :key="index">
               <!-- 一级菜单（有子级标题） -->
               <template slot="title">
-                <i :class="[item.icon,'iconfont']"></i>
+                <i :class="[item.icon, 'iconfont']"></i>
                 <!-- <span slot="title">{{item.title}}</span> -->
-                <span slot="title">{{$t(`i18n.${item.index}`)}}</span>
+                <span slot="title">{{ $t(`i18n.${item.index}`) }}</span>
               </template>
 
               <!-- 二级菜单（循环） -->
               <template v-for="subItem in item.subs">
-
                 <!-- 2、判断二级菜单是否有子级 -->
                 <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
                   <!-- 二级菜单（有子级标题） -->
                   <!-- <template slot="title">{{ subItem.title }}</template> -->
-                  <template slot="title">{{$t(`i18n.${subItem.index}`)}}</template>
+                  <template slot="title">{{ $t(`i18n.${subItem.index}`) }}</template>
                   <!-- <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index" >{{ threeItem.title }}</el-menu-item> -->
-                  <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index">{{ $t(`i18n.${threeItem.title}`) }}</el-menu-item>
+                  <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{ $t(`i18n.${threeItem.title}`) }}</el-menu-item>
                 </el-submenu>
 
                 <!-- 二级菜单 -->
                 <!-- <el-menu-item v-else :index="subItem.index" :key="subItem.index" >{{ subItem.title }}</el-menu-item> -->
-                <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index}`)}}</el-menu-item>
+                <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index}`) }}</el-menu-item>
               </template>
-
             </el-submenu>
           </template>
 
           <template v-else>
             <!-- 一级菜单 -->
             <el-menu-item :index="item.index" :key="index">
-              <i :class="[item.icon,'iconfont']"></i>
+              <i :class="[item.icon, 'iconfont']"></i>
               <!-- <span slot="title">{{item.title}}</span> -->
-              <span slot="title">{{$t(`i18n.${item.index}`)}}</span>
+              <span slot="title">{{ $t(`i18n.${item.index}`) }}</span>
             </el-menu-item>
           </template>
         </template>
@@ -179,7 +185,10 @@ export default {
               index: 'slots',
               title: '插槽'
             },
-
+            {
+              index: 'navAnchor',
+              title: '导航锚点'
+            }
           ]
         },
         {
@@ -243,9 +252,7 @@ export default {
     },
     ...mapState(['sidebarOpened', 'sidebarWidth'])
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);

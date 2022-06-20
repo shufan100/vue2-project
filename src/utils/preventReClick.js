@@ -8,22 +8,21 @@ Vue.directive('preventReClick', {
     // console.log('bind')
   },
   // 指令所在元素被插入页面时
-  inserted (el, binding) {
-    // console.log('inserted', el, binding)
+  inserted(el, binding) {
+    console.log('inserted', el, binding)
     el.addEventListener('click', () => {
       if (!el.disabled) {
         el.disabled = true
-        var timess = setTimeout(() => {
+        console.log(new Date())
+        setTimeout(() => {
           el.disabled = false
         }, binding.value || 1000)
-        clearTimeout(timess)
-        console.log(timess, 'timess')
       }
     })
   },
-  // 指令所在的模板被重新解析时(当前模板有数据发生改变渲染模板就会触发)
+  // 指令所在的模板被重新解析时 (当前模板有数据发生改变渲染模板就会触发)
   update(el, binding) {
-    // console.log('update')
+    console.log('update')
   }
 })
 
@@ -35,7 +34,7 @@ Vue.directive('fbind', {
     el.value = binding.value // 值绑定到节点上
   },
   // 指令所在元素被插入页面时
-  inserted (el, binding) {
+  inserted(el, binding) {
     console.log('inserted')
     el.focus() // 获取焦点
   },

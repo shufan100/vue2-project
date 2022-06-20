@@ -1,7 +1,7 @@
-import router from '@/router';
-const routerObj = {};
+import router from '@/router'
+const routerObj = {}
 for (const item of router.options.routes[0].children) {
-  routerObj[item.name] = item.meta.title || '';
+  routerObj[item.name] = item.meta.title || ''
 }
 const zh = {
   i18n: {
@@ -36,10 +36,10 @@ const zh = {
     permissions: '权限设置',
     // pagePermissions:'页面权限',
     // btnPermissions:'按钮权限',
-    errorPage: '错误页面',
+    errorPage: '错误页面'
     // 403:'403',
     // 404:'404'
-  },
-};
-Object.assign(zh.i18n, routerObj);
-export default zh;
+  }
+}
+Object.assign(zh.i18n, routerObj)
+export default zh
