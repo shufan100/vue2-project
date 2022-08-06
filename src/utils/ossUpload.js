@@ -34,7 +34,7 @@ async function createOSS(isNew) {
   OSSClient = new OSS({
     region: 'oss-cn-shanghai',
     secure: true,
-    accessKeyId: credentials.accessKeyId,
+    accessKeyId: credentials.accessId,
     accessKeySecret: credentials.accessKeySecret,
     expiration: credentials.expiration,
     stsToken: credentials.securityToken
