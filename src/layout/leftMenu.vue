@@ -151,7 +151,7 @@ export default {
             },
             {
               index: 'upload',
-              title: '文件上传'
+              title: '图片上传'
             },
             {
               index: 'printer',

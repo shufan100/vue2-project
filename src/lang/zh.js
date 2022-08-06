@@ -23,7 +23,7 @@ const zh = {
     demo: '案例',
     // shopping:'购物车',
     // threeD:'3D旋转图',
-    // upload:'文件上传',
+    // upload:'图片上传',
     // printer:'打印机',
     // iconfont:'矢量图标',
     // magnifying:'放大镜',

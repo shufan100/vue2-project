@@ -2,21 +2,22 @@
   <div class="audit-dialog-container">
     <el-dialog :visible.sync="show" :before-close="closeDialog" :close-on-click-modal="false" center title="裁剪图案" width="520px">
       <div class="dialog-wrap tailoring-box-parcel">
-       
-        <img class="tailoringImg" ref="tailoringImg">
+        <img class="tailoringImg" ref="tailoringImg" />
       </div>
       <template slot="footer">
         <el-button @click="$emit('clickUploadFile')" size="mini">重新上传</el-button>
         <el-button @click="closeDialog" size="mini">取消</el-button>
-        <el-button @click="sureEvent" type="primary" size="mini">保存</el-button>
+        <el-button @click="save" type="primary" size="mini">保存</el-button>
       </template>
     </el-dialog>
-
   </div>
 </template>
 <script>
 import $ from 'jquery'
 import axios from 'axios'
+import { uploadOSS } from '@/utils/ossUpload'
+import Cropper from 'cropperjs'
+import 'cropperjs/dist/cropper.css'
 export default {
   props: {
     show: {
@@ -27,12 +28,10 @@ export default {
       type: Number,
       default: 1 / 1
     }
-
   },
-  data () {
+  data() {
     return {
-      cutDown:
-        'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20211110/ge3dgnrvgeztkmjtgu4teojvgi4teltkobswoxzsha2xqmrygu.jpg',
+      cutDown: 'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20211110/ge3dgnrvgeztkmjtgu4teojvgi4teltkobswoxzsha2xqmrygu.jpg',
       option: {
         img: 'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20211110/ge3dgnrvgeztkmjtgu4teojvgi4teltkobswoxzsha2xqmrygu.jpg',
         size: '',
@@ -43,31 +42,44 @@ export default {
       imgData: {}
     }
   },
-  mounted () {
-
-  },
+  mounted() {},
   methods: {
-    // 获取阿里云信息
-    GenPostPolicy () {
-      axios.post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
-        data: {
-          module: 'CUMS',
-          upfilePath: 'OA'
-        },
-        sign: 'B99DD86F2011A98622A37F472570B5C4',
-        sysName: 'Front_CUMS',
-        ts: '1647934436000',
-        version: '1.0.0'
-      }).then(res => {
-        this.policyData = res.data.data
+    init() {
+      this.myCropper = new Cropper(this.$refs.image, {
+        viewMode: 1,
+        dragMode: 'move',
+        // initialAspectRatio: 1,
+        preview: '.before',
+        background: false,
+        autoCropArea: 1,
+        zoomOnWheel: true,
+        aspectRatio: this.autoCropWidth / this.autoCropHeight
       })
     },
-    init (url, data) {
+    // 获取阿里云信息
+    GenPostPolicy() {
+      axios
+        .post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
+          data: {
+            module: 'CUMS',
+            upfilePath: 'OA'
+          },
+          sign: 'B99DD86F2011A98622A37F472570B5C4',
+          sysName: 'Front_CUMS',
+          ts: '1647934436000',
+          version: '1.0.0'
+        })
+        .then(res => {
+          this.policyData = res.data.data
+        })
+    },
+    init1(url, data) {
       console.log(this.aspectRatio, 'aspectRatio====')
       this.$nextTick(() => {
-        this.imgData = data
-        //  var cropper = new Cropper(tailoringImg, {
-        $('.tailoringImg').cropper({
+        // this.imgData = data
+        const tailoringImgs = document.getElementById('tailoringImg')
+        var cropper = new Cropper(tailoringImgs, {
+          // $('.tailoringImg').cropper({
           viewMode: 1, // 0：没有限制;1:裁剪框必须在图片内移动；2：2图片 不全部铺满1；3：图片填充整个裁剪框
           cropBoxResizable: true, //
           autoCropArea: 1, // 裁剪框跟图片成1:1
@@ -75,15 +87,20 @@ export default {
           dragMode: 'move', // ‘crop’: 可以产生一个新的裁剪框, ‘move’: 只可以移动,  ‘none’: 什么也不处理
           toggleDragModeOnDblclick: false // 当点击两次时可以在“crop”和“move”之间切换拖拽模式，
         })
-        $('.tailoringImg').cropper('replace', url, false)
+        // $('.tailoringImg').cropper('replace', url, false)
+        cropper.replace(url)
       })
       this.GenPostPolicy()
     },
 
     // 确定按钮，先执行业务，完了调关闭方法，不要写两次关闭方法
-    sureEvent () {
+    save() {
       this.$emit('closeDialog')
-      const arr = [{ width: 800, height: 450 }, { width: 800, height: 600 }, { width: 600, height: 600 }]
+      const arr = [
+        { width: 800, height: 450 },
+        { width: 800, height: 600 },
+        { width: 600, height: 600 }
+      ]
       const arrIndex = this.aspectRatio > 1.5 ? 0 : this.aspectRatio > 1 ? 1 : 2
       console.log(arrIndex, 'arrIndex')
       // 获取被裁剪后的canvas
@@ -94,15 +111,15 @@ export default {
       })
       this.upload(cas)
     },
-    async upload (cas, cas2) {
+    async upload(cas, cas2) {
       // oss直传到服务器
       var _this = this
       if (!HTMLCanvasElement.prototype.toBlob) {
         // 解决IE不兼容toBolob
         Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-          value: function (callback, type, quality) {
+          value: function(callback, type, quality) {
             var canvas = this
-            setTimeout(function () {
+            setTimeout(function() {
               var binStr = atob(canvas.toDataURL(type, quality).split(',')[1])
               var len = binStr.length
               var arr = new Uint8Array(len)
@@ -114,22 +131,6 @@ export default {
           }
         })
       }
-
-      // 原图
-      // let oldBigImg = ''
-      // this.haveFile.timestamp = new Date().getTime().toString() + Math.floor(Math.random() * 100000); // 给图片添加一个时间戳
-      // var formData1 = new FormData();
-      // formData1.append("key", _this.calculate_object_name(this.haveFile));
-      // formData1.append("policy", _this.policyBase64);
-      // formData1.append("OSSAccessKeyId", _this.accessid);
-      // formData1.append("success_action_status", 200);
-      // formData1.append("Signature", _this.signature);
-      // formData1.append("file", this.haveFile);
-      // formData1.append("userId", "0");
-      // await _this.$axios.post(_this.host, formData1).then(res => {
-      //   // console.log(FileServer + _this.calculate_object_name(this.haveFile), 'oldUrl----');
-      //   oldBigImg = FileServer + _this.calculate_object_name(this.haveFile)
-      // });
 
       // 截图
       cas.toBlob(blob => {
@@ -148,24 +149,23 @@ export default {
           console.log('http://tu.chdesign.cn/' + _this.calculate_object_name(blob), '截图Url----')
           const url = 'http://tu.chdesign.cn/' + _this.calculate_object_name(blob)
           _this.$emit('tailorImgUrl', url)
-          // _this.closeDialog(); // 关闭裁剪框
         })
       }, 'image/png')
     },
 
     // 关闭弹窗
-    closeDialog () {
+    closeDialog() {
       this.$emit('closeDialog')
     },
 
     // 生成图片路径
-    calculate_object_name (blobData) {
+    calculate_object_name(blobData) {
       var suffix = this.get_suffix(blobData.type)
       var g_object_name = this.policyData.dir + blobData.timestamp + '.' + suffix
       // Filenames[blobData.timestamp] = "/" + g_object_name;
       return g_object_name
     },
-    get_suffix (type) {
+    get_suffix(type) {
       var pos = type.lastIndexOf('/')
       var suffix = ''
       if (pos != -1) {
@@ -176,9 +176,9 @@ export default {
 
     // ImgCutter插件相关方法------------------
     // 打开弹窗
-    
+
     // 上传阿里云
-    uploadAli () {
+    uploadAli() {
       const nfile = this.file
       nfile.timestamp = new Date().getTime().toString() + Math.floor(Math.random() * 100000) // 给图片添加一个时间戳
       const formData = new FormData() // 注意formData里append添加的键的大小写
@@ -202,31 +202,33 @@ export default {
         }
       })
     },
-    catchError (res) {
+    catchError(res) {
       window.alert(res.msg)
     },
-    searchCutDown (file) {
+    searchCutDown(file) {
       console.log('🚀 ~ searchCutDown', file)
       const reader = new FileReader()
       reader.readAsDataURL(file.file)
-      reader.onload = (result) => {
+      reader.onload = result => {
         // 图片base64化
-        sessionStorage.setItem('search_image', JSON.stringify({
-          ...JSON.parse(sessionStorage.getItem('search_image')),
-          name: file.name,
-          url: result.target.result
-
-        }))
+        sessionStorage.setItem(
+          'search_image',
+          JSON.stringify({
+            ...JSON.parse(sessionStorage.getItem('search_image')),
+            name: file.name,
+            url: result.target.result
+          })
+        )
         this.$emit('sureDialog')
       }
     },
     // 生成图片路径
-    calculate_object_name1 (thefile) {
+    calculate_object_name1(thefile) {
       const suffix = this.get_suffix1(thefile.type, thefile.name)
       const name = this.policyData.dir + thefile.timestamp + '.' + suffix
       return name
     },
-    get_suffix1 (type, name) {
+    get_suffix1(type, name) {
       const pos = type.lastIndexOf('/')
       let suffix = ''
       if (pos !== -1) {
@@ -237,7 +239,6 @@ export default {
       }
       return suffix
     }
-
   }
 }
 </script>

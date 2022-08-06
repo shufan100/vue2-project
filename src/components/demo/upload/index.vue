@@ -1,35 +1,140 @@
 <template>
   <div>
-    <div class="container">
-      <h2>ImgCutter裁剪</h2>
-      <ImgCutter/>
-      <!-- 999999999999 -->
-      <div class="content-title">支持裁剪</div>
-      <div class="plugins-tips">
-        vue-cropperjs：一个封装了 cropperjs 的 Vue 组件。
-        访问地址：<a href="https://github.com/Agontuk/vue-cropperjs" target="_blank">vue-cropperjs</a>
-      </div>
-      <div class="crop-demo">
-        <img :src="cropImg" class="pre-img">
-        <div class="crop-demo-btn">选择图片
-          <input class="crop-input" type="file" name="image" accept="image/*" @change="setImage" />
+    <h2>elementUI--上传图片（bug：多张会多个提示）</h2>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="单张上传" name="1">
+        <div style="display:flex">
+          <TheUpload width="200px" height="200px" :imgW="800" :imgH="800">
+            <div>
+              <i class="el-icon-plus"></i>
+              <p>点击/拖拽上传图片</p>
+              <p>不小于（800*800）</p>
+            </div>
+          </TheUpload>
+          <TheUpload width="180px" height="180px" :imgW="800" :imgH="800">
+            <div>
+              <i class="el-icon-plus"></i>
+              <p>点击/拖拽上传图片</p>
+              <p>不小于（600*600）</p>
+            </div>
+          </TheUpload>
         </div>
-      </div>
+      </el-collapse-item>
+    </el-collapse>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="多张上传" name="1">
+        <TheUpload :multiple="true" width="160px" height="160px" :imgW="800" :imgH="800" @getUrlList="getUrlList">
+          <div>
+            <i class="el-icon-plus"></i>
+            <p>点击/拖拽上传图片</p>
+            <p>不小于（800*800）</p>
+          </div>
+        </TheUpload>
+      </el-collapse-item>
+    </el-collapse>
 
-      <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
-        <vue-cropper ref='cropper' :src="imgSrc" :ready="cropImage" :zoom="cropImage" :cropmove="cropImage" :canScale="option.canScale" :autoCrop="option.autoCrop" :fixedNumber="option.fixedNumber" :centerBox="option.centerBox" style="width:100%;height:300px;">
-        </vue-cropper>
-        <span slot="footer" class="dialog-footer">
-          <el-button @click="cancelCrop">取 消</el-button>
-          <el-button type="primary" @click="confirm">确 定</el-button>
-        </span>
-      </el-dialog>
-    </div>
-    <!-- <el-button @click="exports">下载/xls/pdf/png</el-button>  -->
-    <uploadCom tipTitle="比例=16：9" :aspectRatio='16 / 9' :minWidth="800" :minHeight="450" :originalUrl='cover1' :cropperUrl='coverCropper1' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg1" @getUrl='getUrl' />
-    <uploadCom tipTitle="比例=4：3" :aspectRatio='4 / 3' :minWidth="800" :minHeight="600" :originalUrl='cover2' :cropperUrl='coverCropper2' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg2" @getUrl='getUrl' />
-    <uploadCom tipTitle="比例=1：1" :isCropper='false' :aspectRatio='1 / 1' :minWidth="600" :minHeight="600" :originalUrl='cover3' :cropperUrl='coverCropper3' :policyData='policyData' accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB" type="coverImg3" @getUrl='getUrl' />
-
+    <h2>原生上传图片</h2>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="单张上传" name="2">
+        <TheUpload2 :multiple="false" width="160px" height="160px" :imgW="800" :imgH="800" @getUrlList="getUrlList">
+          <div>
+            <i class="el-icon-plus"></i>
+            <p>点击/拖拽上传图片</p>
+            <p>不小于（800*800）</p>
+          </div>
+        </TheUpload2>
+      </el-collapse-item>
+    </el-collapse>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="多张上传" name="2">
+        <TheUpload2 :multiple="true" width="160px" height="160px" :imgW="50" :imgH="50" @getUrlList="getUrlList">
+          <div>
+            <i class="el-icon-plus"></i>
+            <p>点击/拖拽上传图片</p>
+            <p>不小于（50*50）</p>
+          </div>
+        </TheUpload2>
+      </el-collapse-item>
+    </el-collapse>
+    <!-- --------------------------- -->
+    <!-- <ImgCutter /> -->
+    <h2>上传裁剪图片（单张）</h2>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="裁剪上传（vue-cropperjs）" name="3">
+        <img :src="cropImg" class="pre-img" />
+        <el-button @click="$refs.upload.click()">裁剪图片</el-button>
+        <input ref="upload" accept="image/*" type="file" @change="setImage" hidden style="display: none;" />
+      </el-collapse-item>
+    </el-collapse>
+    <el-collapse v-model="activeName">
+      <el-collapse-item title="裁剪上传（cropperjs）" name="3">
+        <TheUpload3 width="360px" height="200px" :imgW="800" :imgH="800" :aspectRatio="16 / 9">
+          <i class="el-icon-plus"></i>
+          <p class="el-upload__text">点击/拖拽上传图片</p>
+          <p class="el-upload__text">比例=16：9</p>
+        </TheUpload3>
+        <!-- <uploadCom
+          :aspectRatio="16 / 9"
+          :minWidth="800"
+          :minHeight="450"
+          :originalUrl="cover1"
+          :cropperUrl="coverCropper1"
+          :policyData="policyData"
+          accept=".jpg,.jpeg,.png"
+          type="coverImg1"
+          @getUrl="getUrl"
+        >
+          <i class="el-icon-plus"></i>
+          <p class="el-upload__text">点击/拖拽上传图片</p>
+          <p class="el-upload__text">比例=16：9</p>
+        </uploadCom> -->
+        <!-- <uploadCom
+          tipTitle="比例=4：3"
+          :aspectRatio="4 / 3"
+          :minWidth="800"
+          :minHeight="600"
+          :originalUrl="cover2"
+          :cropperUrl="coverCropper2"
+          :policyData="policyData"
+          accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB"
+          type="coverImg2"
+          @getUrl="getUrl"
+        />
+        <uploadCom
+          tipTitle="比例=1：1"
+          :isCropper="false"
+          :aspectRatio="1 / 1"
+          :minWidth="600"
+          :minHeight="600"
+          :originalUrl="cover3"
+          :cropperUrl="coverCropper3"
+          :policyData="policyData"
+          accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB"
+          type="coverImg3"
+          @getUrl="getUrl"
+        /> -->
+      </el-collapse-item>
+    </el-collapse>
+    <!-- 1111 -->
+    <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
+      <vue-cropper
+        ref="cropper"
+        :src="imgSrc"
+        :ready="cropImage"
+        :zoom="cropImage"
+        :cropmove="cropImage"
+        :canScale="option.canScale"
+        :autoCrop="option.autoCrop"
+        :fixedNumber="option.fixedNumber"
+        :centerBox="option.centerBox"
+        style="width:100%;height:300px;"
+      >
+      </vue-cropper>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="cancelCrop">取 消</el-button>
+        <el-button type="primary" @click="confirm">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -38,10 +143,15 @@ import axios from 'axios'
 import VueCropper from 'vue-cropperjs'
 import uploadCom from './uploadCom.vue'
 import ImgCutter from './imgCutter.vue'
+import TheUpload from './TheUpload.vue'
+import TheUpload2 from './TheUpload2.vue'
+import TheUpload3 from './TheUpload3.vue'
 export default {
   name: 'upload',
-  data () {
+  data() {
     return {
+      urlList: [],
+      activeName: '3',
       defaultSrc: require('../../../assets/images/img.jpg'),
       fileList: [],
       imgSrc: '',
@@ -86,29 +196,39 @@ export default {
   components: {
     VueCropper,
     uploadCom,
-    ImgCutter
+    ImgCutter,
+    TheUpload,
+    TheUpload2,
+    TheUpload3
   },
-  created () {
+  created() {
     this.cropImg = this.defaultSrc
     this.GenPostPolicy()
   },
   methods: {
-    // 获取阿里云直传的配置参数
-    GenPostPolicy () {
-      axios.post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
-        data: {
-          module: 'CUMS',
-          upfilePath: 'OA'
-        },
-        sign: 'B99DD86F2011A98622A37F472570B5C4',
-        sysName: 'Front_CUMS',
-        ts: '1647934436000',
-        version: '1.0.0'
-      }).then(res => {
-        this.policyData = res.data.data
-      })
+    getUrlList(list) {
+      console.log(list)
+      this.urlList = list
     },
-    getUrl (data) {
+
+    // 获取阿里云直传的配置参数
+    GenPostPolicy() {
+      axios
+        .post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
+          data: {
+            module: 'CUMS',
+            upfilePath: 'OA'
+          },
+          sign: 'B99DD86F2011A98622A37F472570B5C4',
+          sysName: 'Front_CUMS',
+          ts: '1647934436000',
+          version: '1.0.0'
+        })
+        .then(res => {
+          this.policyData = res.data.data
+        })
+    },
+    getUrl(data) {
       if (data.type === 'coverImg1') {
         this.cover1 = data.originalUrl
         this.coverCropper1 = data.cropperUrl
@@ -122,59 +242,59 @@ export default {
         this.coverCropper3 = data.cropperUrl
       }
     },
-    setImage (e) {
+    setImage(e) {
       const file = e.target.files[0]
       if (!file.type.includes('image/')) {
         return
       }
       const reader = new FileReader()
-      reader.onload = (event) => {
+      reader.onload = event => {
         this.dialogVisible = true
         this.imgSrc = event.target.result
         this.$refs.cropper && this.$refs.cropper.replace(event.target.result)
       }
       reader.readAsDataURL(file)
     },
-    cropImage () {
+    cropImage() {
       this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL()
     },
-    cancelCrop () {
+    cancelCrop() {
       this.dialogVisible = false
       this.cropImg = this.defaultSrc
     },
-    imageuploaded (res) {
+    imageuploaded(res) {
       console.log(res)
     },
-    handleError () {
+    handleError() {
       this.$notify.error({
         title: '上传失败',
         message: '图片上传接口上传失败，可更改为自己的服务器接口'
       })
     },
-    handleChange (file) {
+    handleChange(file) {
       sessionStorage.setItem('file', JSON.stringify(file))
       this.$router.push('/magnifying')
     },
-    handleRemove (file) {
+    handleRemove(file) {
       console.log(file)
     },
-    handlePictureCardPreview (file) {
+    handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
 
-    handleDownload (file) {
+    handleDownload(file) {
       console.log(file)
     },
 
     // 确定
-    confirm () {
+    confirm() {
       this.dialogVisible = false
       console.log(this.imgSrc, 'imgSrc')
     },
 
     // 下载文件
-    async exports () {
+    async exports() {
       const data = {
         cityId: this.formInline.cityId,
         countyId: this.formInline.countyId,
@@ -184,13 +304,13 @@ export default {
       }
       this.downloadModule(data, 'quality/exportStageProgressCompare')
     },
-    async downloadModule (data, url) {
+    async downloadModule(data, url) {
       axios({
         url: `${window.SERVER_URL}${url}`,
         method: 'post',
         responseType: 'blob',
         data: data
-      }).then(function (res) {
+      }).then(function(res) {
         const blob = new Blob([res.data], {
           type: 'application/json;charset=UTF-8'
         })
@@ -204,9 +324,7 @@ export default {
         window.URL.revokeObjectURL(href) // 释放掉blob对象
       })
     }
-
   }
-
 }
 </script>
 
@@ -219,6 +337,7 @@ export default {
   color: #1f2f3d;
 }
 .pre-img {
+  display: block;
   width: 100px;
   height: 100px;
   background: #f8f8f8;

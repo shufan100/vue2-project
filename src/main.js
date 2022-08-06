@@ -53,9 +53,8 @@ import scroll from 'vue-seamless-scroll'
 
 // 图片裁剪
 // import '@/assets/cropper/cropper.min.css'
-import '@/assets/cropper/cropper.min.js'
 // import '@/assets/cropper/ImgCropping.css'
-import ImgCutter from 'vue-img-cutter'
+// import ImgCutter from 'vue-img-cutter'
 
 // 消息订阅
 import PubSub from 'pubsub-js'
@@ -71,8 +70,8 @@ import plugins from './utils/plugins'
 Vue.use(plugins)
 
 Vue.use(scroll)
-Vue.use(ImgCutter)
-Vue.component('ImgCutter', ImgCutter)
+// Vue.use(ImgCutter)
+// Vue.component('ImgCutter', ImgCutter)
 
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'

@@ -38,7 +38,7 @@ const demoRouter = [
     component: () => import('@/components/demo/upload'),
     meta: {
       parentTitle: 'Demo',
-      title: '文件上传',
+      title: '图片上传',
       path: 'demo/upload',
       permissions: true
     }

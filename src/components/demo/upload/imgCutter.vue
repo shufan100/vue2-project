@@ -1,9 +1,9 @@
 <template>
   <div id="ImgCutter">
-  <ImgCutter
+    <ImgCutter
       ref="cropper"
       :img="option.img"
-      :rate='option.rate'
+      :rate="option.rate"
       :outputSize="option.outputSize"
       :outputType="option.outputType"
       :info="option.info"
@@ -24,7 +24,7 @@
       :maxImgSize="option.maxImgSize"
       :enlarge="option.enlarge"
       :mode="option.mode"
-      :toolBoxOverflow='option.toolBoxOverflow'
+      :toolBoxOverflow="option.toolBoxOverflow"
       :isModal="option.isModal"
       :tool="option.tool"
       :boxWidth="800"
@@ -35,20 +35,13 @@
       @onPrintImg="onPrintImg"
       @cutDown="cutDown"
     ></ImgCutter>
-    <img :src="cutterUrl" alt="">
+    <img :src="cutterUrl" alt="" />
   </div>
 </template>
-<script lang="ts" setup>
-import { defineComponent } from '@vue/composition-api'
-
-export default defineComponent({
- 
-})
-</script>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       defaultSrc: require('@/assets/images/01.jpg'),
       cutterUrl: '',
@@ -84,11 +77,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.openDialog()
   },
   methods: {
-    openDialog () {
+    openDialog() {
       this.$nextTick(() => {
         this.$refs.cropper.handleOpen({
           name: 'img',
@@ -98,26 +91,22 @@ export default {
         })
       })
     },
-    onPrintImg (res) {
+    onPrintImg(res) {
       console.log('🚀 ~ file: cutDialog.vue ~ line 65 ~ onPrintImg ~ res', res)
       // 预览图片
     },
     // 确定
-    cutDown (file) {
+    cutDown(file) {
       console.log(file, 'file111111111')
       this.cutterUrl = file.dataURL
     },
-    realTime () {
-
-    },
-    imgLoad () {
-
-    }
+    realTime() {},
+    imgLoad() {}
   }
 }
 </script>
 <style lang="less" scoped>
-#ImgCutter{
+#ImgCutter {
   // width: 400px;
   // height: 300px;
 }
