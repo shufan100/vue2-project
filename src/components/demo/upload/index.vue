@@ -57,7 +57,7 @@
       </el-collapse-item>
     </el-collapse>
     <!-- --------------------------- -->
-    <!-- <ImgCutter /> -->
+
     <h2>上传裁剪图片（单张）</h2>
     <el-collapse v-model="activeName">
       <el-collapse-item title="裁剪上传（vue-cropperjs）" name="3">
@@ -68,81 +68,35 @@
     </el-collapse>
     <el-collapse v-model="activeName">
       <el-collapse-item title="裁剪上传（cropperjs）" name="3">
-        <TheUpload3 width="360px" height="200px" :imgW="800" :imgH="800" :aspectRatio="16 / 9">
+
+        原图地址：{{origUrl1}}<br />
+        裁剪地址：{{tailorUrl1}}<br />
+        <TheUpload3 ref="upload1" :tailorUrl.sync="tailorUrl1" :origUrl.sync='origUrl1' width="360px" height="200px" :imgW="800" :imgH="800"
+          :aspectRatio="16 / 9">
           <i class="el-icon-plus"></i>
           <p class="el-upload__text">点击/拖拽上传图片</p>
           <p class="el-upload__text">比例=16：9</p>
         </TheUpload3>
-        <!-- <uploadCom
-          :aspectRatio="16 / 9"
-          :minWidth="800"
-          :minHeight="450"
-          :originalUrl="cover1"
-          :cropperUrl="coverCropper1"
-          :policyData="policyData"
-          accept=".jpg,.jpeg,.png"
-          type="coverImg1"
-          @getUrl="getUrl"
-        >
+
+        <br />
+
+        原图地址：{{origUrl2}}<br />
+        裁剪地址：{{tailorUrl2}}<br />
+        <TheUpload3 ref="upload2" :tailorUrl.sync="tailorUrl2" :origUrl.sync='origUrl2' width="200px" height="200px" :imgW="800" :imgH="800" :aspectRatio="1">
           <i class="el-icon-plus"></i>
           <p class="el-upload__text">点击/拖拽上传图片</p>
-          <p class="el-upload__text">比例=16：9</p>
-        </uploadCom> -->
-        <!-- <uploadCom
-          tipTitle="比例=4：3"
-          :aspectRatio="4 / 3"
-          :minWidth="800"
-          :minHeight="600"
-          :originalUrl="cover2"
-          :cropperUrl="coverCropper2"
-          :policyData="policyData"
-          accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB"
-          type="coverImg2"
-          @getUrl="getUrl"
-        />
-        <uploadCom
-          tipTitle="比例=1：1"
-          :isCropper="false"
-          :aspectRatio="1 / 1"
-          :minWidth="600"
-          :minHeight="600"
-          :originalUrl="cover3"
-          :cropperUrl="coverCropper3"
-          :policyData="policyData"
-          accept=".jpg,.jpeg,.png,.webp,.bmp,.gif,.RGB"
-          type="coverImg3"
-          @getUrl="getUrl"
-        /> -->
+          <p class="el-upload__text">比例=1：1</p>
+        </TheUpload3>
       </el-collapse-item>
     </el-collapse>
-    <!-- 1111 -->
-    <el-dialog title="裁剪图片" :visible.sync="dialogVisible" width="30%">
-      <vue-cropper
-        ref="cropper"
-        :src="imgSrc"
-        :ready="cropImage"
-        :zoom="cropImage"
-        :cropmove="cropImage"
-        :canScale="option.canScale"
-        :autoCrop="option.autoCrop"
-        :fixedNumber="option.fixedNumber"
-        :centerBox="option.centerBox"
-        style="width:100%;height:300px;"
-      >
-      </vue-cropper>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="cancelCrop">取 消</el-button>
-        <el-button type="primary" @click="confirm">确 定</el-button>
-      </span>
-    </el-dialog>
+
+    <ImgCutters />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import VueCropper from 'vue-cropperjs'
-import uploadCom from './uploadCom.vue'
-import ImgCutter from './imgCutter.vue'
+import ImgCutters from './imgCutter.vue'
 import TheUpload from './TheUpload.vue'
 import TheUpload2 from './TheUpload2.vue'
 import TheUpload3 from './TheUpload3.vue'
@@ -157,7 +111,7 @@ export default {
       imgSrc: '',
       cropImg: '',
       dialogImageUrl: '',
-      dialogVisible: false,
+      dialogVisible: true,
       disabled: false,
 
       cover1: '',
@@ -190,43 +144,28 @@ export default {
         maxImgSize: 3000, // 限制图片最大宽度和高度
         enlarge: 1, // 图片根据截图框输出比例倍数
         mode: '230px 150px' // 图片默认渲染方式
-      }
+      },
+      tailorUrl1: '',
+      origUrl1: '',
+      tailorUrl2: '',
+      origUrl2: ''
     }
   },
   components: {
-    VueCropper,
-    uploadCom,
-    ImgCutter,
+    // VueCropper,
+    ImgCutters,
+    // uploadCom,
     TheUpload,
     TheUpload2,
     TheUpload3
   },
   created() {
     this.cropImg = this.defaultSrc
-    this.GenPostPolicy()
   },
   methods: {
     getUrlList(list) {
       console.log(list)
       this.urlList = list
-    },
-
-    // 获取阿里云直传的配置参数
-    GenPostPolicy() {
-      axios
-        .post('http://192.168.1.97:5008/Basic/Support/GenPostPolicy', {
-          data: {
-            module: 'CUMS',
-            upfilePath: 'OA'
-          },
-          sign: 'B99DD86F2011A98622A37F472570B5C4',
-          sysName: 'Front_CUMS',
-          ts: '1647934436000',
-          version: '1.0.0'
-        })
-        .then(res => {
-          this.policyData = res.data.data
-        })
     },
     getUrl(data) {
       if (data.type === 'coverImg1') {
@@ -248,7 +187,7 @@ export default {
         return
       }
       const reader = new FileReader()
-      reader.onload = event => {
+      reader.onload = (event) => {
         this.dialogVisible = true
         this.imgSrc = event.target.result
         this.$refs.cropper && this.$refs.cropper.replace(event.target.result)
@@ -310,7 +249,7 @@ export default {
         method: 'post',
         responseType: 'blob',
         data: data
-      }).then(function(res) {
+      }).then(function (res) {
         const blob = new Blob([res.data], {
           type: 'application/json;charset=UTF-8'
         })

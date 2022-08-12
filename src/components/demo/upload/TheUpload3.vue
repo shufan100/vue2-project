@@ -1,25 +1,22 @@
+  <!-- ***裁剪上传（单张）*** -->
 <template>
-  <!-- 裁剪上传 -->
   <div id="uploads">
-    <el-upload
-      class="avatar-uploader"
-      :style="{ width, height }"
-      action="#"
-      :multiple="false"
-      :show-file-list="false"
-      :drag="true"
-      :accept="accept"
-      :http-request="httpRequest"
-    >
+    <el-upload v-show="!tailorUrl" class="avatar-uploader" :style="{ width, height }" action="#" :multiple="false" :show-file-list="false" :drag="true"
+      :accept="accept" :http-request="httpRequest">
       <div class="avatar-uploader-tip">
-        <img v-if="cropperUrl" :src="cropperUrl" class="avatar-uploader-img" />
+        <img v-if="cropperUrl" class="avatar-uploader-img" :src="cropperUrl" />
         <slot v-else></slot>
       </div>
     </el-upload>
+    <img v-show="tailorUrl" class="show-img" :src="tailorUrl" alt="" @click="parentClick" :style="{ width, height }" @drop.prevent.stop="getDropFile"
+      @dragover.prevent.stop="">
+
+    <!-- ---------------------------- -->
     <!-- 原生上传图片方法 -->
     <input v-show="false" ref="upload3" :accept="accept" type="file" @change="changeFile" hidden />
-
-    <el-dialog :visible.sync="dialogShow" :before-close="closeDialog" :close-on-click-modal="false" center title="裁剪图案" width="520px">
+    <!-- 弹窗 -->
+    <el-dialog custom-class='custom' :visible.sync="dialogShow" :before-close="closeDialog" :close-on-click-modal="false" center title="裁剪图案" width="520px"
+      :append-to-body='true'>
       <div v-if="dialogShow" class="cropper-box">
         <div class="cropper-tailor">
           <span>裁剪区</span>
@@ -43,6 +40,8 @@ import 'cropperjs/dist/cropper.css'
 import { uploadOSS } from '@/utils/ossUpload.js'
 export default {
   props: {
+    tailorUrl: String,
+    origUrl: String,
     // 上传框大小
     width: {
       type: String,
@@ -77,12 +76,17 @@ export default {
       cropperUrl: '', // 裁剪后的地址
       imageUrl: '', // 选择图片的地址
       imageName: '', // 选择图片的名称
-      myCropper: null // 裁剪实例
+      myCropper: null, // 裁剪实例
+      originalFile: null
     }
   },
   created() {},
   mounted() {},
   methods: {
+    // 拖拽到图片开启裁剪框
+    getDropFile(e) {
+      this.httpRequest({ file: e.dataTransfer.files[0] })
+    },
     // 原生上传回调
     changeFile(e) {
       console.log(e.target.files, '--')
@@ -90,8 +94,6 @@ export default {
     },
     // 上传自定义回调
     async httpRequest(option) {
-      const data1 = await uploadOSS(option.file, 'design')
-      console.log(data1, '------')
       // 校验大小
       if (option.file.size > 20 * 1024 * 1024 * 1024) return this.$message.warning('限制20M图片')
       // 校验格式
@@ -105,11 +107,10 @@ export default {
         image.onload = () => {
           // 符合尺寸
           if (image.width >= this.imgW && image.height >= this.imgH) {
-            this.dialogShow = true
-            this.imageUrl = reader.result
-            // this.imageName = option.file.name.split('.')[0]
-            this.imageName = option.file.name
-            console.log(option)
+            this.dialogShow = true // 裁剪弹窗
+            this.imageUrl = reader.result // 原图bese64路径
+            this.imageName = option.file.name // 原图名字
+            this.originalFile = option.file // 原图file文件
             if (this.myCropper) {
               this.myCropper.replace(this.imageUrl)
             } else {
@@ -125,43 +126,56 @@ export default {
     async init() {
       await this.$nextTick()
       this.myCropper = new Cropper(this.$refs.image, {
-        viewMode: 1, // 0：没有限制;1:裁剪框必须在图片内移动；2：2图片 不全部铺满1；3：图片填充整个裁剪框
-        dragMode: 'move', // ‘crop’: 可以产生一个新的裁剪框, ‘move’: 只可以移动,  ‘none’: 什么也不处理
+        viewMode: 1, // 视图模式： 0：没有限制、1:裁剪框在图片内移动、2：图片不全部铺满、3：图片填充整个裁剪框
+        dragMode: 'move', // 拖拽模式： ‘crop’: 可以产生一个新的裁剪框, ‘move’: 只可以移动,  ‘none’: 什么也不处理
         preview: '.before', // 预览弹窗
-        background: false,
-        autoCropArea: 1, // 裁剪框跟图片成1:1
-        zoomOnWheel: true,
-        aspectRatio: this.aspectRatio // 裁剪比例 16/9
+        background: true, // 显示网格背景  //true，显示马赛克背景，false时显示灰色背景色
+        aspectRatio: this.aspectRatio, // 裁剪框比例 16/9
+        rotatable: true
+        // autoCropArea: 1, // 裁剪框撑满
+        // zoomOnWheel: true
       })
     },
     // 裁剪--确定
-    save() {
+    async save() {
+      // 不同裁剪尺寸不同大小
       const arr = [
         { width: 1600, height: 900 },
         { width: 800, height: 600 },
         { width: 600, height: 600 }
       ]
       const arrIndex = this.aspectRatio > 1.5 ? 0 : this.aspectRatio > 1 ? 1 : 2
-      // 获取被裁剪后的canvas
-      // const canvasImg = this.myCropper.getCroppedCanvas({
-      //   minWidth: arr[arrIndex].width, // 裁剪后的长宽
-      //   minHeight: arr[arrIndex].height
-      // })
+
+      // 设置裁剪后的canvas大小  // 将canvas标签转base64url
       this.cropperUrl = this.myCropper
         .getCroppedCanvas({
           minWidth: arr[arrIndex].width, // 裁剪后的长宽
-          minHeight: arr[arrIndex].height,
-          imageSmoothingQuality: 'high'
+          minHeight: arr[arrIndex].height
         })
         .toDataURL('image/png')
-      const file11 = this.dataURLtoBlob(this.cropperUrl)
-      console.log(file11, 'file11')
-      // console.log(canvasImg, this.cropperUrl)
+
+      // base64url转file文件
+      const tailorFile = this.dataURLtoBlob(this.cropperUrl)
+
+      console.log(this.originalFile, '裁剪前的文件')
+      console.log(tailorFile, '裁剪后的文件')
+      // 上传oss
+      const origUrl = await uploadOSS(this.originalFile)
+      const tailUrl = await uploadOSS(tailorFile)
+      this.$emit('update:origUrl', origUrl.url)
+      this.$emit('update:tailorUrl', tailUrl.url)
+
       this.closeDialog()
     },
     closeDialog() {
       this.dialogShow = false
       this.myCropper = null
+    },
+    //
+    parentClick() {
+      this.dialogShow = true
+      this.cropperUrl = this.origUrl
+      this.init()
     },
 
     //
@@ -231,43 +245,46 @@ export default {
     }
   }
 
-  // 裁剪
-  // .cropper-container {
-  //   width: 300px !important;
-  //   height: 300px !important;
-  // }
-  .cropper-box {
-    display: flex;
-    justify-content: space-between;
-    height: 360px;
-    .cropper-tailor {
-      /* 裁剪图片 */
-      width: 280px;
-      height: 280px;
-      border-radius: 4px;
-      .btn {
-        display: block;
-        width: 100%;
-        height: 36px;
-        margin-top: 10px;
-        border: 1px solid #849ff9;
-        font-size: 14px;
-        color: #2858f8;
-        line-height: 36px;
-        text-align: center;
-        border-radius: 4px;
-        cursor: pointer;
-        box-sizing: border-box;
-      }
+  .show-img {
+    border: 1px dashed #d9d9d9;
+    cursor: pointer;
+    border-radius: 6px;
+    &:hover {
+      border-color: #2858f8;
     }
-    .cropper-preview {
-      .before {
-        width: 160px;
-        height: 160px;
-        border: 1px solid #d9d9d9;
-        overflow: hidden;
-        /* 这个属性可以得到想要的效果 */
-      }
+  }
+}
+.cropper-box {
+  display: flex;
+  justify-content: space-between;
+  height: 360px;
+  .cropper-tailor {
+    /* 裁剪图片 */
+    width: 280px;
+    height: 280px;
+    border-radius: 4px;
+    .btn {
+      display: block;
+      width: 100%;
+      height: 36px;
+      margin-top: 10px;
+      border: 1px solid #849ff9;
+      font-size: 14px;
+      color: #2858f8;
+      line-height: 36px;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+  }
+  .cropper-preview {
+    .before {
+      width: 160px;
+      height: 160px;
+      border: 1px solid #d9d9d9;
+      overflow: hidden;
+      /* 这个属性可以得到想要的效果 */
     }
   }
 }

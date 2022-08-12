@@ -1,46 +1,19 @@
 <template>
   <div id="ImgCutter">
-    <ImgCutter
-      ref="cropper"
-      :img="option.img"
-      :rate="option.rate"
-      :outputSize="option.outputSize"
-      :outputType="option.outputType"
-      :info="option.info"
-      :canScale="option.canScale"
-      :autoCrop="option.autoCrop"
-      :autoCropWidth="option.autoCropWidth"
-      :autoCropHeight="option.autoCropHeight"
-      :fixed="option.fixed"
-      :fixedNumber="option.fixedNumber"
-      :full="option.full"
-      :fixedBox="option.fixedBox"
-      :canMove="option.canMove"
-      :canMoveBox="option.canMoveBox"
-      :original="option.original"
-      :centerBox="option.centerBox"
-      :height="option.height"
-      :infoTrue="option.infoTrue"
-      :maxImgSize="option.maxImgSize"
-      :enlarge="option.enlarge"
-      :mode="option.mode"
-      :toolBoxOverflow="option.toolBoxOverflow"
-      :isModal="option.isModal"
-      :tool="option.tool"
-      :boxWidth="800"
-      :boxHeight="600"
-      :DoNotDisplayCopyright="option.DoNotDisplayCopyright"
-      @realTime="realTime"
-      @imgLoad="imgLoad"
-      @onPrintImg="onPrintImg"
-      @cutDown="cutDown"
-    ></ImgCutter>
+    <ImgCutter ref="cropper" :img="option.img" :rate="option.rate" :outputSize="option.outputSize" :outputType="option.outputType" :info="option.info"
+      :canScale="option.canScale" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight"
+      :fixed="option.fixed" :fixedNumber="option.fixedNumber" :full="option.full" :fixedBox="option.fixedBox" :canMove="option.canMove"
+      :canMoveBox="option.canMoveBox" :original="option.original" :centerBox="option.centerBox" :height="option.height" :infoTrue="option.infoTrue"
+      :maxImgSize="option.maxImgSize" :enlarge="option.enlarge" :mode="option.mode" :toolBoxOverflow="option.toolBoxOverflow" :isModal="option.isModal"
+      :tool="option.tool" :boxWidth="800" :boxHeight="600" :DoNotDisplayCopyright="option.DoNotDisplayCopyright" @realTime="realTime" @imgLoad="imgLoad"
+      @onPrintImg="onPrintImg" @cutDown="cutDown"></ImgCutter>
     <img :src="cutterUrl" alt="" />
   </div>
 </template>
 
 <script>
 export default {
+  name: 'adds',
   data() {
     return {
       defaultSrc: require('@/assets/images/01.jpg'),
@@ -107,7 +80,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #ImgCutter {
-  // width: 400px;
-  // height: 300px;
+  width: 400px;
+  height: 300px;
 }
 </style>
