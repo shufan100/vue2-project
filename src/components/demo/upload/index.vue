@@ -33,10 +33,23 @@
       </el-collapse-item>
     </el-collapse>
 
+    <!-- --------------------------- -->
+    <br />
+    <br />
     <h2>原生上传图片</h2>
     <el-collapse v-model="activeName">
       <el-collapse-item title="单张上传" name="2">
-        <TheUpload2 :multiple="false" width="160px" height="160px" :imgW="800" :imgH="800" @getUrlList="getUrlList">
+        oss地址：{{img1}}<br />
+        <TheUpload2 :origUrl.sync='img1' :multiple="false" width="160px" height="160px" :imgW="800" :imgH="800" @getUrlList="getUrlList">
+          <div>
+            <i class="el-icon-plus"></i>
+            <p>点击/拖拽上传图片</p>
+            <p>不小于（800*800）</p>
+          </div>
+        </TheUpload2>
+
+        oss地址：{{img2}}<br />
+        <TheUpload2 :origUrl.sync='img2' :multiple="false" width="160px" height="160px" :imgW="800" :imgH="800" @getUrlList="getUrlList">
           <div>
             <i class="el-icon-plus"></i>
             <p>点击/拖拽上传图片</p>
@@ -47,7 +60,8 @@
     </el-collapse>
     <el-collapse v-model="activeName">
       <el-collapse-item title="多张上传" name="2">
-        <TheUpload2 :multiple="true" width="160px" height="160px" :imgW="50" :imgH="50" @getUrlList="getUrlList">
+        图片地址数组：{{imgList}}<br />
+        <TheUpload2 :origListUrl.sync='imgList' :multiple="true" width="160px" height="160px" :imgW="50" :imgH="50">
           <div>
             <i class="el-icon-plus"></i>
             <p>点击/拖拽上传图片</p>
@@ -56,14 +70,16 @@
         </TheUpload2>
       </el-collapse-item>
     </el-collapse>
-    <!-- --------------------------- -->
 
+    <!-- --------------------------- -->
+    <br />
+    <br />
     <h2>上传裁剪图片（单张）</h2>
     <el-collapse v-model="activeName">
       <el-collapse-item title="裁剪上传（vue-cropperjs）" name="3">
         <img :src="cropImg" class="pre-img" />
         <el-button @click="$refs.upload.click()">裁剪图片</el-button>
-        <input ref="upload" accept="image/*" type="file" @change="setImage" hidden style="display: none;" />
+        <input accept="image/*" type="file" @change="setImage" hidden style="display: none;" />
       </el-collapse-item>
     </el-collapse>
     <el-collapse v-model="activeName">
@@ -71,8 +87,7 @@
 
         原图地址：{{origUrl1}}<br />
         裁剪地址：{{tailorUrl1}}<br />
-        <TheUpload3 ref="upload1" :tailorUrl.sync="tailorUrl1" :origUrl.sync='origUrl1' width="360px" height="200px" :imgW="800" :imgH="800"
-          :aspectRatio="16 / 9">
+        <TheUpload3 :tailorUrl.sync="tailorUrl1" :origUrl.sync='origUrl1' width="360px" height="200px" :imgW="800" :imgH="800" :aspectRatio="16 / 9">
           <i class="el-icon-plus"></i>
           <p class="el-upload__text">点击/拖拽上传图片</p>
           <p class="el-upload__text">比例=16：9</p>
@@ -105,22 +120,11 @@ export default {
   data() {
     return {
       urlList: [],
-      activeName: '3',
+      activeName: '2',
       defaultSrc: require('../../../assets/images/img.jpg'),
       fileList: [],
       imgSrc: '',
       cropImg: '',
-      dialogImageUrl: '',
-      dialogVisible: true,
-      disabled: false,
-
-      cover1: '',
-      coverCropper1: '',
-      cover2: '',
-      coverCropper2: '',
-      cover3: '',
-      coverCropper3: '',
-      policyData: {},
 
       option: {
         img: '', // 裁剪图片的地址
@@ -145,10 +149,18 @@ export default {
         enlarge: 1, // 图片根据截图框输出比例倍数
         mode: '230px 150px' // 图片默认渲染方式
       },
+
+      // 裁剪单张上传
       tailorUrl1: '',
       origUrl1: '',
       tailorUrl2: '',
-      origUrl2: ''
+      origUrl2: '',
+      // 单张上传
+      img1: '',
+      img2: '',
+      // 多张上传
+      imgList: [],
+      img2List: []
     }
   },
   components: {
@@ -167,20 +179,7 @@ export default {
       console.log(list)
       this.urlList = list
     },
-    getUrl(data) {
-      if (data.type === 'coverImg1') {
-        this.cover1 = data.originalUrl
-        this.coverCropper1 = data.cropperUrl
-      }
-      if (data.type === 'coverImg2') {
-        this.cover2 = data.originalUrl
-        this.coverCropper2 = data.cropperUrl
-      }
-      if (data.type === 'coverImg3') {
-        this.cover3 = data.originalUrl
-        this.coverCropper3 = data.cropperUrl
-      }
-    },
+
     setImage(e) {
       const file = e.target.files[0]
       if (!file.type.includes('image/')) {
@@ -188,48 +187,10 @@ export default {
       }
       const reader = new FileReader()
       reader.onload = (event) => {
-        this.dialogVisible = true
         this.imgSrc = event.target.result
         this.$refs.cropper && this.$refs.cropper.replace(event.target.result)
       }
       reader.readAsDataURL(file)
-    },
-    cropImage() {
-      this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL()
-    },
-    cancelCrop() {
-      this.dialogVisible = false
-      this.cropImg = this.defaultSrc
-    },
-    imageuploaded(res) {
-      console.log(res)
-    },
-    handleError() {
-      this.$notify.error({
-        title: '上传失败',
-        message: '图片上传接口上传失败，可更改为自己的服务器接口'
-      })
-    },
-    handleChange(file) {
-      sessionStorage.setItem('file', JSON.stringify(file))
-      this.$router.push('/magnifying')
-    },
-    handleRemove(file) {
-      console.log(file)
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
-    },
-
-    handleDownload(file) {
-      console.log(file)
-    },
-
-    // 确定
-    confirm() {
-      this.dialogVisible = false
-      console.log(this.imgSrc, 'imgSrc')
     },
 
     // 下载文件

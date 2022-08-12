@@ -1,23 +1,32 @@
+  <!-- **原生上传** -->
 <template>
-  <!-- 原生上传 -->
   <div>
     <!-- 多选展示 -->
-    <template v-if="fileList.length">
-      <div v-for="(item, index) in fileList" :key="item.preview" class="avatar-uploader-li" :style="{ width, height }">
-        <img :src="item.preview" />
-        <i class="el-icon-error" @click="fileList.splice(index, 1)"></i>
+    <template v-if="origListUrl.length">
+      <div v-for="(item, index) in origListUrl" :key="item.base64Url" class="avatar-uploader-li" :style="{ width, height }">
+        <img :src="item.base64Url" />
+        <i class="el-icon-error" @click="origListUrl.splice(index, 1)"></i>
       </div>
     </template>
     <div class="upload2" :style="{ width, height }" @click="openFile" @drop.prevent.stop="getDropFile" @dragover.prevent.stop="">
-      <slot></slot>
+      <img v-if="origUrl" :src="origUrl" />
+      <slot v-else></slot>
     </div>
+
+    <!-- 原生调用上传方法 -->
     <input ref="upload" :accept="accept" :multiple="multiple" type="file" @change="changeFile" hidden style="display: none;" />
   </div>
 </template>
 
 <script>
+import { uploadOSS } from '@/utils/ossUpload.js'
 export default {
   props: {
+    origUrl: String,
+    origListUrl: {
+      type: Array,
+      default: () => []
+    },
     // 是否多选
     multiple: {
       type: Boolean,
@@ -50,7 +59,7 @@ export default {
   data() {
     return {
       fileList: [],
-      fileTotal: 0
+      arr: []
     }
   },
   created() {},
@@ -70,31 +79,24 @@ export default {
       this.verify(e.dataTransfer.files)
     },
     verify(files) {
-      if (files.length) {
-        if (this.multiple) {
-          this.fileListFilter(files)
-        } else {
-          this.fileFilter(files)
-        }
-      }
+      if (!files.length) return false
+      this.multiple ? this.fileListFilter(files) : this.fileFilter(files)
     },
 
     // 单张过滤
     async fileFilter(data) {
-      console.log(data, '===')
       const file = data[0]
       // 校验大小
       if (file.size > 20 * 1024 * 1024 * 1024) return this.$message.warning('限制20M图片')
       // 校验格式
       if (!this.accept.includes(file.type.split('/')[1])) return this.$message.warning(`格式限制：${this.accept}`)
       // 校验尺寸
-      const url = URL.createObjectURL(file)
-      const { w, h } = await this.getImgWH(url)
-      if (w >= this.imgW && h >= this.imgH) {
-        this.fileDispose(file)
-      } else {
-        this.$message.warning(`请上传尺寸大于${this.imgW}*${this.imgH}的图片`)
-      }
+      const url = URL.createObjectURL(file) // 图片base64地址
+      const { w, h } = await this.getImgWH(url) // 图片宽高
+      if (w < this.imgW && h < this.imgH) return this.$message.warning(`请上传尺寸大于${this.imgW}*${this.imgH}的图片`)
+      // 上传oss
+      const datas = await uploadOSS(file)
+      this.$emit('update:origUrl', datas.url)
     },
     // 多张过滤
     async fileListFilter(files) {
@@ -102,15 +104,17 @@ export default {
 
       let hint = false
       for (var i = 0; i < files.length; i++) {
-        // 校验多张图片大小
+        // 校验图片大小
         if (files[i].size > 20 * 1024 * 1024 * 1024) {
           hint = true
           continue
         }
+        // 检验类型
         if (!this.accept.includes(files[i].type.split('/')[1])) {
           hint = true
           continue
         }
+        // 校验尺寸
         const url = URL.createObjectURL(files[i])
         const { w, h } = await this.getImgWH(url)
         if (w >= this.imgW && h >= this.imgH) {
@@ -123,28 +127,32 @@ export default {
         this.$message.warning('已过滤非图片类型文件或单张大于20M的图片')
       }
     },
+
+    // 上传oss
     async fileDispose(file) {
-      const url = URL.createObjectURL(file)
-      const data = await this.getImgWH(url)
+      // const url = URL.createObjectURL(file)
+      // const data = await this.getImgWH(url)
       this.fileList.push({
-        file: file,
-        progress: 0,
-        preview: URL.createObjectURL(file),
-        status: 0, // 0 还未上传 1 上传中 2 上传成功 3 上传失败
-        title: file.name,
-        patternUrl: '',
-        width: data.w,
-        height: data.h
+        name: file.name,
+        base64Url: URL.createObjectURL(file)
+        // ossUrl: uploadOSS(file)
+        // width: data.w,
+        // height: data.h
       })
-      this.fileTotal = this.fileList.length
-      console.log(this.fileList)
+      this.$emit('update:origListUrl', this.fileList)
+
+      uploadOSS(file).then((res) => {
+        console.log(res, '==')
+        this.arr.push(res)
+        console.log(this.arr)
+      })
     },
     // 获取图片分辨率大小
     getImgWH(imgUrl) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const image = new Image()
         image.src = imgUrl
-        image.onload = function() {
+        image.onload = function () {
           const w = image.width
           const h = image.height
           resolve({ w, h })
@@ -157,9 +165,11 @@ export default {
 
 <style lang="less" scoped>
 .upload2 {
+  // float: left;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 20px;
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   box-sizing: border-box;
@@ -178,6 +188,10 @@ export default {
   }
   &:hover {
     border-color: #409eff;
+  }
+  img {
+    width: 100%;
+    height: 100%;
   }
 }
 .avatar-uploader-li {
