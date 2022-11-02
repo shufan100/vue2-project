@@ -111,6 +111,9 @@ const vm = new Vue({
   store, // 这边就是引入的store，vue会自动加在实例身上，名为$store
   i18n,
   render: h => h(App),
+  // render: h => {
+  //   return [h('div'), h('span'), h('div')]
+  // },
   beforeCreate() {
     Vue.prototype.$bus = this // 安装全局事件总线
   }

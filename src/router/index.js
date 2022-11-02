@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 const originalPush = VueRouter.prototype.push
 // console.log(originalPush,'originalPush')
-VueRouter.prototype.push = function push (location) {
+VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
@@ -84,15 +84,13 @@ const routes = [
     path: '/login',
     component: () => import('@/layout/Login.vue'),
     meta: { title: '登录' }
-
   },
   {
-    path: '/',
+    path: '*', // 通配,没有匹配到的路由就跳404
     redirect: '/404',
     component: () => import('@/components/page/errorPage/404'),
     meta: { parentTitle: '错误页面', title: '404', path: 'errorPage/404' }
   }
-
 ]
 
 // 创建一个路由器
@@ -102,6 +100,13 @@ const router = new VueRouter({
 
   mode: 'history', // 默认hash
   routes
+  // scrollBehavior(to, from, savedPosition) {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve({ x: 0, y: 100 })
+  //     }, 100)
+  //   })
+  // }
 })
 
 // router.beforeEach((to, from, next) => {
