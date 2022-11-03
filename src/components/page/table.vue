@@ -411,7 +411,16 @@ export default {
         export_json_to_excel(tHeader, data, '列表excel')
       })
     },
-    exportExcel() {},
+    // 文件流下载
+    exportExcel() {
+      // axios.post({url,data,responseType:'blob'})
+      const blob = new Blob(['w文件流数据'], { type: 'application/octet-stream;' })
+      const link = document.createElement('a') // a标签下载
+      link.href = window.URL.createObjectURL(blob)
+      link.download = '模板.xlsx'
+      link.click()
+      window.URL.revokeObjectURL(link.href)
+    },
 
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
