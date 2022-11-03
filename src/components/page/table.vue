@@ -411,7 +411,18 @@ export default {
         export_json_to_excel(tHeader, data, '列表excel')
       })
     },
-    exportExcel() {},
+    // 文件件流下载
+    exportExcel() {
+      //
+      // 请求的文件流要加 responseType: 'blob'   axios.post(url,data,responseType:'blob')
+      // data:文件流
+      const blob = new Blob([data], { type: 'application/octet-stream;charset=utf-8' })
+      const link = document.createElement('a') // a标签下载
+      link.href = window.URL.createObjectURL(blob)
+      link.download = '模板.xlsx'
+      link.click()
+      window.URL.revokeObjectURL(link.href)
+    },
 
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
