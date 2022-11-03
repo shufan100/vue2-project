@@ -68,7 +68,7 @@ export default {
     return {
       fullscreen: false,
       message: 2,
-      ms_username: localStorage.getItem('ms_username'),
+      ms_username: sessionStorage.getItem('ms_username'),
       dotHidden: false
     }
   },
@@ -76,7 +76,7 @@ export default {
     ...mapActions(['isEnglishAction', 'infoAction']),
     // 全屏
     handleFullScreen() {
-      let element = document.documentElement
+      const element = document.documentElement
       if (this.fullscreen) {
         if (document.exitFullscreen) {
           document.exitFullscreen()
@@ -116,8 +116,8 @@ export default {
     },
     // 退出
     handleCommand(command) {
-      if (command == 'login') {
-        localStorage.removeItem('ms_username')
+      if (command === 'login') {
+        sessionStorage.removeItem('ms_username')
       }
       this.$router.push(`/${command}`)
     }

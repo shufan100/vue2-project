@@ -11,10 +11,11 @@ router.beforeEach((to, from, next) => {
   console.log('@@@ ~ to ~ 要跳转的路由', to)
   NProgress.start() // 进度条开始Progress
 
-  const role = localStorage.getItem('ms_username')
+  const role = sessionStorage.getItem('ms_username')
   if (!role && to.path !== '/login') {
     next('/login')
-  } else if (to.meta.permissions) { // 是否需要权限配置
+  } else if (to.meta.permissions) {
+    // 是否需要权限配置
     // 1.当前登录的账号是admin才有权限访问路由，不是admin账号都跳403路由
     role === 'admin' ? next() : next('/403')
   } else {
