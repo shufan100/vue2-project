@@ -5,7 +5,7 @@ function setI18nTitle(arr, parentName = '') {
   for (const i of arr) {
     if (!routerObj[i.name]) {
       if (parentName) {
-        routerObj[parentName + i.name] = i.name.replace(/^\S/, s => s.toUpperCase()) || 'en'
+        routerObj[i.name] = i.name.replace(/^\S/, s => s.toUpperCase()) || 'en'
       } else {
         routerObj[i.name] = i.name.replace(/^\S/, s => s.toUpperCase()) || 'en'
       }

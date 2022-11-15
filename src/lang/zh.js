@@ -5,7 +5,7 @@ function setI18nTitle(arr, parentName = '') {
   for (const i of arr) {
     if (!routerObj[i.name]) {
       if (parentName) {
-        routerObj[parentName + i.name] = i.meta.title || 'zh'
+        routerObj[i.name] = i.meta.title || 'zh'
       } else {
         routerObj[i.name] = i.meta.title || 'zh'
       }
@@ -16,6 +16,7 @@ function setI18nTitle(arr, parentName = '') {
   }
 }
 setI18nTitle(router.options.routes[0].children)
+console.log(routerObj, 'routerObj----')
 const zh = {
   i18n: {
     userName: '舒梵',

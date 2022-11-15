@@ -31,7 +31,7 @@
               <!-- 二级菜单（循环） -->
               <template v-for="(subItem, index) in item.subs">
                 <!-- 2、判断二级菜单是否有子级 -->
-                <el-submenu v-if="subItem.subs" :index="subItem.index" :key="index">
+                <el-submenu v-if="subItem.subs" :index="item.index + subItem.index" :key="index">
                   <!-- 二级菜单（有子级标题） -->
                   <!-- <template slot="title">{{ subItem.title }}</template> -->
                   <template slot="title">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</template>
@@ -43,7 +43,7 @@
 
                 <!-- 二级菜单 -->
                 <!-- <el-menu-item v-else :index="subItem.index" :key="subItem.index" >{{ subItem.title }}</el-menu-item> -->
-                <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
+                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
               </template>
             </el-submenu>
           </template>
@@ -72,7 +72,7 @@ export default {
       // 路由前加 / 可防止动态路由问题
       items: [
         {
-          icon: 'icon-shouyefill',
+          icon: 'el-icon-edit',
           index: '/home',
           title: '首页'
         },
@@ -82,26 +82,26 @@ export default {
           title: '表单',
           subs: [
             {
-              index: '/form/form1',
+              index: '/form1',
               title: 'Form表单'
             },
             {
-              index: '/form/table',
+              index: '/table',
               title: '基础表格'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/form/editor',
+              index: '/editor',
               title: '富文本编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/form/markdown',
+              index: '/markdown',
               title: 'Markdown编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/form/nativeTable',
+              index: '/nativeTable',
               title: '原生表格'
             }
           ]
@@ -112,11 +112,11 @@ export default {
           title: '信息管理',
           subs: [
             {
-              index: '/info/userInfo',
+              index: '/userInfo',
               title: '个人信息'
             },
             {
-              index: '/info/modifyInfo',
+              index: '/modifyInfo',
               title: '修改信息'
             }
           ]
@@ -137,59 +137,59 @@ export default {
           title: '案例',
           subs: [
             {
-              index: '/demo/writing',
+              index: '/writing',
               title: '基础写法'
             },
             {
-              index: '/demo/shopping',
+              index: '/shopping',
               title: '购物车'
             },
             {
-              index: '/demo/magnifying',
+              index: '/magnifying',
               title: '放大镜'
             },
             {
-              index: '/demo/threeD',
+              index: '/threeD',
               title: '3D旋转图'
             },
             {
-              index: '/demo/upload',
+              index: '/upload',
               title: '图片上传'
             },
             {
-              index: '/demo/printer',
+              index: '/printer',
               title: '打印机'
             },
             {
-              index: '/demo/exportPdf',
+              index: '/exportPdf',
               title: '导出PDF'
             },
             {
-              index: '/demo/iconfont',
+              index: '/iconfont',
               title: '矢量图标'
             },
             {
-              index: '/demo/carousel',
+              index: '/carousel',
               title: '轮播图'
             },
             {
-              index: '/demo/antiShake',
+              index: '/antiShake',
               title: '防抖指令'
             },
             {
-              index: '/demo/seamless',
+              index: '/seamless',
               title: '无缝滚动'
             },
             {
-              index: '/demo/video',
+              index: '/video',
               title: '视频播放'
             },
             {
-              index: '/demo/slots',
+              index: '/slots',
               title: '插槽'
             },
             {
-              index: '/demo/navAnchor',
+              index: '/navAnchor',
               title: '导航锚点'
             }
           ]
@@ -200,11 +200,11 @@ export default {
           title: '拖拽组件',
           subs: [
             {
-              index: '/drag/dialog',
+              index: '/dialog',
               title: '拖拽弹窗'
             },
             {
-              index: '/drag/dragList',
+              index: '/dragList',
               title: '拖拽列表'
             }
           ]
