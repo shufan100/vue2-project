@@ -23,9 +23,10 @@
             <el-submenu :index="item.index" :key="index">
               <!-- 一级菜单（有子级标题） -->
               <template slot="title">
-                <i :class="[item.icon, 'iconfont']"></i>
+                <!-- <i :class="[item.icon, 'iconfont']"></i> -->
+                <i :class="[item.icon]"></i>
                 <!-- <span slot="title">{{item.title}}</span> -->
-                <span slot="title">{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
+                <span>{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
               </template>
 
               <!-- 二级菜单（循环） -->
@@ -51,9 +52,12 @@
           <template v-else>
             <!-- 一级菜单 -->
             <el-menu-item :index="item.index" :key="index">
-              <i :class="[item.icon, 'iconfont']"></i>
-              <!-- <span slot="title">{{item.title}}</span> -->
-              <span slot="title">{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
+              <template slot="title">
+                <!-- <i :class="[item.icon, 'iconfont']"></i> -->
+                <i :class="[item.icon]"></i>
+                <!-- <span slot="title">{{item.title}}</span> -->
+                <span>{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
+              </template>
             </el-menu-item>
           </template>
         </template>
@@ -72,12 +76,12 @@ export default {
       // 路由前加 / 可防止动态路由问题
       items: [
         {
-          icon: 'el-icon-edit',
+          icon: 'el-icon-s-platform',
           index: '/home',
           title: '首页'
         },
         {
-          icon: 'icon-17',
+          icon: 'el-icon-s-order',
           index: '/form',
           title: '表单',
           subs: [
@@ -107,7 +111,7 @@ export default {
           ]
         },
         {
-          icon: 'icon-xinxitishi',
+          icon: 'el-icon-s-comment',
           index: '/info',
           title: '信息管理',
           subs: [
@@ -122,17 +126,17 @@ export default {
           ]
         },
         {
-          icon: 'icon-xiaoxi',
+          icon: 'el-icon-bell',
           index: '/msgCenter',
           title: '消息中心'
         },
         {
-          icon: 'icon-fenxiang',
+          icon: 'el-icon-share',
           index: '/share',
           title: '分享功能'
         },
         {
-          icon: 'icon-anli',
+          icon: 'el-icon-menu',
           index: '/demo',
           title: '案例',
           subs: [
@@ -195,7 +199,7 @@ export default {
           ]
         },
         {
-          icon: 'icon-yidong_huaban',
+          icon: 'el-icon-s-tools',
           index: 'drag',
           title: '拖拽组件',
           subs: [
@@ -210,7 +214,7 @@ export default {
           ]
         },
         {
-          icon: 'icon-ditu',
+          icon: 'el-icon-s-promotion',
           index: 'EChartsCom',
           title: '地图组件',
           subs: [
@@ -221,7 +225,7 @@ export default {
           ]
         },
         {
-          icon: 'icon-quanxian',
+          icon: 'el-icon-s-goods',
           index: 'permissions',
           title: '权限设置',
           subs: [
@@ -236,7 +240,7 @@ export default {
           ]
         },
         {
-          icon: 'icon-cuowu',
+          icon: 'el-icon-error',
           index: 'errorPage',
           title: '错误页面',
           subs: [
