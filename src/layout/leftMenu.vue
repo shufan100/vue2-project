@@ -8,7 +8,15 @@
       </span>
     </div>
     <div class="menu_page_bottom is-scroll-left wflex">
-      <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" active-text-color="#ff6428" @select="handleOpen" @close="handleClose" :collapse="sidebarOpened" router>
+      <el-menu
+        class="el-menu-vertical-demo"
+        :default-active="onRoutes"
+        active-text-color="#ff6428"
+        @select="handleOpen"
+        @close="handleClose"
+        :collapse="sidebarOpened"
+        router
+      >
         <template v-for="(item, index) in items">
           <!-- 1、判断一级菜单是否有子级 -->
           <template v-if="item.subs">
@@ -21,14 +29,16 @@
               </template>
 
               <!-- 二级菜单（循环） -->
-              <template v-for="subItem in item.subs">
+              <template v-for="(subItem, index) in item.subs">
                 <!-- 2、判断二级菜单是否有子级 -->
-                <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                <el-submenu v-if="subItem.subs" :index="subItem.index" :key="index">
                   <!-- 二级菜单（有子级标题） -->
                   <!-- <template slot="title">{{ subItem.title }}</template> -->
                   <template slot="title">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</template>
                   <!-- <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index" >{{ threeItem.title }}</el-menu-item> -->
-                  <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{ $t(`i18n.${threeItem.title.replace('/', '')}`) }}</el-menu-item>
+                  <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{
+                    $t(`i18n.${threeItem.title.replace('/', '')}`)
+                  }}</el-menu-item>
                 </el-submenu>
 
                 <!-- 二级菜单 -->
@@ -68,45 +78,45 @@ export default {
         },
         {
           icon: 'icon-17',
-          index: 'form',
+          index: '/form',
           title: '表单',
           subs: [
             {
-              index: '/form1',
+              index: '/form/form1',
               title: 'Form表单'
             },
             {
-              index: '/table',
+              index: '/form/table',
               title: '基础表格'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/editor',
+              index: '/form/editor',
               title: '富文本编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/markdown',
+              index: '/form/markdown',
               title: 'Markdown编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: '/nativeTable',
+              index: '/form/nativeTable',
               title: '原生表格'
             }
           ]
         },
         {
           icon: 'icon-xinxitishi',
-          index: 'info',
+          index: '/info',
           title: '信息管理',
           subs: [
             {
-              index: '/userInfo',
+              index: '/info/userInfo',
               title: '个人信息'
             },
             {
-              index: '/modifyInfo',
+              index: '/info/modifyInfo',
               title: '修改信息'
             }
           ]
@@ -123,78 +133,78 @@ export default {
         },
         {
           icon: 'icon-anli',
-          index: 'demo',
+          index: '/demo',
           title: '案例',
           subs: [
             {
-              index: '/writing',
+              index: '/demo/writing',
               title: '基础写法'
             },
             {
-              index: '/shopping',
+              index: '/demo/shopping',
               title: '购物车'
             },
             {
-              index: '/magnifying',
+              index: '/demo/magnifying',
               title: '放大镜'
             },
             {
-              index: '/threeD',
+              index: '/demo/threeD',
               title: '3D旋转图'
             },
             {
-              index: '/upload',
+              index: '/demo/upload',
               title: '图片上传'
             },
             {
-              index: '/printer',
+              index: '/demo/printer',
               title: '打印机'
             },
             {
-              index: '/exportPdf',
+              index: '/demo/exportPdf',
               title: '导出PDF'
             },
             {
-              index: '/iconfont',
+              index: '/demo/iconfont',
               title: '矢量图标'
             },
             {
-              index: '/carousel',
+              index: '/demo/carousel',
               title: '轮播图'
             },
             {
-              index: '/antiShake',
+              index: '/demo/antiShake',
               title: '防抖指令'
             },
             {
-              index: '/seamless',
+              index: '/demo/seamless',
               title: '无缝滚动'
             },
             {
-              index: '/video',
+              index: '/demo/video',
               title: '视频播放'
             },
             {
-              index: '/slots',
+              index: '/demo/slots',
               title: '插槽'
             },
             {
-              index: '/navAnchor',
+              index: '/demo/navAnchor',
               title: '导航锚点'
             }
           ]
         },
         {
           icon: 'icon-yidong_huaban',
-          index: 'dragAndDrop',
+          index: 'drag',
           title: '拖拽组件',
           subs: [
             {
-              index: '/dialog',
+              index: '/drag/dialog',
               title: '拖拽弹窗'
             },
             {
-              index: '/dragList',
+              index: '/drag/dragList',
               title: '拖拽列表'
             }
           ]

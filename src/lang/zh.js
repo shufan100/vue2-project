@@ -1,15 +1,28 @@
 import router from '@/router'
 const routerObj = {}
-for (const item of router.options.routes[0].children) {
-  routerObj[item.name] = item.meta.title || ''
+// 递归修改i18的对应的title
+function setI18nTitle(arr, parentName = '') {
+  for (const i of arr) {
+    if (!routerObj[i.name]) {
+      if (parentName) {
+        routerObj[parentName + i.name] = i.meta.title || 'zh'
+      } else {
+        routerObj[i.name] = i.meta.title || 'zh'
+      }
+      if (i?.children) {
+        setI18nTitle(i.children, i.name + '/')
+      }
+    }
+  }
 }
+setI18nTitle(router.options.routes[0].children)
 const zh = {
   i18n: {
     userName: '舒梵',
     admin: '管理员',
 
     // home:'首页',
-    form: '表单',
+    // form: '表单',
     // form1:'Form表单',
     // table:'基础表格',
     // editor:'富文本编辑器',

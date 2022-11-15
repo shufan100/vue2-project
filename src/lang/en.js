@@ -1,8 +1,21 @@
 import router from '@/router'
 const routerObj = {}
-for (const item of router.options.routes[0].children) {
-  routerObj[item.name] = item.name || ''
+// 递归修改i18的对应的title
+function setI18nTitle(arr, parentName = '') {
+  for (const i of arr) {
+    if (!routerObj[i.name]) {
+      if (parentName) {
+        routerObj[parentName + i.name] = i.name.replace(/^\S/, s => s.toUpperCase()) || 'en'
+      } else {
+        routerObj[i.name] = i.name.replace(/^\S/, s => s.toUpperCase()) || 'en'
+      }
+      if (i?.children) {
+        setI18nTitle(i.children, i.name + '/')
+      }
+    }
+  }
 }
+setI18nTitle(router.options.routes[0].children)
 const en = {
   i18n: {
     userName: 'SHUF',
