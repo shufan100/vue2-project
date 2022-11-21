@@ -23,25 +23,28 @@
             <el-submenu :index="item.index" :key="index">
               <!-- 一级菜单（有子级标题） -->
               <template slot="title">
-                <i :class="[item.icon, 'iconfont']"></i>
+                <!-- <i :class="[item.icon, 'iconfont']"></i> -->
+                <i :class="[item.icon]"></i>
                 <!-- <span slot="title">{{item.title}}</span> -->
-                <span slot="title">{{ $t(`i18n.${item.index}`) }}</span>
+                <span>{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
               </template>
 
               <!-- 二级菜单（循环） -->
-              <template v-for="subItem in item.subs">
+              <template v-for="(subItem, index) in item.subs">
                 <!-- 2、判断二级菜单是否有子级 -->
-                <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                <el-submenu v-if="subItem.subs" :index="item.index + subItem.index" :key="index">
                   <!-- 二级菜单（有子级标题） -->
                   <!-- <template slot="title">{{ subItem.title }}</template> -->
-                  <template slot="title">{{ $t(`i18n.${subItem.index}`) }}</template>
+                  <template slot="title">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</template>
                   <!-- <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index" >{{ threeItem.title }}</el-menu-item> -->
-                  <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{ $t(`i18n.${threeItem.title}`) }}</el-menu-item>
+                  <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">{{
+                    $t(`i18n.${threeItem.title.replace('/', '')}`)
+                  }}</el-menu-item>
                 </el-submenu>
 
                 <!-- 二级菜单 -->
                 <!-- <el-menu-item v-else :index="subItem.index" :key="subItem.index" >{{ subItem.title }}</el-menu-item> -->
-                <el-menu-item v-else :index="subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index}`) }}</el-menu-item>
+                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
               </template>
             </el-submenu>
           </template>
@@ -49,9 +52,12 @@
           <template v-else>
             <!-- 一级菜单 -->
             <el-menu-item :index="item.index" :key="index">
-              <i :class="[item.icon, 'iconfont']"></i>
-              <!-- <span slot="title">{{item.title}}</span> -->
-              <span slot="title">{{ $t(`i18n.${item.index}`) }}</span>
+              <template slot="title">
+                <!-- <i :class="[item.icon, 'iconfont']"></i> -->
+                <i :class="[item.icon]"></i>
+                <!-- <span slot="title">{{item.title}}</span> -->
+                <span>{{ $t(`i18n.${item.index.replace('/', '')}`) }}</span>
+              </template>
             </el-menu-item>
           </template>
         </template>
@@ -67,163 +73,164 @@ export default {
     return {
       logo: logoImg,
       opened: true,
+      // 路由前加 / 可防止动态路由问题
       items: [
         {
-          icon: 'icon-shouyefill',
-          index: 'home',
+          icon: 'el-icon-s-platform',
+          index: '/home',
           title: '首页'
         },
         {
-          icon: 'icon-17',
-          index: 'form',
+          icon: 'el-icon-s-order',
+          index: '/form',
           title: '表单',
           subs: [
             {
-              index: 'form1',
+              index: '/form1',
               title: 'Form表单'
             },
             {
-              index: 'table',
+              index: '/table',
               title: '基础表格'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: 'editor',
+              index: '/editor',
               title: '富文本编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: 'markdown',
+              index: '/markdown',
               title: 'Markdown编辑器'
             },
             {
               icon: 'el-icon-lx-cascades',
-              index: 'nativeTable',
+              index: '/nativeTable',
               title: '原生表格'
             }
           ]
         },
         {
-          icon: 'icon-xinxitishi',
-          index: 'info',
+          icon: 'el-icon-s-comment',
+          index: '/info',
           title: '信息管理',
           subs: [
             {
-              index: 'userInfo',
+              index: '/userInfo',
               title: '个人信息'
             },
             {
-              index: 'modifyInfo',
+              index: '/modifyInfo',
               title: '修改信息'
             }
           ]
         },
         {
-          icon: 'icon-xiaoxi',
-          index: 'msgCenter',
+          icon: 'el-icon-bell',
+          index: '/msgCenter',
           title: '消息中心'
         },
         {
-          icon: 'icon-fenxiang',
-          index: 'share',
+          icon: 'el-icon-share',
+          index: '/share',
           title: '分享功能'
         },
         {
-          icon: 'icon-anli',
-          index: 'demo',
+          icon: 'el-icon-menu',
+          index: '/demo',
           title: '案例',
           subs: [
             {
-              index: 'writing',
+              index: '/writing',
               title: '基础写法'
             },
             {
-              index: 'shopping',
+              index: '/shopping',
               title: '购物车'
             },
             {
-              index: 'magnifying',
+              index: '/magnifying',
               title: '放大镜'
             },
             {
-              index: 'threeD',
+              index: '/threeD',
               title: '3D旋转图'
             },
             {
-              index: 'upload',
+              index: '/upload',
               title: '图片上传'
             },
             {
-              index: 'printer',
+              index: '/printer',
               title: '打印机'
             },
             {
-              index: 'exportPdf',
+              index: '/exportPdf',
               title: '导出PDF'
             },
             {
-              index: 'iconfont',
+              index: '/iconfont',
               title: '矢量图标'
             },
             {
-              index: 'carousel',
+              index: '/carousel',
               title: '轮播图'
             },
             {
-              index: 'antiShake',
+              index: '/antiShake',
               title: '防抖指令'
             },
             {
-              index: 'seamless',
+              index: '/seamless',
               title: '无缝滚动'
             },
             {
-              index: 'video',
+              index: '/video',
               title: '视频播放'
             },
             {
-              index: 'slots',
+              index: '/slots',
               title: '插槽'
             },
             {
-              index: 'navAnchor',
+              index: '/navAnchor',
               title: '导航锚点'
             }
           ]
         },
         {
-          icon: 'icon-yidong_huaban',
-          index: 'dragAndDrop',
+          icon: 'el-icon-s-tools',
+          index: 'drag',
           title: '拖拽组件',
           subs: [
             {
-              index: 'dialog',
+              index: '/dialog',
               title: '拖拽弹窗'
             },
             {
-              index: 'dragList',
+              index: '/dragList',
               title: '拖拽列表'
             }
           ]
         },
         {
-          icon: 'icon-ditu',
+          icon: 'el-icon-s-promotion',
           index: 'EChartsCom',
           title: '地图组件',
           subs: [
             {
-              index: 'echartsMap',
+              index: '/echartsMap',
               title: 'Map地图'
             }
           ]
         },
         {
-          icon: 'icon-quanxian',
+          icon: 'el-icon-s-goods',
           index: 'permissions',
           title: '权限设置',
           subs: [
             {
-              index: 'pagePermissions',
+              index: '/pagePermissions',
               title: '页面权限'
             }
             // {
@@ -233,12 +240,12 @@ export default {
           ]
         },
         {
-          icon: 'icon-cuowu',
+          icon: 'el-icon-error',
           index: 'errorPage',
           title: '错误页面',
           subs: [
             {
-              index: '404',
+              index: '/404',
               title: '404'
             }
           ]

@@ -8,6 +8,7 @@
       <div class="content is-scroll-left" id="contentId">
         <transition name="fade">
           <keep-alive>
+            <!-- 一级路由入口 -->
             <router-view class="main"></router-view>
           </keep-alive>
         </transition>
@@ -26,7 +27,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       tagsList: [],
       pubId: ''
@@ -41,9 +42,9 @@ export default {
   computed: {
     ...mapState(['sidebarWidth'])
   },
-  created () {
+  created() {
     // 只有在标签页列表里的页面才使用keep-alive，即关闭标签之后就不保存到内存中了。
-    this.$bus.$on('tags', (msg) => {
+    this.$bus.$on('tags', msg => {
       const arr = []
       for (let i = 0, len = msg.length; i < len; i++) {
         msg[i].name && arr.push(msg[i].name)
@@ -56,7 +57,7 @@ export default {
       this.$message.success(`组件挂载完毕：$bus全局事件总线在(Home组件)绑定BusClick的事件--接收的参数${param}`)
     })
   },
-  mounted () {
+  mounted() {
     // 消息订阅
     this.pubId = this.$pubSub.subscribe('pubsubClick', (msgName, data) => {
       this.$message.success(`消息订阅绑定pubsubClick事件--方法名：${msgName}--参数：${data}`)
@@ -68,12 +69,11 @@ export default {
     //   }
     // })
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.$bus.$off('tags')
     this.$bus.$off('busClick')
     this.$pubSub.unsubscribe(this.pubId) // 取消订阅
   }
-
 }
 </script>
 <style scoped lang="less">

@@ -65,7 +65,7 @@ import 'animate.css'
 // ***** mock ****
 import '@/mock'
 
-// ***挂载vue实例上***
+// ***公共属性挂载vue实例上***
 import plugins from './utils/plugins'
 Vue.use(plugins)
 

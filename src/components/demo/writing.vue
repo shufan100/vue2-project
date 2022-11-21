@@ -43,14 +43,12 @@
 
     <!--计算属性例子2：  -->
     <el-divider>计算属性例子2：</el-divider>
-    <el-input style="width:200px" placeholder="模糊搜索" v-model="keyval" />
-    <button @click="type=1">升序</button>
-    <button @click="type=2">降序</button>
-    <button @click="type=0">原来顺序</button>
+    <el-input style="width: 200px" placeholder="模糊搜索" v-model="keyval" />
+    <button @click="type = 1">升序</button>
+    <button @click="type = 2">降序</button>
+    <button @click="type = 0">原来顺序</button>
     <ul>
-      <li v-for="item in newperson" :key="item.id">
-        {{ item.name }}--{{ item.age }}
-      </li>
+      <li v-for="item in newperson" :key="item.id">{{ item.name }}--{{ item.age }}</li>
     </ul>
 
     <!-- watch侦听 -->
@@ -67,8 +65,8 @@
     <!-- 自定义指令 -->
     <el-divider>自定义指令</el-divider>
     <button v-preventReClick>11</button>
-    <input type="text" v-fbind:value='obj.a'>
-    <input type="text" v-sbind:value='obj.b'>
+    <input type="text" v-fbind:value="obj.a" />
+    <input type="text" v-sbind:value="obj.b" />
 
     <el-divider>全局事件总线（$bus兄弟通信）</el-divider>
     <span>绑定事件的组件一定要渲染成功，兄弟组件触发才能触发到</span><br />
@@ -80,52 +78,52 @@
     <el-divider>动画效果（transition）</el-divider>
     <button @click="isShow = !isShow">显示/隐藏</button>
     <!-- name='tans1':定义了name,样式就要改 appear：初始动画 -->
-    <transition name='trans1' appear>
-      <h1 v-show="isShow" style="background:red">欢迎！！！</h1>
+    <transition name="trans1" appear>
+      <h1 v-show="isShow" style="background: red">欢迎！！！</h1>
     </transition>
 
     <el-divider>过渡效果</el-divider>
     <button @click="isShow1 = !isShow1">显示/隐藏</button>
     <!-- name='tans1':定义了name,样式就要改 appear：初始动画 -->
-    <transition name='trans2' appear>
-      <h1 v-show="isShow1" style="background:red">欢迎！！！</h1>
+    <transition name="trans2" appear>
+      <h1 v-show="isShow1" style="background: red">欢迎！！！</h1>
     </transition>
     <!-- 多个过渡 -->
-    <transition-group name='trans2' appear>
-      <h1 v-show="isShow1" key="1" style="background:red">欢迎！！！</h1>
-      <h1 v-show="!isShow1" key="2" style="background:red">欢迎！！！</h1>
+    <transition-group name="trans2" appear>
+      <h1 v-show="isShow1" key="1" style="background: red">欢迎！！！</h1>
+      <h1 v-show="!isShow1" key="2" style="background: red">欢迎！！！</h1>
     </transition-group>
 
     <el-divider>过渡效果(插件animate.css)</el-divider>
     <!-- name是固定写法 -->
-    <transition-group name='animate__animated animate__bounce' appear enter-active-class="animate__zoomInDown" leave-active-class="animate__rollOut">
-      <h1 v-show="isShow1" key="11" style="background:red">欢迎！！！</h1>
-      <h1 v-show="isShow1" key="22" style="background:red">欢迎！！！</h1>
+    <transition-group name="animate__animated animate__bounce" appear enter-active-class="animate__zoomInDown" leave-active-class="animate__rollOut">
+      <h1 v-show="isShow1" key="11" style="background: red">欢迎！！！</h1>
+      <h1 v-show="isShow1" key="22" style="background: red">欢迎！！！</h1>
     </transition-group>
 
     <el-divider>Vuex</el-divider>
     <h2>计算属性读取vuex的state值 / getters计算后的值</h2>
     <ul>
-      <li>原生读取state: {{codexxx}}</li>
+      <li>原生读取state: {{ codexxx }}</li>
       <li>------</li>
-      <li>对象读取state: {{xxs1}}</li>
-      <li>对象读取state模块对象: {{func1}}</li>
-      <li>对象读取state模块对象内的值: {{info}}</li>
+      <li>对象读取state: {{ xxs1 }}</li>
+      <li>对象读取state模块对象: {{ func1 }}</li>
+      <li>对象读取state模块对象内的值: {{ info }}</li>
       <li>------</li>
-      <li>数组读取state: {{sum}}</li>
-      <li>数组读取state模块对象: {{func}}</li>
-      <li style="color:red">数组读取state模块对象内的值: {{userName}}</li>
-      <li style="color:red">数组读取state模块对象内的值: {{datas}}</li>
+      <li>数组读取state: {{ sum }}</li>
+      <li>数组读取state模块对象: {{ func }}</li>
+      <li style="color: red">数组读取state模块对象内的值: {{ userName }}</li>
+      <li style="color: red">数组读取state模块对象内的值: {{ datas }}</li>
       <!-- <li>{{func === func1}}</li> -->
       <li>------</li>
-      <li>数组读取getters修改的state: {{gName1}}</li>
-      <li>数组读取命名空间的getters修改的state: {{gUserName}}</li>
+      <li>数组读取getters修改的state: {{ gName1 }}</li>
+      <li>数组读取命名空间的getters修改的state: {{ gUserName }}</li>
     </ul>
     <hr />
     <ul>
-      <li>原本值sum: {{sum}}</li>
-      <li>放大10倍sum: {{bigSum}}</li>
-      <li>缩小2倍sum: {{smallSum}}</li>
+      <li>原本值sum: {{ sum }}</li>
+      <li>放大10倍sum: {{ bigSum }}</li>
+      <li>缩小2倍sum: {{ smallSum }}</li>
     </ul>
     <button @click="addSumA">数组写法：action ++</button>
     <button @click="addSumA1(2)">对象写法(带参)：action ++1</button>
@@ -139,13 +137,14 @@
     <button @click="CS">CS</button>
     <button @click="CS2">CS2</button>
     <br />
-    <span>{{name1}}</span>---<button @click="axionsCs2">请求</button>
+    <span>{{ name1 }}</span
+    >---<button @click="axionsCs2">请求</button>
   </div>
 </template>
 <script>
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       url: 'https://www.baidu.com/',
       value: '',
@@ -174,7 +173,7 @@ export default {
   computed: {
     // ------------------------------------------------组件内的计算属性读取vuex(state,getters)------------------------------------------------------------
     // # 借助mapState生成计算属性，从state中读取数据（对象写法，数组写法）
-    codexxx () {
+    codexxx() {
       return this.$store.state.codes
     },
     // 对象写法
@@ -194,22 +193,22 @@ export default {
     // ------------------------------------------------组件内的计算属性------------------------------------------------------------
     fullname: {
       // 这个get就是vue的数据劫持 的Objet.definePorperty()方法内的get和set方法
-      get () {
+      get() {
         console.log('计算属性-----get被调用了 ')
         return this.name + this.sex
       },
-      set (value) {
+      set(value) {
         return value
       }
     },
     // 简写--------------------------
-    full2 () {
+    full2() {
       return this.name
     },
-    HotComputed () {
+    HotComputed() {
       return this.isHot ? '炎热' : '凉爽'
     },
-    newperson () {
+    newperson() {
       const arr = this.person.filter(i => {
         return i.name.indexOf(this.keyval) !== -1
       })
@@ -234,19 +233,19 @@ export default {
     // 深度监听
     obj: {
       deep: true, // 开启深度监听
-      handler (newVal, oldVal) {
+      handler(newVal, oldVal) {
         console.log('监听obj对象里所有苏属性', this.obj)
       }
     },
     // 简写----------------------
-    isHot () {
+    isHot() {
       console.log(this.isHot, '---watch监听isHot')
     },
-    'obj.a' () {
+    'obj.a'() {
       // 监听对象的单个属性
       console.log('监听属性a')
     },
-    'obj.b' () {
+    'obj.b'() {
       // 要写成箭头函数
       setTimeout(function () {
         console.log(this, '---这里的this是指向window')
@@ -256,15 +255,15 @@ export default {
   },
   filters: {
     // 可以接收多个参数，第一个是数据，第二个是参数
-    timeFilter (value, type) {
+    timeFilter(value, type) {
       return type ? '2022_04_17' : '2022_04_17 17:09:45'
     }
   },
 
-  created () {
+  created() {
     console.log('writing组件--created生命周期钩子', this.$store)
   },
-  mounted () {
+  mounted() {
     console.log(this.$router)
     console.log(this.$route)
     console.log(mapState({ sum: 'sum' }), '00')
@@ -275,7 +274,7 @@ export default {
     ...mapActions(['jiasum', 'cs2', 'axionsCs2']), // mutations 数组写法
     ...mapActions('user', ['cs']), // mutations 数组写法 //因为设置了命名空间
     ...mapActions({ addSumA1: 'jiasum', addSumA2: 'jiasum1' }), // mutations 对象写法(接收一个参数)
-    addSumA () {
+    addSumA() {
       this.jiasum(1)
       // this.$store.dispatch('jiasum', 1) // 原始写法
     },
@@ -283,29 +282,29 @@ export default {
     ...mapMutations(['JIASUM', 'CS2']), // action 数组写法
     ...mapMutations('user', ['CS']), // mutations 数组写法 //因为设置了命名空间
     ...mapMutations({ addSumM1: 'JIASUM2' }), // action 对象写法(接收一个参数)
-    addSumM () {
+    addSumM() {
       this.JIASUM(1)
       // this.$store.commit('JIASUM', 1) // 原始写法
     },
     // -------------------------------------------------------
-    clicks () {
+    clicks() {
       alert(111)
     },
-    scroll1 () {
+    scroll1() {
       console.log('滚动条动了就会一直触发（滚轮和上下键都会触发）')
     },
-    wheel1 () {
+    wheel1() {
       console.log('滚轮动了就会触发，不管滚动条有没有到底（上下键不会触发）') // https://api.uixsj.cn/hitokoto/get?type=social
     },
     // 按下回车触发
-    showInfo (e) {
+    showInfo(e) {
       // 1、按键编码 回车编码===13
       // if (e.keyCode !== 13) return
       console.log(e.keyCode, e.key)
       console.log(e.target.value)
       // console.log(this.value)
     },
-    add (type) {
+    add(type) {
       type === 'a' && this.obj.a++
       type === 'b' && this.obj.b++
       if (type === 'add') {
@@ -314,14 +313,13 @@ export default {
       }
     },
     // 触发全局事件总线$bus绑定的事件
-    globalEvent () {
+    globalEvent() {
       this.$bus.$emit('busClick', '数据123')
     },
     // 触发消息订阅
-    pubsubEvent () {
+    pubsubEvent() {
       this.$pubSub.publish('pubsubClick', '99999')
     }
-
   },
 
   /**
@@ -329,10 +327,10 @@ export default {
     2）通过keep-alive缓存的组件，当路由切换离开当前组件，（组件未销毁）不会触发 beforeDestroy 和 destroyed生命周期
     3）activated 替代 mounted; deactivated 替代 beforeDestroy
    */
-  activated () {
+  activated() {
     console.log('激活writing组件（进入组件） -- 结合keep-alive的新生命周期钩子')
   },
-  deactivated () {
+  deactivated() {
     console.log('失活writing组件（离开组件） -- 结合keep-alive的新生命周期钩子')
   },
 
@@ -340,12 +338,12 @@ export default {
    * 组件内路由守卫
    */
   // 通过路由规则，进入该组件之前被调用
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     // ...
     next()
   },
   // 通过路由规则，离开该组件之前被调用
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     // ...
     next()
   }
