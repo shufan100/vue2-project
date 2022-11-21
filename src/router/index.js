@@ -99,6 +99,7 @@ const router = new VueRouter({
   // hash:   /#/ >> (#)后面的路径不会发给服务器 ：兼容性好
 
   mode: 'history', // 默认hash
+  bese: '/SHUF/',
   routes
   // scrollBehavior(to, from, savedPosition) {
   //   return new Promise((resolve, reject) => {
