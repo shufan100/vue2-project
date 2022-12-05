@@ -19,7 +19,6 @@ const routes = [
     name: 'Home',
     component: Home,
     redirect: 'home', // 默认显示第一个子路由、
-    meta: { title: '首页1' },
     children: [
       {
         path: '/home',
