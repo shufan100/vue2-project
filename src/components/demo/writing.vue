@@ -202,7 +202,7 @@ export default {
       }
     },
     // 简写--------------------------
-    full2() {
+    full2(type1) {
       return this.name
     },
     HotComputed() {
