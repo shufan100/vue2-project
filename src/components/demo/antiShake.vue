@@ -8,6 +8,13 @@
     {{ value }}
     <!-- <el-button @click="postMsg">postMsg</el-button>
     <iframe ref="iframes" class="iframe" src="http://192.168.1.131:3008/"></iframe> -->
+
+    <el-button @click="add"> 正常</el-button>
+    <el-button v-debounce="() => add('防抖', '防抖')">防抖</el-button>
+    <el-button v-throttle="() => add('节流', '节流')">节流</el-button>
+    <template v-for="i in 3">
+      <el-button :key="i" v-debounce="() => add(111, 222)">防抖{{ i }}</el-button>
+    </template>
   </div>
 </template>
 <script>
