@@ -64,7 +64,7 @@
 
     <!-- 自定义指令 -->
     <el-divider>自定义指令</el-divider>
-    <button v-preventReClick>11</button>
+    <button v-throttle>11</button>
     <input type="text" v-fbind:value="obj.a" />
     <input type="text" v-sbind:value="obj.b" />
 
@@ -96,7 +96,8 @@
 
     <el-divider>过渡效果(插件animate.css)</el-divider>
     <!-- name是固定写法 -->
-    <transition-group name="animate__animated animate__bounce" appear enter-active-class="animate__zoomInDown" leave-active-class="animate__rollOut">
+    <transition-group name="animate__animated animate__bounce" appear enter-active-class="animate__zoomInDown"
+      leave-active-class="animate__rollOut">
       <h1 v-show="isShow1" key="11" style="background: red">欢迎！！！</h1>
       <h1 v-show="isShow1" key="22" style="background: red">欢迎！！！</h1>
     </transition-group>
@@ -137,8 +138,7 @@
     <button @click="CS">CS</button>
     <button @click="CS2">CS2</button>
     <br />
-    <span>{{ name1 }}</span
-    >---<button @click="axionsCs2">请求</button>
+    <span>{{ name1 }}</span>---<button @click="axionsCs2">请求</button>
   </div>
 </template>
 <script>
@@ -353,34 +353,40 @@ export default {
 #writing {
   .gl {
     display: flex;
+
     ul {
       background: goldenrod;
       width: 200px;
       height: 100px;
       margin-right: 10px;
       overflow-y: scroll;
+
       li {
         width: 100%;
         height: 50px;
       }
     }
   }
+
   //------------------动画写法-----------------------------
   //进入需要激活的动画
   .trans1-enter-active {
     // .v-enter-active {
     animation: trans1 0.5s linear;
   }
+
   //离开需要激活的动画
   .trans1-leave-active {
     // .v-leave-active {
     // reverse反转
     animation: trans1 0.5s reverse;
   }
+
   @keyframes trans1 {
     from {
       transform: translateX(-100%);
     }
+
     to {
       transform: translateX(0px);
     }
@@ -391,15 +397,16 @@ export default {
   .trans2-leave-active {
     transition: 0.5s linear;
   }
+
   // 进入的起点、离开的终点
   .trans2-enter,
   .trans2-leave-to {
     transform: translateX(-100%);
   }
+
   // 进入的终点、离开的起点
   .trans2-enter-to,
   .trans2-leave {
     transform: translateX(0);
   }
-}
-</style>
+}</style>

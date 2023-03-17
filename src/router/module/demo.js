@@ -101,7 +101,7 @@ export default {
       component: () => import('@/components/demo/antiShake'),
       meta: {
         parentTitle: 'AntiShake',
-        title: '防抖指令',
+        title: '自定义指令',
         path: 'demo/antiShake',
         permissions: true
       }

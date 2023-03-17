@@ -1,22 +1,22 @@
   <!-- ***裁剪上传（单张）*** -->
 <template>
   <div id="uploads">
-    <el-upload v-show="!tailorUrl" class="avatar-uploader" :style="{ width, height }" action="#" :multiple="false" :show-file-list="false" :drag="true"
-      :accept="accept" :http-request="httpRequest">
+    <el-upload v-show="!tailorUrl" class="avatar-uploader" :style="{ width, height }" action="#" :multiple="false"
+      :show-file-list="false" :drag="true" :accept="accept" :http-request="httpRequest">
       <div class="avatar-uploader-tip">
         <img v-if="cropperUrl" class="avatar-uploader-img" :src="cropperUrl" />
         <slot v-else></slot>
       </div>
     </el-upload>
-    <img v-show="tailorUrl" class="show-img" :src="tailorUrl" alt="" @click="parentClick" :style="{ width, height }" @drop.prevent.stop="getDropFile"
-      @dragover.prevent.stop="">
+    <img v-show="tailorUrl" class="show-img" :src="tailorUrl" alt="" @click="parentClick" :style="{ width, height }"
+      @drop.prevent.stop="getDropFile" @dragover.prevent.stop="">
 
     <!-- ---------------------------- -->
     <!-- 原生上传图片方法 -->
     <input v-show="false" ref="upload3" :accept="accept" type="file" @change="changeFile" hidden />
     <!-- 弹窗 -->
-    <el-dialog custom-class='custom' :visible.sync="dialogShow" :before-close="closeDialog" :close-on-click-modal="false" center title="裁剪图案" width="520px"
-      :append-to-body='true'>
+    <el-dialog custom-class='custom' :visible.sync="dialogShow" :before-close="closeDialog" :close-on-click-modal="false"
+      center title="裁剪图案" width="520px" :append-to-body='true'>
       <div v-if="dialogShow" class="cropper-box">
         <div class="cropper-tailor">
           <span>裁剪区</span>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <el-button @click="closeDialog" size="mini">取消</el-button>
-      <el-button v-preventReClick type="primary" size="mini" @click="save">保存</el-button>
+      <el-button v-throttle type="primary" size="mini" @click="save">保存</el-button>
     </el-dialog>
   </div>
 </template>
@@ -206,8 +206,10 @@ export default {
 #uploads {
   overflow: hidden;
   margin-right: 20px;
+
   .avatar-uploader {
     float: left;
+
     .el-upload {
       overflow: hidden;
       width: 100%;
@@ -216,6 +218,7 @@ export default {
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
+
       .el-upload-dragger {
         width: 100%;
         height: 100%;
@@ -224,19 +227,23 @@ export default {
         align-items: center;
       }
     }
+
     .el-upload:hover {
       border-color: #409eff;
     }
+
     .avatar-uploader-tip {
       i {
         font-size: 28px;
         color: #8c939d;
         font-weight: bolder;
       }
+
       p {
         color: #999;
         font-size: 14px;
       }
+
       .avatar-uploader-img {
         display: block;
         width: 100%;
@@ -249,20 +256,24 @@ export default {
     border: 1px dashed #d9d9d9;
     cursor: pointer;
     border-radius: 6px;
+
     &:hover {
       border-color: #2858f8;
     }
   }
 }
+
 .cropper-box {
   display: flex;
   justify-content: space-between;
   height: 360px;
+
   .cropper-tailor {
     /* 裁剪图片 */
     width: 280px;
     height: 280px;
     border-radius: 4px;
+
     .btn {
       display: block;
       width: 100%;
@@ -278,6 +289,7 @@ export default {
       box-sizing: border-box;
     }
   }
+
   .cropper-preview {
     .before {
       width: 160px;
@@ -287,5 +299,4 @@ export default {
       /* 这个属性可以得到想要的效果 */
     }
   }
-}
-</style>
+}</style>

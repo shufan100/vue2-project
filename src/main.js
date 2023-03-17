@@ -21,7 +21,7 @@ import Print from './utils/prints'
 import htmlToPdf from './utils/htmlToPdf'
 // ***** echarts ****
 import echarts from 'echarts'
-// ***** 拖拽指令****
+// ***** 自定义指令（拖拽、防抖、节流）****
 import './common/directives'
 
 // ***** 中英文 ****
@@ -31,8 +31,6 @@ import '@/assets/icon/iconfont.css'
 // 分享功能集合
 // import { shareConfig } from './utils/share';
 import * as share from './utils/share'
-// 全局指令
-import './utils/preventReClick'
 // 图片预览
 import elImageViewer from 'element-ui/packages/image/src/image-viewer'
 // 弹窗封装

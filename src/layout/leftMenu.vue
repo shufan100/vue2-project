@@ -8,15 +8,8 @@
       </span>
     </div>
     <div class="menu_page_bottom is-scroll-left wflex">
-      <el-menu
-        class="el-menu-vertical-demo"
-        :default-active="onRoutes"
-        active-text-color="#ff6428"
-        @select="handleOpen"
-        @close="handleClose"
-        :collapse="sidebarOpened"
-        router
-      >
+      <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" active-text-color="#ff6428" @select="handleOpen"
+        @close="handleClose" :collapse="sidebarOpened" router>
         <template v-for="(item, index) in items">
           <!-- 1、判断一级菜单是否有子级 -->
           <template v-if="item.subs">
@@ -44,7 +37,8 @@
 
                 <!-- 二级菜单 -->
                 <!-- <el-menu-item v-else :index="subItem.index" :key="subItem.index" >{{ subItem.title }}</el-menu-item> -->
-                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
+                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{
+                  $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
               </template>
             </el-submenu>
           </template>
@@ -178,7 +172,7 @@ export default {
             },
             {
               index: '/antiShake',
-              title: '防抖指令'
+              title: '自定义指令'
             },
             {
               index: '/seamless',
@@ -259,7 +253,7 @@ export default {
     },
     ...mapState(['sidebarOpened', 'sidebarWidth'])
   },
-  mounted() {},
+  mounted() { },
   methods: {
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
@@ -272,6 +266,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .menu_left {
+
   // min-width: 60px;
   // max-width: 200px;
   // position: absolute;
@@ -286,23 +281,28 @@ export default {
     text-transform: uppercase;
     box-sizing: border-box;
     box-shadow: 0px 2px 5px 0px rgba(230, 224, 224, 0.5);
+
     .logo {
       height: 36px;
       width: 36px;
       vertical-align: middle;
       display: inline-block;
     }
+
     .closeLogo {
       width: 30px;
       height: 30px;
     }
+
     .title {
       font-size: 22px;
+
       i {
         color: #ff6c60;
       }
     }
   }
+
   .menu_page_bottom {
     width: 100%;
     overflow-y: scroll;
@@ -311,10 +311,12 @@ export default {
     z-index: 10;
     box-shadow: 0 0 10px 0 rgba(230, 224, 224, 0.5);
   }
+
   .iconfont {
     font-size: 18px;
     padding-right: 6px;
   }
+
   .icon-xinxitishi,
   .icon-anli,
   .icon-yidong_huaban,

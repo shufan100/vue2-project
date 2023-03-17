@@ -35,7 +35,7 @@
             <iframe class="iframe" :src="url"></iframe>
         </div>
         <i class="iconfont icondabiaoguanli"></i>
-        <el-button v-preventReClick @click="antiShake">防抖多次触发</el-button>   -->
+        <el-button v-throttle @click="antiShake">防抖多次触发</el-button>   -->
   </div>
 </template>
 
@@ -838,33 +838,40 @@ export default {
   height: 94%;
   overflow: hidden;
   display: flex;
+
   li {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     // background: #f9f9f9;
   }
+
   .home-left {
     flex: 5;
     margin-right: 10px;
     display: flex;
     flex-direction: column; //(row为水平方向，column为垂直方向)；
+
     .home-left-box1 {
       height: 60px;
       // background: red;
     }
+
     .home-left-box2 {
       flex: 5;
       margin: 10px 0;
       // background: yellow;
     }
+
     .home-left-box3 {
       flex: 2;
       display: flex;
+
       .left-box3-left {
         flex: 1;
         margin-right: 10px;
         // background: teal;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
       }
+
       .left-box3-right {
         flex: 1;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -872,49 +879,60 @@ export default {
       }
     }
   }
+
   .home-right {
     flex: 2;
     display: flex;
     flex-direction: column; //(row为水平方向，column为垂直方向)；
+
     .home-right-box1 {
       flex: 1.5;
       // background: yellow;
     }
+
     .home-right-box2 {
       flex: 1.5;
       // background: red;
       margin-top: 10px;
     }
+
     .home-right-box3 {
       flex: 2;
       margin-top: 10px;
       // background: seagreen;
     }
   }
+
   #plan {
     width: 130px;
     height: 105px;
     padding: 10px;
     background: #fff;
+
     span {
       display: block;
       color: #33bdfd;
       font-size: 14px;
     }
+
     span:nth-child(2) {
       color: #ffbe40;
     }
+
     span:nth-child(3) {
       color: #28ffb6;
     }
+
     span:nth-child(4) {
       color: #1eff00;
     }
+
     .active5 {
       color: red !important;
     }
   }
 }
+
 // .pdfs{
 //     position: fixed;
 //     top: 0;
@@ -930,5 +948,4 @@ export default {
 //         left: 50%;
 
 //     }
-// }
-</style>
+// }</style>

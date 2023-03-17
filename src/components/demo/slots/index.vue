@@ -1,3 +1,11 @@
+<!--
+ * @Author: shufan100 1549248097@qq.com
+ * @Date: 2022-10-23 14:45:51
+ * @LastEditors: shufan100 1549248097@qq.com
+ * @LastEditTime: 2023-03-17 17:15:44
+ * @FilePath: \vue2-project\src\components\demo\slots\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <ul id="slots">
     <li>
@@ -29,14 +37,14 @@
       <h1>作用域插槽</h1>
       <domainSlot>
         <!-- 作用域插槽必须通过template的scope接收数据 -->
-        <template scope="domainData">
+        <template slot-scope="domainData">
           {{ domainData }}
           <h4 v-for="i in domainData.games" :key="i">{{ i }}</h4>
         </template>
       </domainSlot>
       <domainSlot>
         <!-- 作用域插槽必须通过template的scope接收数据 -->
-        <template scope="domainData">
+        <template slot-scope="domainData">
           {{ domainData }}
           <span v-for="i in domainData.games" :key="i">{{ i }}</span>
         </template>
@@ -69,11 +77,13 @@ export default {
     height: 600px;
     margin-right: 20px;
     background: lightblue;
+
     h1 {
       margin-bottom: 10px;
       background: gold;
       text-align: center;
     }
+
     img {
       width: 50%;
     }

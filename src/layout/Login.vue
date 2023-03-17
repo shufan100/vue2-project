@@ -3,9 +3,9 @@
     <div class="ms-login">
       <div class="ms-title">登录系统</div>
       <!-- <div class='titleArea rflex'>
-					<img class="logo" :src="logo" alt="小爱admin">
-					<span class='title'>小爱<i>Admin</i></span>
-				</div> -->
+        <img class="logo" :src="logo" alt="小爱admin">
+        <span class='title'>小爱<i>Admin</i></span>
+      </div> -->
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
         <el-form-item prop="username">
           <el-input v-model="param.username" placeholder="username">
@@ -73,10 +73,12 @@ export default {
   font-size: 22px;
   width: 100%;
   padding-bottom: 20px;
+
   .logo {
     width: 40px;
     margin-right: 10px;
   }
+
   .title {
     i {
       color: #ff6c60;
@@ -93,6 +95,7 @@ export default {
   background-image: url(../assets/images/login-bg.jpg);
   background-size: 100%;
 }
+
 .ms-title {
   width: 100%;
   line-height: 50px;
@@ -101,6 +104,7 @@ export default {
   color: #fff;
   border-bottom: 1px solid #ddd;
 }
+
 .ms-login {
   position: absolute;
   left: 50%;
@@ -111,22 +115,26 @@ export default {
   background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
+
 .ms-content {
   padding: 30px 30px;
 }
+
 .login-btn {
   text-align: center;
 }
+
 .login-btn button {
   width: 100%;
-  height: 36px;
   margin-bottom: 10px;
 }
+
 .login-tips {
   font-size: 12px;
   line-height: 30px;
   color: #fff;
 }
+
 .el-button {
   padding: 15px;
 }

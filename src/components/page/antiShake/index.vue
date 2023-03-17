@@ -1,6 +1,6 @@
 <template>
   <div id="antiShake">
-    <el-button v-preventReClick @click="cc">防抖</el-button>
+    <el-button v-throttle @click="cc">防抖</el-button>
   </div>
 </template>
 
