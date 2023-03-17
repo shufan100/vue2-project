@@ -2,7 +2,7 @@
  * @Author: shufan100 1549248097@qq.com
  * @Date: 2022-10-23 14:45:51
  * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2023-01-14 13:55:57
+ * @LastEditTime: 2023-02-09 14:40:18
  * @FilePath: \vue2-project\vue.config.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,7 +12,7 @@ module.exports = () => {
   return {
     // 当前应用是被部署在一个域名的根路径上就用'/',如果是部署在子路径上 '/my-app'（根据后端来）
     // process.env.NODE_ENV
-    publicPath: '/SHUF/',
+    publicPath: env.VUE_APP_BASE, // 系统部署在子路径上
     outputDir: 'dist', // build打包后的文件名(生产环境构建文件的目录)(编译前会自动先将之前的dist包删除)
     assetsDir: 'assets', // 放置生成的静态资源 (js、css、img、fonts)
     lintOnSave: false, // 是否开启eslint (否在开发环境下通过 eslint-loader 在每次保存时 lint 代码) （值为boolean | 'warning' | 'default' | 'error'）
