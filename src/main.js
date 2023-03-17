@@ -107,12 +107,15 @@ Vue.prototype.$pubSub = PubSub
 Vue.config.silent = false
 // eslint-disable-next-line no-unused-vars
 const vm = new Vue({
+  data: {
+    msgs: 'hello msg'
+  },
   router,
   store, // 这边就是引入的store，vue会自动加在实例身上，名为$store
   i18n,
-  render: h => h(App),
+  render: h => h(App), // 模板编译，通过render函数将模板的虚拟dom转成真是dom
   // render: h => {
-  //   return [h('div'), h('span'), h('div')]
+  //   return h('div', { attrs: { id: 'app', class: 'app' } }, [h('h1', 'Hello Vue2')])
   // },
   beforeCreate() {
     Vue.prototype.$bus = this // 安装全局事件总线

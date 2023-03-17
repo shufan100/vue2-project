@@ -19,7 +19,6 @@ const routes = [
     name: 'Home',
     component: Home,
     redirect: 'home', // 默认显示第一个子路由、
-    meta: { title: '首页1' },
     children: [
       {
         path: '/home',
@@ -99,7 +98,7 @@ const router = new VueRouter({
   // hash:   /#/ >> (#)后面的路径不会发给服务器 ：兼容性好
 
   mode: 'history', // 默认hash
-  bese: '/SHUF/',
+  bese: process.env.VUE_APP_BASE, // 部署在SHUF的子路径上就要改成对应的base
   routes
   // scrollBehavior(to, from, savedPosition) {
   //   return new Promise((resolve, reject) => {
