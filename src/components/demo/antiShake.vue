@@ -18,10 +18,8 @@
     <!-- <el-input v-debounce:search="'input'" v-model="value"></el-input> -->
 
     <h2>自动聚焦指令</h2>
-  <!-- <input type="text" v-fbind:value="val" />
+    <!-- <input type="text" v-fbind:value="val" />
                                     {{ value }} -->
-
-
   </div>
 </template>
 <script>
