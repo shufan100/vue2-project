@@ -3,28 +3,28 @@
     <ul class="home-left">
       <!-- <li class="home-left-box1"></li> -->
       <li class="home-left-box2">
-        <div id="mapCharts" style="width: 100%;height:100%;"></div>
+        <div id="mapCharts" style="width: 100%; height: 100%"></div>
       </li>
       <li class="home-left-box3">
         <div class="left-box3-left">
-          <div id="faultEchart1" style="width: 50%;height:100%;float:left"></div>
-          <div id="faultEchart2" style="width: 50%;height:100%;float:left"></div>
+          <div id="faultEchart1" style="width: 50%; height: 100%; float: left"></div>
+          <div id="faultEchart2" style="width: 50%; height: 100%; float: left"></div>
         </div>
         <div class="left-box3-right">
-          <div id="defectsPartsEchart" style="width: 100%;height:100%;"></div>
+          <div id="defectsPartsEchart" style="width: 100%; height: 100%"></div>
         </div>
       </li>
     </ul>
 
     <ul class="home-right">
       <li class="home-right-box1">
-        <div id="oldEcharts" style="width: 100%;height:100%"></div>
+        <div id="oldEcharts" style="width: 100%; height: 100%"></div>
       </li>
       <li class="home-right-box2">
-        <div id="reliableEcharts" style="width: 100%;height:100%;"></div>
+        <div id="reliableEcharts" style="width: 100%; height: 100%"></div>
       </li>
       <li class="home-right-box3">
-        <div id="stateEchart" style="width: 100%;height:100%"></div>
+        <div id="stateEchart" style="width: 100%; height: 100%"></div>
       </li>
     </ul>
     <!-- <VueQr text="Hello world!" :size="80"></VueQr>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-// import Watermark from '@/utils/watermark' // 路径不要写错
+// import Watermark from '@/utils/common/watermark' // 路径不要写错
 // import VueQr from 'vue-qr'
 // import pinyin from 'js-pinyin'
 // import pdf from 'vue-pdf' // 在线预览pdf
@@ -51,17 +51,12 @@ export default {
   //   VueQr,
   //   pdf
   // },
-  data () {
+  data() {
     return {
-      url:
-        'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-      srcList: [
-        require('@/assets/images/01.jpg'),
-        require('@/assets/images/02.jpg')
-      ],
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      srcList: [require('@/assets/images/01.jpg'), require('@/assets/images/02.jpg')],
       showViewer: false,
-      guidePic:
-        'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg', // 预览图片的地址
+      guidePic: 'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg', // 预览图片的地址
       pdfShow: false,
       mapData1: [
         { name: '太原市', value: 100 },
@@ -124,7 +119,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     console.log(this)
     console.log('mixin:', this.mixinName)
     //         // Watermark.set("水印内容")
@@ -138,7 +133,7 @@ export default {
     this.getInit2()
   },
   methods: {
-    initMap () {
+    initMap() {
       this.$echarts.registerMap('shanxi', china)
       const myChart = this.$echarts.init(document.getElementById('mapCharts'))
       myChart.setOption({
@@ -196,9 +191,7 @@ export default {
         this.$success('暂无问题数据')
       })
       // 故障统计1
-      const faultEchart1 = this.$echarts.init(
-        document.getElementById('faultEchart1')
-      )
+      const faultEchart1 = this.$echarts.init(document.getElementById('faultEchart1'))
       faultEchart1.setOption({
         title: {
           text: '',
@@ -273,9 +266,7 @@ export default {
         ]
       })
       // 故障统计2
-      const faultEchart2 = this.$echarts.init(
-        document.getElementById('faultEchart2')
-      )
+      const faultEchart2 = this.$echarts.init(document.getElementById('faultEchart2'))
       faultEchart2.setOption({
         tooltip: {
           trigger: 'item',
@@ -330,9 +321,7 @@ export default {
           }
         ]
       })
-      const defectsPartsEchart = this.$echarts.init(
-        document.getElementById('defectsPartsEchart')
-      )
+      const defectsPartsEchart = this.$echarts.init(document.getElementById('defectsPartsEchart'))
       defectsPartsEchart.setOption({
         title: {
           text: '单位：个',
@@ -392,17 +381,7 @@ export default {
             // 刻度
             show: false // 不显示刻度线
           },
-          data: [
-            '电缆通道',
-            '附属设施',
-            '电缆分支箱',
-            '在线监测装置',
-            '附属设备',
-            '终端',
-            '中间接头',
-            '电缆段',
-            '电缆'
-          ]
+          data: ['电缆通道', '附属设施', '电缆分支箱', '在线监测装置', '附属设备', '终端', '中间接头', '电缆段', '电缆']
         },
         series: [
           {
@@ -422,10 +401,8 @@ export default {
         ]
       })
     },
-    getInit () {
-      const oldChart = this.$echarts.init(
-        document.getElementById('oldEcharts')
-      )
+    getInit() {
+      const oldChart = this.$echarts.init(document.getElementById('oldEcharts'))
       oldChart.setOption({
         title: {
           text: '单位：KM',
@@ -527,10 +504,8 @@ export default {
         ]
       })
     },
-    getInit2 () {
-      const reliableEcharts = this.$echarts.init(
-        document.getElementById('reliableEcharts')
-      )
+    getInit2() {
+      const reliableEcharts = this.$echarts.init(document.getElementById('reliableEcharts'))
       reliableEcharts.setOption({
         tooltip: {
           trigger: 'item',
@@ -630,9 +605,7 @@ export default {
         ]
       })
 
-      const stateEchart = this.$echarts.init(
-        document.getElementById('stateEchart')
-      )
+      const stateEchart = this.$echarts.init(document.getElementById('stateEchart'))
       stateEchart.setOption({
         tooltip: {
           trigger: 'axis',
@@ -816,18 +789,16 @@ export default {
       })
     },
 
-    closeViewer () {
+    closeViewer() {
       this.showViewer = false
     },
-    getPreview () {
-      this.guidePic
-        ? (this.showViewer = true)
-        : this.$message.info('当前没有可预览的图片')
+    getPreview() {
+      this.guidePic ? (this.showViewer = true) : this.$message.info('当前没有可预览的图片')
     },
-    pdfCheck () {
+    pdfCheck() {
       this.$refs.pdf.print()
     },
-    antiShake () {
+    antiShake() {
       console.log('1秒触发一次！')
     }
   }
@@ -948,4 +919,5 @@ export default {
 //         left: 50%;
 
 //     }
-// }</style>
+// }
+</style>

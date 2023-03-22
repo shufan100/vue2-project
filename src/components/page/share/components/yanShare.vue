@@ -17,21 +17,17 @@
               </div>
             </li>
             <li>
-              <div class="item" @click="shareToWeibo()">
-              </div>
+              <div class="item" @click="shareToWeibo()"></div>
             </li>
             <li>
-              <div class="item" @click="shareToQQ()">
-              </div>
+              <div class="item" @click="shareToQQ()"></div>
             </li>
             <li>
-              <div class="item" @click="shareToQQzone()">
-              </div>
+              <div class="item" @click="shareToQQzone()"></div>
             </li>
 
             <li>
-              <div class="item" @click="shareToDouban()">
-              </div>
+              <div class="item" @click="shareToDouban()"></div>
             </li>
           </ul>
         </el-popover>
@@ -42,11 +38,11 @@
 
 <script>
 import QRCode from 'qrcodejs2'
-import { shareUrl } from "@/utils/env";
+import { shareUrl } from '@/utils/data/env'
 
 export default {
   name: 'hengShare',
-  data () {
+  data() {
     return {
       qrcode: {
         show: false
@@ -59,35 +55,33 @@ export default {
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
       }
-
     }
   },
-  mounted () {
-    this.creatQrCode();
+  mounted() {
+    this.creatQrCode()
   },
   methods: {
-    showqrcode () {
-      this.qrcode.show = true;
+    showqrcode() {
+      this.qrcode.show = true
     },
-    hideqrcode () {
-      this.qrcode.show = false;
+    hideqrcode() {
+      this.qrcode.show = false
     },
-    creatQrCode () {
+    creatQrCode() {
       const qrcode = new QRCode(this.$refs.qrCodeUrl6, this.qrcodeObj)
     },
-    shareToQQ () {
-      this.$emit('shareToQQ');
+    shareToQQ() {
+      this.$emit('shareToQQ')
     },
-    shareToQQzone () {
-      this.$emit('shareToQQzone');
+    shareToQQzone() {
+      this.$emit('shareToQQzone')
     },
-    shareToWeibo () {
-      this.$emit('shareToWeibo');
+    shareToWeibo() {
+      this.$emit('shareToWeibo')
     },
-    shareToDouban () {
-      this.$emit('shareToDouban');
+    shareToDouban() {
+      this.$emit('shareToDouban')
     }
-
   }
 }
 </script>

@@ -1,4 +1,4 @@
-  <!-- **原生上传** -->
+<!-- **原生上传** -->
 <template>
   <div>
     <!-- 多选展示 -->
@@ -14,12 +14,12 @@
     </div>
 
     <!-- 原生调用上传方法 -->
-    <input ref="upload" :accept="accept" :multiple="multiple" type="file" @change="changeFile" hidden style="display: none;" />
+    <input ref="upload" :accept="accept" :multiple="multiple" type="file" @change="changeFile" hidden style="display: none" />
   </div>
 </template>
 
 <script>
-import { uploadOSS } from '@/utils/ossUpload.js'
+import { uploadOSS } from '@/utils/oss/ossUpload.js'
 export default {
   props: {
     origUrl: String,
@@ -141,7 +141,7 @@ export default {
       })
       this.$emit('update:origListUrl', this.fileList)
 
-      uploadOSS(file).then((res) => {
+      uploadOSS(file).then(res => {
         console.log(res, '==')
         this.arr.push(res)
         console.log(this.arr)
@@ -149,7 +149,7 @@ export default {
     },
     // 获取图片分辨率大小
     getImgWH(imgUrl) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         const image = new Image()
         image.src = imgUrl
         image.onload = function () {

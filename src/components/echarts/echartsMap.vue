@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import { getToken } from '@/utils/jsCookie'
+import { getToken } from '@/utils/common/jsCookie'
 import { mapState, mapActions } from 'vuex'
 var map, contextMenuPositon
 export default {

@@ -14,7 +14,7 @@
           </div>
           <div class="qrcodeArea" v-show="qrcode.show">
             <p class="saoTitle">扫一扫</p>
-            <div class="qrcode" ref='qrCodeUrl1'></div>
+            <div class="qrcode" ref="qrCodeUrl1"></div>
           </div>
         </li>
         <li>
@@ -45,11 +45,11 @@
 
 <script>
 import QRCode from 'qrcodejs2'
-import { shareUrl } from "@/utils/env";
+import { shareUrl } from '@/utils/data/env'
 
 export default {
   name: 'infoShare',
-  data () {
+  data() {
     return {
       qrcode: {
         show: false
@@ -62,35 +62,33 @@ export default {
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
       }
-
     }
   },
-  mounted () {
-    this.creatQrCode();
+  mounted() {
+    this.creatQrCode()
   },
   methods: {
-    showqrcode () {
-      this.qrcode.show = true;
+    showqrcode() {
+      this.qrcode.show = true
     },
-    hideqrcode () {
-      this.qrcode.show = false;
+    hideqrcode() {
+      this.qrcode.show = false
     },
-    creatQrCode () {
+    creatQrCode() {
       const qrcode = new QRCode(this.$refs.qrCodeUrl1, this.qrcodeObj)
     },
-    shareToQQ () {
-      this.$emit('shareToQQ');
+    shareToQQ() {
+      this.$emit('shareToQQ')
     },
-    shareToQQzone () {
-      this.$emit('shareToQQzone');
+    shareToQQzone() {
+      this.$emit('shareToQQzone')
     },
-    shareToWeibo () {
-      this.$emit('shareToWeibo');
+    shareToWeibo() {
+      this.$emit('shareToWeibo')
     },
-    shareToDouban () {
-      this.$emit('shareToDouban');
+    shareToDouban() {
+      this.$emit('shareToDouban')
     }
-
   }
 }
 </script>

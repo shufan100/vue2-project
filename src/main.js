@@ -1,109 +1,68 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-// ***** router *****
 import router from './router'
-// 路由权限
-import './common/routerPermissions.js'
-
-// ***** vuex *****
 import store from './store'
-
-// ***** axios *****
 import axios from 'axios'
-import qs from 'qs'
+
 // ***** element-ui *****
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// ***** 打印机 *****
-import Print from './utils/prints'
-// ***** 导出pdf *****
-import htmlToPdf from './utils/htmlToPdf'
-// ***** echarts ****
-import echarts from 'echarts'
+
+// 路由权限
+import './common/routerPermissions.js'
 // ***** 自定义指令（拖拽、防抖、节流）****
 import './common/directives'
 
+/** ---------------------- 功能---------------------- */
+// 引入动画样式
+import 'animate.css'
+// ***** mock ****
+import '@/mock'
+/// iconfont
+import '@/assets/icon/iconfont.css'
+
+// ***** 打印机 *****
+import Print from './utils/common/prints'
+// ***** 导出pdf *****
+import htmlToPdf from './utils/common/htmlToPdf'
 // ***** 中英文 ****
 import i18n from '@/lang'
-/// 引入iconfont class加iconfont
-import '@/assets/icon/iconfont.css'
-// 分享功能集合
-// import { shareConfig } from './utils/share';
-import * as share from './utils/share'
-// 图片预览
-import elImageViewer from 'element-ui/packages/image/src/image-viewer'
-// 弹窗封装
-import * as msg from './utils/message'
-// mixin
-import indexMixin from './mixin/index'
 
 // 轮播图(npm install swiper@3 --save-dev)
 import 'swiper/dist/css/swiper.min.css'
-import 'swiper/dist/js/swiper.min'
+import 'swiper/dist/js/swiper.min.js'
 
-// 防伪
-import watermark from '@/utils/watermark'
-// 文字超出省略号
-import wordlimit from '@/utils/wordlimit'
+// 图片预览
+import elImageViewer from 'element-ui/packages/image/src/image-viewer'
+// mixin
+import indexMixin from './mixin/index'
 // 无缝滚动
 import scroll from 'vue-seamless-scroll'
-
 // 图片裁剪
 // import '@/assets/cropper/cropper.min.css'
 // import '@/assets/cropper/ImgCropping.css'
 import ImgCutter from 'vue-img-cutter'
 
-// 消息订阅
-import PubSub from 'pubsub-js'
-
-// 引入动画样式
-import 'animate.css'
-
-// ***** mock ****
-import '@/mock'
-
-// ***公共属性挂载vue实例上***
+// ***挂载vue原型***
 import plugins from './utils/plugins'
-Vue.use(plugins)
 
-Vue.use(scroll)
-Vue.use(ImgCutter)
 Vue.component('ImgCutter', ImgCutter)
+Vue.component('elImageViewer', elImageViewer)
+// 混合模式
+Vue.mixin(indexMixin)
 
+Vue.use(ElementUI).use(plugins)
+Vue.use(scroll).use(ImgCutter).use(Print).use(htmlToPdf)
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
 // Vue.use(VueSignaturePad)
 // import VueSignature from 'vue-signature-pad'
 // Vue.use(VueSignature)
 
-Vue.use(ElementUI)
-Vue.use(Print)
-Vue.use(htmlToPdf)
-
-// 注册全局组件
-Vue.component('elImageViewer', elImageViewer)
-// 混合模式
-Vue.mixin(indexMixin)
 // 挂载vue原型
-Vue.prototype.$success = msg.msgSuccess
-Vue.prototype.$warning = msg.msgWarning
-Vue.prototype.$info = msg.msgInfo
-Vue.prototype.$error = msg.msgError
-Vue.prototype.shareConfig = share.shareConfig
-Vue.prototype.$echarts = echarts // 引入组件
-Vue.config.productionTip = false // 放开是生成模式，注释是开发模式
 Vue.prototype.$axios = axios
-Vue.prototype.$qs = qs
 // Vue.prototype.$store = store  // vue 会自定在实例身上加$store
-Vue.prototype.$watermark = watermark
-Vue.prototype.$wordlimit = wordlimit
-Vue.prototype.$pubSub = PubSub
 
-// axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
-
-Vue.config.silent = false
-// eslint-disable-next-line no-unused-vars
 const vm = new Vue({
   data: {
     msgs: 'hello msg'

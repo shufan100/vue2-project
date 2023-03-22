@@ -62,7 +62,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { setToken } from '@/utils/jsCookie'
+import { setToken } from '@/utils/common/jsCookie'
 export default {
   data() {
     return {

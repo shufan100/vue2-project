@@ -1,22 +1,47 @@
-  <!-- ***裁剪上传（单张）*** -->
+<!-- ***裁剪上传（单张）*** -->
 <template>
   <div id="uploads">
-    <el-upload v-show="!tailorUrl" class="avatar-uploader" :style="{ width, height }" action="#" :multiple="false"
-      :show-file-list="false" :drag="true" :accept="accept" :http-request="httpRequest">
+    <el-upload
+      v-show="!tailorUrl"
+      class="avatar-uploader"
+      :style="{ width, height }"
+      action="#"
+      :multiple="false"
+      :show-file-list="false"
+      :drag="true"
+      :accept="accept"
+      :http-request="httpRequest"
+    >
       <div class="avatar-uploader-tip">
         <img v-if="cropperUrl" class="avatar-uploader-img" :src="cropperUrl" />
         <slot v-else></slot>
       </div>
     </el-upload>
-    <img v-show="tailorUrl" class="show-img" :src="tailorUrl" alt="" @click="parentClick" :style="{ width, height }"
-      @drop.prevent.stop="getDropFile" @dragover.prevent.stop="">
+    <img
+      v-show="tailorUrl"
+      class="show-img"
+      :src="tailorUrl"
+      alt=""
+      @click="parentClick"
+      :style="{ width, height }"
+      @drop.prevent.stop="getDropFile"
+      @dragover.prevent.stop=""
+    />
 
     <!-- ---------------------------- -->
     <!-- 原生上传图片方法 -->
     <input v-show="false" ref="upload3" :accept="accept" type="file" @change="changeFile" hidden />
     <!-- 弹窗 -->
-    <el-dialog custom-class='custom' :visible.sync="dialogShow" :before-close="closeDialog" :close-on-click-modal="false"
-      center title="裁剪图案" width="520px" :append-to-body='true'>
+    <el-dialog
+      custom-class="custom"
+      :visible.sync="dialogShow"
+      :before-close="closeDialog"
+      :close-on-click-modal="false"
+      center
+      title="裁剪图案"
+      width="520px"
+      :append-to-body="true"
+    >
       <div v-if="dialogShow" class="cropper-box">
         <div class="cropper-tailor">
           <span>裁剪区</span>
@@ -37,7 +62,7 @@
 <script>
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
-import { uploadOSS } from '@/utils/ossUpload.js'
+import { uploadOSS } from '@/utils/oss/ossUpload.js'
 export default {
   props: {
     tailorUrl: String,
@@ -299,4 +324,5 @@ export default {
       /* 这个属性可以得到想要的效果 */
     }
   }
-}</style>
+}
+</style>

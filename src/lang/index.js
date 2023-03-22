@@ -4,7 +4,7 @@ import VueI18n from 'vue-i18n'
 import zhLocale from './zh'
 import enLocale from './en'
 
-import { getToken } from '@/utils/jsCookie'
+import { getToken } from '@/utils/common/jsCookie'
 if (process.env.NODE_ENV === 'development') Vue.use(VueI18n)
 
 // 注册i18n实例并引入语言文件，文件格式等下解析

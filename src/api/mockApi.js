@@ -1,5 +1,5 @@
 // mock接口
-import request from '@/utils/request'
+import request from '@/utils/axios/request'
 
 export function getList() {
   return request({

@@ -103,10 +103,10 @@
 
 <script>
 // 将里面得方法存到mutils对象中，可直接调
-import * as mutils from '@/utils/mUtils'
+import * as mutils from '@/utils/func/mUtils'
 
 export default {
-  data () {
+  data() {
     // 附带callback(),是在明确通过验证的情况下去掉输入框上的loading
     let validateEmail = (rule, value, callback) => {
       if (value == '') {
@@ -176,24 +176,14 @@ export default {
           { required: true, message: '请输入昵称', trigger: 'blur' },
           { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
         ],
-        touziyear: [
-          { required: true, message: '请选择投资年限', trigger: 'change' }
-        ],
+        touziyear: [{ required: true, message: '请选择投资年限', trigger: 'change' }],
         email: [{ required: true, validator: validateEmail, trigger: 'blur' }],
-        telphone: [
-          { required: true, validator: validatePhone, trigger: 'blur' }
-        ]
+        telphone: [{ required: true, validator: validatePhone, trigger: 'blur' }]
       },
       pwdRules: {
-        password: [
-          { required: true, message: '请输入原密码', trigger: 'blur' }
-        ],
-        newpassword: [
-          { required: true, validator: validateNewpassword, trigger: 'blur' }
-        ],
-        surepassword: [
-          { required: true, validator: validateSurepassword, trigger: 'blur' }
-        ]
+        password: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
+        newpassword: [{ required: true, validator: validateNewpassword, trigger: 'blur' }],
+        surepassword: [{ required: true, validator: validateSurepassword, trigger: 'blur' }]
       },
       phoneRules: {
         phone: [{ required: true, validator: validatePhone, trigger: 'blur' }],
@@ -216,22 +206,22 @@ export default {
       }
     }
   },
-  created () { },
-  mounted () {
+  created() {},
+  mounted() {
     // mutils.setContentHeight(this,this.$refs.fillcontain,170);
   },
   methods: {
-    showMessage (type, message) {
+    showMessage(type, message) {
       this.$message({
         type: type,
         message: message
       })
     },
-    showUsername () {
+    showUsername() {
       let userinfo = mutils.getStore('userinfo')
       this.infoForm.username = userinfo.username
     },
-    submitForm (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           if (formName == 'pwdForm') {
@@ -265,7 +255,7 @@ export default {
         }
       })
     },
-    resetForm (formName) {
+    resetForm(formName) {
       this.$refs[formName].resetFields()
     }
   }

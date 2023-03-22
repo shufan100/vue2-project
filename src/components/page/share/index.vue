@@ -33,27 +33,17 @@
 </template>
 
 <script>
-import {
-  HengShare,
-  InviteShare,
-  JianshuShare,
-  JianshuLeftShare,
-  WxCodeModal,
-  JuejinShare,
-  InfoShare,
-  SinaShare,
-  YanShare
-} from "./components";
+import { HengShare, InviteShare, JianshuShare, JianshuLeftShare, WxCodeModal, JuejinShare, InfoShare, SinaShare, YanShare } from './components'
 // 将里面得方法存到mutils对象中，可直接调
-import * as mutils from '@/utils/mUtils'
+import * as mutils from '@/utils/func/mUtils'
 
 export default {
-  data () {
+  data() {
     return {
       wxModal: {
         show: false,
-        width: "358px",
-        height: "358px",
+        width: '358px',
+        height: '358px'
       }
     }
   },
@@ -68,27 +58,27 @@ export default {
     SinaShare,
     YanShare
   },
-  mounted () {
-    mutils.setContentHeight(this, this.$refs.shareContainer, 210);
+  mounted() {
+    mutils.setContentHeight(this, this.$refs.shareContainer, 210)
   },
   methods: {
-    hideWxCodeModal () {
-      this.wxModal.show = false;
+    hideWxCodeModal() {
+      this.wxModal.show = false
     },
     // 分享到微信，显示微信二维码弹框；
-    shareToWeixin () {
-      this.wxModal.show = true;
+    shareToWeixin() {
+      this.wxModal.show = true
     },
-    shareToQQ () {
+    shareToQQ() {
       this.shareConfig('qq')
     },
-    shareToQQzone () {
+    shareToQQzone() {
       this.shareConfig('qqZone')
     },
-    shareToWeibo () {
+    shareToWeibo() {
       this.shareConfig('weibo')
     },
-    shareToDouban () {
+    shareToDouban() {
       this.shareConfig('douban')
     }
   }

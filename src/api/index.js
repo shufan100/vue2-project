@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '@/utils/axios/request'
 
 // export function list(query) { //fetchList 自定义名字
 //     return request({
@@ -9,7 +9,7 @@ import request from '@/utils/request'
 //   }
 
 // 测试1
-export const getTest = (data) => {
+export const getTest = data => {
   return request({
     url: '/test',
     method: 'get',
@@ -18,7 +18,7 @@ export const getTest = (data) => {
 }
 
 // 测试2
-export const postTest = (data) => {
+export const postTest = data => {
   return request({
     url: '/postTest1',
     method: 'post',

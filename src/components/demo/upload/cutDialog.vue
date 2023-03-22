@@ -15,7 +15,7 @@
 <script>
 import $ from 'jquery'
 import axios from 'axios'
-import { uploadOSS } from '@/utils/ossUpload'
+import { uploadOSS } from '@/utils/oss/ossUpload'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
 export default {
@@ -117,9 +117,9 @@ export default {
       if (!HTMLCanvasElement.prototype.toBlob) {
         // 解决IE不兼容toBolob
         Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-          value: function(callback, type, quality) {
+          value: function (callback, type, quality) {
             var canvas = this
-            setTimeout(function() {
+            setTimeout(function () {
               var binStr = atob(canvas.toDataURL(type, quality).split(',')[1])
               var len = binStr.length
               var arr = new Uint8Array(len)

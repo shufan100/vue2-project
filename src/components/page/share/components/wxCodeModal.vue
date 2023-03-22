@@ -9,11 +9,11 @@
 
 <script>
 import QRCode from 'qrcodejs2'
-import { shareUrl } from '@/utils/env'
+import { shareUrl } from '@/utils/data/env'
 
 export default {
-  name: "wxCodeModal",
-  data () {
+  name: 'wxCodeModal',
+  data() {
     return {
       qrcodeObj: {
         text: shareUrl, // 要分享的网页路径
@@ -28,18 +28,18 @@ export default {
   props: {
     wxModal: Object
   },
-  mounted () { },
+  mounted() {},
   methods: {
-    creatQrCode () {
+    creatQrCode() {
       const qrcode = new QRCode(this.$refs.qrCodeUrl5, this.qrcodeObj)
     },
-    handleClose () {
+    handleClose() {
       this.$emit('hideWxCodeModal')
     }
   },
   watch: {
     'wxModal.show': {
-      handler (newName, oldName) {
+      handler(newName, oldName) {
         console.log(newName)
         newName ? this.creatQrCode() : ''
       },

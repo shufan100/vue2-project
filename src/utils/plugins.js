@@ -4,8 +4,20 @@
  * @LastEditors: shufan100 1549248097@qq.com
  * @LastEditTime: 2022-11-15 17:04:28
  * @FilePath: \vue2-project\src\utils\plugins.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description:
  */
+import qs from 'qs'
+// ***** echarts ****
+import echarts from 'echarts'
+// 文字超出省略号
+import wordlimit from '@/utils/func/wordlimit'
+// 分享功能集合
+import * as share from '@/utils/common/share'
+// 水印
+import watermark from '@/utils/common/watermark'
+// 消息订阅
+import PubSub from 'pubsub-js'
+
 export default {
   // Vue：是Vue实例对象
   install(Vue) {
@@ -73,6 +85,17 @@ export default {
 
     // 给Vue原型上添加一个方法（属性）
     Vue.prototype.$name = '全局属性name'
+    Vue.prototype.$qs = qs
+    Vue.prototype.$wordlimit = wordlimit // 限制文字超出省略号
+    Vue.prototype.shareConfig = share.shareConfig
+    Vue.prototype.$echarts = echarts // 引入组件
+    Vue.config.productionTip = false // 放开是生成模式，注释是开发模式
+    Vue.prototype.$watermark = watermark
+    Vue.prototype.$pubSub = PubSub
+
+    // axios.defaults.baseURL = 'http://192.168.2.89:8012'; //设置ip
+
+    Vue.config.silent = false
     Vue.prototype.getHello = () => {
       alert('hello!!! 全局方法------pluginsJs文件')
     }
