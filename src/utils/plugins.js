@@ -18,6 +18,21 @@ import watermark from '@/utils/common/watermark'
 // 消息订阅
 import PubSub from 'pubsub-js'
 
+// 插件
+// ***** 打印机 *****
+import Print from '@/utils/common/prints'
+// ***** 导出pdf *****
+import htmlToPdf from '@/utils/common/htmlToPdf'
+// 无缝滚动
+import scroll from 'vue-seamless-scroll'
+// 图片裁剪
+// import '@/assets/cropper/cropper.min.css'
+// import '@/assets/cropper/ImgCropping.css'
+import ImgCutter from 'vue-img-cutter'
+//
+// 图片预览
+import elImageViewer from 'element-ui/packages/image/src/image-viewer'
+
 export default {
   // Vue：是Vue实例对象
   install(Vue) {
@@ -82,6 +97,11 @@ export default {
         // }
       }
     })
+
+    Vue.component('ImgCutter', ImgCutter)
+    Vue.component('elImageViewer', elImageViewer)
+
+    Vue.use(scroll).use(ImgCutter).use(Print).use(htmlToPdf)
 
     // 给Vue原型上添加一个方法（属性）
     Vue.prototype.$name = '全局属性name'

@@ -91,8 +91,7 @@ Vue.directive('debounce', {
   }
 })
 
-//input防抖
-
+// input防抖
 // 节流：控制变量 （n秒内触发1次）
 Vue.directive('throttle', {
   // el是真实dom节点 binding数据

@@ -9,9 +9,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 // 路由权限
-import './common/routerPermissions.js'
-// ***** 自定义指令（拖拽、防抖、节流）****
-import './common/directives'
+import '@/router/routerPermissions.js'
 
 /** ---------------------- 功能---------------------- */
 // 引入动画样式
@@ -20,39 +18,24 @@ import 'animate.css'
 import '@/mock'
 /// iconfont
 import '@/assets/icon/iconfont.css'
-
-// ***** 打印机 *****
-import Print from './utils/common/prints'
-// ***** 导出pdf *****
-import htmlToPdf from './utils/common/htmlToPdf'
-// ***** 中英文 ****
-import i18n from '@/lang'
-
 // 轮播图(npm install swiper@3 --save-dev)
 import 'swiper/dist/css/swiper.min.css'
 import 'swiper/dist/js/swiper.min.js'
 
-// 图片预览
-import elImageViewer from 'element-ui/packages/image/src/image-viewer'
+// ***** 自定义指令（拖拽、防抖、节流）****
+import '@/utils/directives'
+
+// ***** 中英文 ****
+import i18n from '@/lang'
 // mixin
 import indexMixin from './mixin/index'
-// 无缝滚动
-import scroll from 'vue-seamless-scroll'
-// 图片裁剪
-// import '@/assets/cropper/cropper.min.css'
-// import '@/assets/cropper/ImgCropping.css'
-import ImgCutter from 'vue-img-cutter'
-
 // ***挂载vue原型***
 import plugins from './utils/plugins'
 
-Vue.component('ImgCutter', ImgCutter)
-Vue.component('elImageViewer', elImageViewer)
 // 混合模式
 Vue.mixin(indexMixin)
-
 Vue.use(ElementUI).use(plugins)
-Vue.use(scroll).use(ImgCutter).use(Print).use(htmlToPdf)
+
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
 // Vue.use(VueSignaturePad)
