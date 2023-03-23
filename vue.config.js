@@ -56,7 +56,7 @@ module.exports = () => {
           minSize: 1024 * 5, // 分割js文件的大小20kb、默认30kb
           minChunks: 2, // 提取的chunk最少被引用1次，满足条件才会代码分割
           maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
-          maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
+          maxInitialRequests: 4 // 入口js文件最大并行请求数量。默认30
           // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
           // cacheGroups: {
           //   vue: {
@@ -76,15 +76,15 @@ module.exports = () => {
           //     reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
           //   }
 
-            // elementUI: {
-            //   // 将elementUI拆分为单个包
-            //   name: 'chunk-elementUI',
-            //   // 重量需要大于libs和app，否则将打包到libs或app中
-            //   priority: 20,
-            //   // 为了适应cnpm
-            //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
-            // }
-          }
+          // elementUI: {
+          //   // 将elementUI拆分为单个包
+          //   name: 'chunk-elementUI',
+          //   // 重量需要大于libs和app，否则将打包到libs或app中
+          //   priority: 20,
+          //   // 为了适应cnpm
+          //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+          // }
+          // }
         }
       }
     }
