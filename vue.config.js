@@ -8,7 +8,7 @@
  */
 module.exports = () => {
   const env = process.env
-  console.log('环境变量------', env)
+  // console.log('环境变量------', env)
   return {
     // 当前应用是被部署在一个域名的根路径上就用'/',如果是部署在子路径上 '/my-app'（根据后端来）
     // process.env.NODE_ENV
@@ -42,6 +42,48 @@ module.exports = () => {
           changeOrigin: true,
           pathRewrite: {
             '^/jpi': ''
+          }
+        }
+      }
+    },
+    chainWebpack: config => {
+      // if (env.NODE_ENV === 'production') {
+      config.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin).end()
+      // }
+      return {
+        splitChunks: {
+          chunks: 'all',
+          minSize: 1024 * 5, // 分割js文件的大小20kb、默认30kb
+          minChunks: 2, // 提取的chunk最少被引用1次，满足条件才会代码分割
+          maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
+          maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
+          // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
+          // cacheGroups: {
+          //   vue: {
+          //     name: 'vue',
+          //     chunks: 'all',
+          //     test: /[\\/]node_modules[\\/]vue[\\/]/,
+          //     priority: -10
+          //   },
+          //   vendor: {
+          //     name: 'vendor',
+          //     chunks: 'all',
+          //     priority: -10, //  打包优先级权重值，值越大，优先级越高
+          //     test: /node_modules\/(.*)\.js/
+          //   },
+          //   default: {
+          //     priority: -20, // 打包优先级权重值，值越大，优先级越高
+          //     reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+          //   }
+
+            // elementUI: {
+            //   // 将elementUI拆分为单个包
+            //   name: 'chunk-elementUI',
+            //   // 重量需要大于libs和app，否则将打包到libs或app中
+            //   priority: 20,
+            //   // 为了适应cnpm
+            //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+            // }
           }
         }
       }
