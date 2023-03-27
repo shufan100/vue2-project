@@ -5,8 +5,9 @@ import store from './store'
 import axios from 'axios'
 
 // ***** element-ui *****
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from '@/element-ui'
 
 // 路由权限
 import '@/router/routerPermissions.js'
@@ -34,7 +35,8 @@ import plugins from './utils/plugins'
 
 // 混合模式
 Vue.mixin(indexMixin)
-Vue.use(ElementUI).use(plugins)
+Vue.use(ElementUI)
+Vue.use(plugins)
 
 // 签名
 // import VueSignaturePad from 'vue-signature-pad'
