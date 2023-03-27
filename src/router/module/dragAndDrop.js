@@ -11,7 +11,7 @@ export default {
   path: '/drag',
   name: 'drag',
   component: ChildLayout,
-  // redirect: 'drag', // 默认显示第一个子路由、
+  // redirect: 'dialog', // 默认显示第一个子路由、
   meta: { title: '拖拽组件' },
   children: [
     {
@@ -21,7 +21,7 @@ export default {
       meta: {
         parentTitle: '拖拽组件',
         title: '拖拽弹窗',
-        path: 'dragAndDrop/dialog',
+        path: 'drag/dialog',
         permissions: true
       }
     },
@@ -32,7 +32,7 @@ export default {
       meta: {
         parentTitle: '拖拽组件',
         title: '拖拽列表',
-        path: 'dragAndDrop/dragList',
+        path: 'drag/dragList',
         permissions: true
       }
     }

@@ -11,7 +11,7 @@ export default {
   path: '/form',
   name: 'form',
   component: ChildLayout,
-  redirect: 'form1', // 默认显示第一个子路由、
+  // redirect: 'form1', // 默认显示第一个子路由、
   meta: { title: '表单模块' },
   children: [
     {

@@ -28,42 +28,6 @@ const routes = [
       },
       ...RouterModule,
 
-      // 高德地图
-      {
-        path: '/echartsMap',
-        name: 'echartsMap',
-        component: () => import('@/components/echarts/echartsMap'),
-        meta: {
-          parentTitle: '地图组件',
-          title: '高德地图',
-          path: 'EChartsCom/echartsMap',
-          permissions: true
-        }
-      },
-
-      // 权限管理
-      {
-        path: '/pagePermissions',
-        name: 'pagePermissions',
-        component: () => import('@/components/permissions/pagePermissions'),
-        meta: {
-          parentTitle: '权限管理',
-          title: '页面权限',
-          path: 'permissions/pagePermissions',
-          permissions: true
-        }
-      },
-      {
-        path: '/btnPermissions',
-        name: 'btnPermissions',
-        component: () => import('@/components/permissions/btnPermissions'),
-        meta: {
-          parentTitle: '权限管理',
-          title: '按钮权限',
-          path: 'permissions/btnPermissions',
-          permissions: true
-        }
-      },
       // 错误页面
       {
         path: '/403',

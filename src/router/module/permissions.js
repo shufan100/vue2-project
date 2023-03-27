@@ -8,31 +8,31 @@
  */
 import ChildLayout from '@/layout/childHome.vue'
 export default {
-  path: '/info',
-  name: 'info',
+  path: '/permissions',
+  name: 'permissions',
   component: ChildLayout,
-  // redirect: 'userInfo', // 默认显示第一个子路由、
-  meta: { title: '信息管理' },
+  meta: { title: '权限设置' },
   children: [
+    // 权限管理
     {
-      path: 'userInfo',
-      name: 'userInfo',
-      component: () => import('@/components/page/infoShow'),
+      path: 'pagePermissions',
+      name: 'pagePermissions',
+      component: () => import('@/components/permissions/pagePermissions'),
       meta: {
-        parentTitle: '信息管理',
-        title: '个人信息',
-        path: 'info/userInfo',
+        parentTitle: '权限管理',
+        title: '页面权限',
+        path: 'permissions/pagePermissions',
         permissions: true
       }
     },
     {
-      path: 'modifyInfo',
-      name: 'modifyInfo',
-      component: () => import('@/components/page/modifyInfo'),
+      path: 'btnPermissions',
+      name: 'btnPermissions',
+      component: () => import('@/components/permissions/btnPermissions'),
       meta: {
-        parentTitle: '信息管理',
-        title: '修改信息',
-        path: 'info/modifyInfo',
+        parentTitle: '权限管理',
+        title: '按钮权限',
+        path: 'permissions/btnPermissions',
         permissions: true
       }
     }

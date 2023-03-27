@@ -8,8 +8,15 @@
       </span>
     </div>
     <div class="menu_page_bottom is-scroll-left wflex">
-      <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" active-text-color="#ff6428" @select="handleOpen"
-        @close="handleClose" :collapse="sidebarOpened" router>
+      <el-menu
+        class="el-menu-vertical-demo"
+        :default-active="onRoutes"
+        active-text-color="#ff6428"
+        @select="handleOpen"
+        @close="handleClose"
+        :collapse="sidebarOpened"
+        router
+      >
         <template v-for="(item, index) in items">
           <!-- 1、判断一级菜单是否有子级 -->
           <template v-if="item.subs">
@@ -37,8 +44,7 @@
 
                 <!-- 二级菜单 -->
                 <!-- <el-menu-item v-else :index="subItem.index" :key="subItem.index" >{{ subItem.title }}</el-menu-item> -->
-                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{
-                  $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
+                <el-menu-item v-else :index="item.index + subItem.index" :key="subItem.index">{{ $t(`i18n.${subItem.index.replace('/', '')}`) }}</el-menu-item>
               </template>
             </el-submenu>
           </template>
@@ -194,7 +200,7 @@ export default {
         },
         {
           icon: 'el-icon-s-tools',
-          index: 'drag',
+          index: '/drag',
           title: '拖拽组件',
           subs: [
             {
@@ -209,28 +215,28 @@ export default {
         },
         {
           icon: 'el-icon-s-promotion',
-          index: 'EChartsCom',
+          index: '/map',
           title: '地图组件',
           subs: [
             {
               index: '/echartsMap',
-              title: 'Map地图'
+              title: '高德地图'
             }
           ]
         },
         {
           icon: 'el-icon-s-goods',
-          index: 'permissions',
+          index: '/permissions',
           title: '权限设置',
           subs: [
             {
               index: '/pagePermissions',
               title: '页面权限'
+            },
+            {
+              index: '/btnPermissions',
+              title: '按钮权限'
             }
-            // {
-            //     index: "btnPermissions",
-            //     title: "按钮权限",
-            // }
           ]
         },
         {
@@ -253,7 +259,7 @@ export default {
     },
     ...mapState(['sidebarOpened', 'sidebarWidth'])
   },
-  mounted() { },
+  mounted() {},
   methods: {
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
@@ -266,7 +272,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .menu_left {
-
   // min-width: 60px;
   // max-width: 200px;
   // position: absolute;
