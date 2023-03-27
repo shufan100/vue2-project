@@ -20,6 +20,13 @@
  *      2.优点：在html通过csdn方式引入依赖。通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度。
  *      3.优点：包体积压缩50%、打包速度提升26%
  *
+ *  *elementUI2.0按需加载*
+ *      1.npm install babel-plugin-component -D
+ *      2.element-ui文件夹按需引入；然后在main.js引用
+ *      3.babel.config.js的plugins: [ 'component', {  libraryName: 'element-ui',  styleLibraryName: 'theme-chalk' }]
+ *      4.优点：引入指定组件和样式，来实现减少组件库体积大小；
+ *      5优点：包体积压缩72%、打包速度提升40%
+ *
  *  *optimization优化分包*
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip

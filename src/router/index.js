@@ -28,6 +28,19 @@ const routes = [
       },
       ...RouterModule,
 
+      // 高德地图
+      {
+        path: '/echartsMap',
+        name: 'echartsMap',
+        component: () => import('@/components/echarts/echartsMap'),
+        meta: {
+          parentTitle: '地图组件',
+          title: '高德地图',
+          path: 'EChartsCom/echartsMap',
+          permissions: true
+        }
+      },
+
       // 权限管理
       {
         path: '/pagePermissions',
@@ -63,18 +76,6 @@ const routes = [
         name: '404',
         component: () => import('@/components/page/errorPage/404'),
         meta: { parentTitle: '错误页面', title: '404', path: 'errorPage/404' }
-      },
-      // echarts
-      {
-        path: '/echartsMap',
-        name: 'echartsMap',
-        component: () => import('@/components/echarts/echartsMap'),
-        meta: {
-          parentTitle: '地图组件',
-          title: '高德地图',
-          path: 'EChartsCom/echartsMap',
-          permissions: true
-        }
       }
     ]
   },

@@ -1,3 +1,5 @@
+// 按需引入element-ui
+
 import Vue from 'vue'
 import {
   Pagination,
@@ -83,8 +85,12 @@ import {
   Empty,
   Descriptions,
   DescriptionsItem,
-  Result
-  // CollapseTransition
+  Result,
+  // CollapseTransition,
+  MessageBox,
+  Message,
+  Loading,
+  Notification
 } from 'element-ui'
 
 const components = [
@@ -171,10 +177,28 @@ const components = [
   Empty,
   Descriptions,
   DescriptionsItem,
-  Result
-  // CollapseTransition
+  Result,
+  // CollapseTransition,
+  Message,
+  MessageBox,
+  Loading,
+  Notification
 ]
 
 components.forEach(component => {
+  // console.log(component)
   Vue.component(component.name, component)
 })
+
+// Vue.prototype.$ELEMENT = {
+//   size: opts.size || '',
+//   zIndex: opts.zIndex || 2000
+// }
+
+Vue.prototype.$loading = Loading.service
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
+Vue.prototype.$confirm = MessageBox.confirm
+Vue.prototype.$prompt = MessageBox.prompt
+Vue.prototype.$notify = Notification
+Vue.prototype.$message = Message
