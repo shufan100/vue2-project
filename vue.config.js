@@ -6,7 +6,14 @@
  * @FilePath: \vue2-project\vue.config.js
  * @Description: 配置
  *
+ * 项目配置：
+ *
+ *   《防止代码源码泄露》
+ *      1.productionSourceMap: false,
+ *      2.configureWebpack：devtool: false
+ *
  * 性能优化：
+ *
  *  *包分析*（webpack-bundle-analyzer@3）
  *      1.配置package.json："analyzer": "set analyzer=true && vue-cli-service build"
  *      2.可查看入口js大小。
@@ -30,6 +37,9 @@
  *  *optimization优化分包*
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin') //  webpack编译磁盘缓存
+const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // plugin、loader的编译耗时
+
 module.exports = () => {
   const env = process.env
   // console.log('环境变量------', env)
@@ -72,6 +82,7 @@ module.exports = () => {
     },
     configureWebpack: config => {
       return {
+        devtool: false, // 防止源代码泄漏
         // 提取公共依赖包、通过csdn方式引入依赖，通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度
         externals: {
           vue: 'Vue',
@@ -94,11 +105,14 @@ module.exports = () => {
         plugins: [
           // gzip压缩
           new CompressionPlugin({
-            // test: /\.js$|\.html$|.\css/, // 匹配文件名
             test: /\.(js|css|html|json)(\?.*)?$/i, // 需要压缩的文件正则
             threshold: 10240, // 对超过10k的文件进行gzip压缩
             deleteOriginalAssets: false // 不删除源文件
-          })
+          }),
+          // webpack编译磁盘缓存
+          new HardSourceWebpackPlugin(),
+          // plugin、loader的编译耗时
+          new SpeedMeasureWebpackPlugin()
         ]
       }
     },
