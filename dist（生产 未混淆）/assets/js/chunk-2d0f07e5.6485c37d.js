@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0f07e5"],{"9d37":function(n,u,e){"use strict";e.r(u);var t=function(){var n=this,u=n._self._c;return u("div",[n._v("按钮权限")])},c=[],l=e("2877"),s={},i=Object(l["a"])(s,t,c,!1,null,null,null);u["default"]=i.exports}}]);

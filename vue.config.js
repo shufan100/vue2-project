@@ -11,6 +11,8 @@
  *   《防止代码源码泄露》
  *      1.productionSourceMap: false,
  *      2.configureWebpack：devtool: false
+ *   《webpackbar 编译进度》
+ *      1. webpackbar
  *
  * 性能优化：
  *
@@ -35,14 +37,28 @@
  *      5优点：包体积压缩72%、打包速度提升40%
  *
  *  *optimization优化分包*
+ *
+ *  *uglifyjs-webpack-plugin压缩和混淆代码，不支持es6压缩*
+ *    1.uglifyjs-webpack-plugin
+ *    2.缺点：内部还是没有混淆
+ *
+ *  *webpack-obfuscator 压缩和混淆代码，支持es6压缩(推荐)*
+ *    1.webpack-obfuscator2.6  javascript-obfuscator
+ *    2.优点：编译后的代码都会混淆；加载速度提升
+ *    2.缺点：编译时间变长；包体积大一倍；包分析看不到源码
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
+const WebpackObfuscator = require('webpack-obfuscator') // 压缩和混淆代码，支持es6压缩
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进程压缩js
+
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin') //  webpack编译磁盘缓存
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // plugin、loader的编译耗时
+const WebpackBar = require('webpackbar')
 
 module.exports = () => {
   const env = process.env
-  // console.log('环境变量------', env)
+  console.log('环境变量------', env.NODE_ENV)
   return {
     // 当前应用是被部署在一个域名的根路径上就用'/',如果是部署在子路径上 '/my-app'（根据后端来）
     // process.env.NODE_ENV
@@ -82,7 +98,7 @@ module.exports = () => {
     },
     configureWebpack: config => {
       return {
-        devtool: false, // 防止源代码泄漏
+        devtool: process.env === 'production' ? 'source-map' : 'cheap-module-source-map', // 开发：cheap-module-source-map   生产：source-map 防止源代码泄漏
         // 提取公共依赖包、通过csdn方式引入依赖，通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度
         externals: {
           vue: 'Vue',
@@ -103,30 +119,80 @@ module.exports = () => {
           // }
         },
         plugins: [
+          // 压缩和混淆代码，不支持es6压缩
+          // new UglifyJsPlugin({
+          //   uglifyOptions: {
+          //     warnings: false,
+          //     compress: {
+          //       drop_console: true, //是否删除代码中所有的console，默认为false
+          //       drop_debugger: false, //是否删除代码中所有的debugger，默认为false
+          //       pure_funcs: ['console.log']
+          //     }
+          //   }
+          // }),
+
+          // 压缩和混淆代码，支持es6压缩(非常耗时)(包分析时要注释)
+          !process.env.analyzer &&
+            new WebpackObfuscator(
+              {
+                // 压缩代码
+                compact: true,
+                // 是否启用控制流扁平化(降低1.5倍的运行速度)
+                // controlFlowFlattening: false,
+                // // 随机的死代码块(增加了混淆代码的大小)
+                // deadCodeInjection: false,
+                // // 此选项几乎不可能使用开发者工具的控制台选项卡
+                debugProtection: false,
+                // 标识符的混淆方式 hexadecimal(十六进制) mangled(短标识符)
+                // identifierNamesGenerator: 'hexadecimal',
+                // log: false,
+                // 是否启用全局变量和函数名称的混淆
+                // renameGlobals: false,
+                // 通过固定和随机（在代码混淆时生成）的位置移动数组。这使得将删除的字符串的顺序与其原始位置相匹配变得更加困难。如果原始源代码不小，建议使用此选项，因为辅助函数可以引起注意。
+                rotateStringArray: true,
+                // // 混淆后的代码,不能使用代码美化,同时需要配置 cpmpat:true;
+                selfDefending: true,
+                // 删除字符串文字并将它们放在一个特殊的数组中
+                // stringArray: true,
+                // stringArrayEncoding: 'base64',
+                // stringArrayThreshold: 0.75,
+                // 允许启用/禁用字符串转换为unicode转义序列。Unicode转义序列大大增加了代码大小，并且可以轻松地将字符串恢复为原始视图。建议仅对小型源代码启用此选项。
+                unicodeEscapeSequence: false
+              },
+              []
+            ),
+          // 并行压缩输出JS代码
+          // new ParallelUglifyPlugin({
+          //   uglifyJS: {
+          //     output: {
+          //       beautify: false,
+          //       comments: false
+          //     },
+          //     compress: {
+          //       // warnings: false,
+          //       drop_console: true,
+          //       collapse_vars: true,
+          //       reduce_vars: true
+          //     }
+          //   }
+          // }),
           // gzip压缩
           new CompressionPlugin({
             test: /\.(js|css|html|json)(\?.*)?$/i, // 需要压缩的文件正则
             threshold: 10240, // 对超过10k的文件进行gzip压缩
             deleteOriginalAssets: false // 不删除源文件
           }),
+
           // webpack编译磁盘缓存
           new HardSourceWebpackPlugin(),
           // plugin、loader的编译耗时
-          new SpeedMeasureWebpackPlugin()
+          new SpeedMeasureWebpackPlugin(),
+          // 打包进度
+          new WebpackBar()
         ]
       }
     },
-    // chainWebpack: {
-    //   optimization: {
-    //     splitChunks: {
-    //       chunks: 'all',
-    //       minSize: 1024 * 2, // 分割js文件的大小20kb、默认30kb
-    //       minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
-    //       maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
-    //       maxInitialRequests: 4 // 入口js文件最大并行请求数量。默认30
-    //     }
-    //   }
-    // }
+
     chainWebpack: config => {
       // 当环境变量中analyzer 为true 时 运行该配置
       if (process.env.analyzer) {
