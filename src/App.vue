@@ -4,7 +4,6 @@
   </div>
 </template>
 
-
 <style lang="less">
 @color: yellow;
 @import './assets/style/common';
