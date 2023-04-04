@@ -1,4 +1,8 @@
-// 打印
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:34:51
+ * @Description 打印
+ */
 /* eslint-disable */
 const Print = function (dom, options) {
   if (!(this instanceof Print)) return new Print(dom, options)

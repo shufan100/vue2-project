@@ -1,16 +1,13 @@
-/*
- * @Author: shufan100 1549248097@qq.com
- * @Date: 2022-10-23 14:45:51
- * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2022-11-15 17:04:28
- * @FilePath: \vue2-project\src\utils\plugins.js
- * @Description:
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:36:47
+ * @Description 扩展
  */
 import qs from 'qs'
 // ***** echarts ****
 import echarts from 'echarts'
 // 文字超出省略号
-import wordlimit from '@/utils/func/wordlimit'
+import { wordlimit } from '@/utils/func'
 // 分享功能集合
 import * as share from '@/utils/common/share'
 // 水印

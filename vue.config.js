@@ -98,6 +98,7 @@ module.exports = () => {
     },
     configureWebpack: config => {
       const isProduction = process.env.NODE_ENV === 'production'
+      const isDevelopment = process.env.NODE_ENV === 'development'
       return {
         devtool: isProduction ? 'source-map' : 'cheap-module-source-map', // 开发：cheap-module-source-map   生产：source-map 防止源代码泄漏
         // 提取公共依赖包、通过csdn方式引入依赖，通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度

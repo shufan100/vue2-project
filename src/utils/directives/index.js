@@ -1,5 +1,10 @@
-import Vue from 'vue'
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:33:37
+ * @Description 自定义指令
+ */
 
+import Vue from 'vue'
 // v-dialogDrag: 拖拽指令
 Vue.directive('dialogDrag', {
   bind(el, binding, vnode, oldVnode) {

@@ -1,10 +1,7 @@
-/*
- * @Author: shufan100 1549248097@qq.com
- * @Date: 2022-10-23 14:45:51
- * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2023-03-17 17:08:05
- * @FilePath: \vue2-project\src\utils\watermark.js
- * @Description:  水印
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:35:18
+ * @Description 添加水印
  */
 const watermark = {}
 

@@ -1,4 +1,8 @@
-// 导出页面为PDF格式
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:33:57
+ * @Description 导出页面为PDF格式
+ */
 import html2Canvas from 'html2canvas'
 import JsPDF from 'jspdf'
 export default {

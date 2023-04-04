@@ -1,3 +1,9 @@
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:34:08
+ * @Description cookie增、删、读
+ */
+
 import Cookies from 'js-cookie'
 
 export function getToken(TokenKey) {

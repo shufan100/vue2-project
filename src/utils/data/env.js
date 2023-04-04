@@ -1,3 +1,8 @@
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:35:32
+ * @Description 分享数据
+ */
 const github = 'https://github.com/wdlhao/vue2-element-touzi-admin'
 const appUrl = process.env.VUE_APP_URL // development和production环境是不同的
 const shareUrl = 'https://juejin.im/post/5d0b4d28f265da1baf7cf293'

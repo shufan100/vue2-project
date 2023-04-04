@@ -34,62 +34,6 @@ export const removeStore = name => {
 }
 
 /**
- * 让整数自动保留2位小数
- */
-// export const returnFloat = value => {
-//     var value=Math.round(parseFloat(value)*100)/100;
-//     var xsd=value.toString().split(".");
-//     if(xsd.length==1){
-//         value=value.toString()+".00";
-//         return value;
-//     }
-//     if(xsd.length>1){
-//         if(xsd[1].length<2){
-//             value=value.toString()+"0";
-//         }
-//         return value;
-//     }
-// }
-/**
- * @param {date} 标准时间格式:Fri Nov 17 2017 09:26:23 GMT+0800 (中国标准时间)
- * @param {type} 类型
- *   type == 1 ---> "yyyy-mm-dd hh:MM:ss.fff"
- *   type == 2 ---> "yyyymmddhhMMss"
- *   type == '' ---> "yyyy-mm-dd hh:MM:ss"
- */
-export const formatDate = (date, type) => {
-  var year = date.getFullYear() // 年
-  var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1 // 月
-  var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate() // 日
-  var hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours() // 时
-  var minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes() // 分
-  var seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds() // 秒
-  var milliseconds = date.getMilliseconds() < 10 ? '0' + date.getMilliseconds() : date.getMilliseconds() // 毫秒
-  if (type === 1) {
-    return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds + '.' + milliseconds
-  } else if (type === 2) {
-    return year + '' + month + '' + day + '' + hour + '' + minutes + '' + seconds
-  } else if (type === 3) {
-    return year + '-' + month + '-' + day
-  } else {
-    return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
-  }
-}
-/**
- * 时间转换：20150101010101 --> '2015-01-01 01:01:01'
- */
-export const parseToDate = timeValue => {
-  var result = ''
-  var year = timeValue.substr(0, 4)
-  var month = timeValue.substr(4, 2)
-  var date = timeValue.substr(6, 2)
-  var hour = timeValue.substr(8, 2)
-  var minute = timeValue.substr(10, 2)
-  var second = timeValue.substr(12, 2)
-  result = year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second
-  return result
-}
-/**
  * 判断空值
  */
 export const isEmpty = keys => {
@@ -124,14 +68,6 @@ export const isEmpty = keys => {
   }
 }
 
-/**
- * 返回两位的小数的字符串
- */
-export const toFixedNum = num => {
-  const tonum = Number(num).toFixed(2)
-  return tonum
-}
-
 export const showMessage = () => {
   this.$message({
     showClose: true,
@@ -154,10 +90,10 @@ export const readFile = file => {
   var reader = new FileReader()
   reader.readAsDataURL(file)
   reader.onload = function (e) {
-    var filedata = {
-      filename: file.name,
-      filebase64: e.target.result
-    }
+    // var filedata = {
+    //   filename: file.name,
+    //   filebase64: e.target.result
+    // }
     alert(e.target.result)
   }
 }
@@ -187,12 +123,6 @@ export const param2Obj = url => {
     return {}
   }
   return JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
-}
-
-// 是否为正整数
-export const isInteger = s => {
-  var re = /^[0-9]+$/
-  return re.test(s)
 }
 
 export const setContentHeight = (that, ele, height) => {

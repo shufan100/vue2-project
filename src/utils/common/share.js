@@ -1,3 +1,8 @@
+/**
+ * @author SHUF
+ * @date 2023-04-04 10:35:11
+ * @Description 分享
+ */
 import { weibo, qq, qqZone, douban, shareUrl, shareTitle } from '@/utils/data/env'
 // 将里面得方法存到mutils对象中，可直接调
 import * as mutils from '@/utils/func/mUtils'
