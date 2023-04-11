@@ -35,6 +35,17 @@ export default {
         path: 'drag/dragList',
         permissions: true
       }
+    },
+    {
+      path: 'dragList2',
+      name: 'dragList2',
+      component: () => import('@/components/page/dragAndDrop/dragList2'),
+      meta: {
+        parentTitle: '拖拽组件',
+        title: '原生拖拽列表',
+        path: 'drag/dragList2',
+        permissions: true
+      }
     }
   ]
 }

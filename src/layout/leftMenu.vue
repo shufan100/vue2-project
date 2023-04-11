@@ -210,6 +210,10 @@ export default {
             {
               index: '/dragList',
               title: '拖拽列表'
+            },
+            {
+              index: '/dragList2',
+              title: '原生拖拽列表'
             }
           ]
         },
