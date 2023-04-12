@@ -17,7 +17,7 @@ export default {
     {
       path: 'userInfo',
       name: 'userInfo',
-      component: () => import('@/components/page/infoShow'),
+      component: () => import('@/views/info/infoShow'),
       meta: {
         parentTitle: '信息管理',
         title: '个人信息',
@@ -28,7 +28,7 @@ export default {
     {
       path: 'modifyInfo',
       name: 'modifyInfo',
-      component: () => import('@/components/page/modifyInfo'),
+      component: () => import('@/views/info/modifyInfo'),
       meta: {
         parentTitle: '信息管理',
         title: '修改信息',

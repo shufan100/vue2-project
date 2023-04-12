@@ -6,7 +6,7 @@
         <el-table :data="unread" :show-header="false" style="width: 100%">
           <el-table-column>
             <template slot-scope="scope">
-              <span class="message-title">{{scope.row.title}}</span>
+              <span class="message-title">{{ scope.row.title }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="date" width="180"></el-table-column>
@@ -19,7 +19,6 @@
         <div class="handle-row">
           <el-button type="primary">全部标为已读</el-button>
         </div>
-
       </el-tab-pane>
       <el-tab-pane :label="`已读消息(${read.length})`" name="second">
         <!-- <template v-if="message === 'second'"> -->
@@ -27,7 +26,7 @@
         <el-table :data="read" :show-header="false" style="width: 100%">
           <el-table-column>
             <template slot-scope="scope">
-              <span class="message-title">{{scope.row.title}}</span>
+              <span class="message-title">{{ scope.row.title }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="date" width="180"></el-table-column>
@@ -41,7 +40,6 @@
           <el-button type="danger">删除全部</el-button>
         </div>
         <!-- </template> -->
-
       </el-tab-pane>
       <el-tab-pane :label="`回收站(${recycle.length})`" name="third">
         <!-- <template v-if="message === 'third'"> -->
@@ -49,7 +47,7 @@
         <el-table :data="recycle" :show-header="false" style="width: 100%">
           <el-table-column>
             <template slot-scope="scope">
-              <span class="message-title">{{scope.row.title}}</span>
+              <span class="message-title">{{ scope.row.title }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="date" width="180"></el-table-column>
@@ -72,7 +70,7 @@
 <script>
 export default {
   name: 'msgCenter',
-  data () {
+  data() {
     return {
       message: 'first',
       showHeader: false,
@@ -101,21 +99,21 @@ export default {
     }
   },
   methods: {
-    handleRead (index) {
-      let item = this.unread.splice(index, 1);
-      this.read = item.concat(this.read);
+    handleRead(index) {
+      const item = this.unread.splice(index, 1)
+      this.read = item.concat(this.read)
     },
-    handleDel (index) {
+    handleDel(index) {
       const item = this.read.splice(index, 1)
       this.recycle = item.concat(this.recycle)
     },
-    handleRestore (index) {
+    handleRestore(index) {
       const item = this.recycle.splice(index, 1)
       this.read = item.concat(this.read)
     }
   },
   computed: {
-    unreadNum () {
+    unreadNum() {
       return this.unread.length
     }
   }
@@ -137,4 +135,3 @@ export default {
   }
 }
 </style>
-

@@ -23,7 +23,7 @@ const routes = [
       {
         path: '/home',
         name: 'home',
-        component: () => import('@/components/page/home'),
+        component: () => import('@/views/home/home'),
         meta: { title: '首页', path: 'home' }
       },
       ...RouterModule,
@@ -32,13 +32,13 @@ const routes = [
       {
         path: '/403',
         name: '403',
-        component: () => import('@/components/page/errorPage/403'),
+        component: () => import('@/views/errorPage/403'),
         meta: { parentTitle: '错误页面', title: '403', path: 'errorPage/403' }
       },
       {
         path: '/404',
         name: '404',
-        component: () => import('@/components/page/errorPage/404'),
+        component: () => import('@/views/errorPage/404'),
         meta: { parentTitle: '错误页面', title: '404', path: 'errorPage/404' }
       }
     ]
@@ -52,7 +52,7 @@ const routes = [
   {
     path: '*', // 通配,没有匹配到的路由就跳404
     redirect: '/404',
-    component: () => import('@/components/page/errorPage/404'),
+    component: () => import('@/views/errorPage/404'),
     meta: { parentTitle: '错误页面', title: '404', path: 'errorPage/404' }
   }
 ]

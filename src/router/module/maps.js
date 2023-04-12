@@ -17,7 +17,7 @@ export default {
     {
       path: 'echartsMap',
       name: 'echartsMap',
-      component: () => import('@/components/echarts/echartsMap'),
+      component: () => import('@/views/maps/echartsMap'),
       meta: {
         parentTitle: '地图组件',
         title: '高德地图',

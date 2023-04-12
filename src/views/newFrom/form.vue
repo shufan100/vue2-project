@@ -20,17 +20,20 @@
       <el-form-item label="活动时间" required>
         <el-col :span="11">
           <el-form-item prop="date1">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" :picker-options="pickerOptions0" style="width: 100%;"></el-date-picker>
+            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" :picker-options="pickerOptions0" style="width: 100%"></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col class="line" :span="2">
-          -
-        </el-col>
+        <el-col class="line" :span="2"> - </el-col>
         <el-col :span="11">
           <el-form-item prop="date2">
-            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" :picker-options="{
-                                selectableRange: '18:30:00 - 23:59:59'
-                            }" style="width: 100%;"></el-time-picker>
+            <el-time-picker
+              placeholder="选择时间"
+              v-model="ruleForm.date2"
+              :picker-options="{
+                selectableRange: '18:30:00 - 23:59:59'
+              }"
+              style="width: 100%"
+            ></el-time-picker>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -60,8 +63,7 @@
       </el-form-item>
     </el-form>
     <!-- 懒加载树 -->
-    <el-tree :props="props" :load="loadNode" lazy :default-expanded-keys="[defaaultExpend]">
-    </el-tree>
+    <el-tree :props="props" :load="loadNode" lazy :default-expanded-keys="[defaaultExpend]"> </el-tree>
     <!--  -->
     <selectTree></selectTree>
   </div>
@@ -71,7 +73,7 @@
 import selectTree from './selectTree'
 export default {
   components: { selectTree },
-  data () {
+  data() {
     return {
       ruleForm: {
         name: '',
@@ -135,7 +137,7 @@ export default {
         ]
       },
       pickerOptions0: {
-        disabledDate (time) {
+        disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7 // 如果没有后面的-8.64e7就是不可以选择今天的
         }
       },
@@ -177,7 +179,7 @@ export default {
     }
   },
   methods: {
-    submitForm (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
@@ -187,7 +189,7 @@ export default {
         }
       })
     },
-    loadNode (node, resolve) {
+    loadNode(node, resolve) {
       if (node.level === 0) {
         const data = [
           {

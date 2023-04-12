@@ -17,7 +17,7 @@ export default {
     {
       path: 'pagePermissions',
       name: 'pagePermissions',
-      component: () => import('@/components/permissions/pagePermissions'),
+      component: () => import('@/views/permissions/pagePermissions'),
       meta: {
         parentTitle: '权限管理',
         title: '页面权限',
@@ -28,7 +28,7 @@ export default {
     {
       path: 'btnPermissions',
       name: 'btnPermissions',
-      component: () => import('@/components/permissions/btnPermissions'),
+      component: () => import('@/views/permissions/btnPermissions'),
       meta: {
         parentTitle: '权限管理',
         title: '按钮权限',

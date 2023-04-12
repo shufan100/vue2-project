@@ -17,13 +17,13 @@ export default {
     {
       path: 'form1',
       name: 'form1',
-      component: () => import('@/components/page/form'),
+      component: () => import('@/views/newFrom/form'),
       meta: { parentTitle: '表单', title: 'Form表单', permissions: true }
     },
     {
       path: 'table',
       name: 'table',
-      component: () => import('@/components/page/table'),
+      component: () => import('@/views/newFrom/table'),
       meta: {
         parentTitle: '表单',
         title: '基础表格',
@@ -34,7 +34,7 @@ export default {
     {
       path: 'editor',
       name: 'editor',
-      component: () => import('@/components/page/vueEditor'),
+      component: () => import('@/views/newFrom/vueEditor'),
       meta: {
         parentTitle: '表单',
         title: '富文本编辑器',
@@ -45,7 +45,7 @@ export default {
     {
       path: 'markdown',
       name: 'markdown',
-      component: () => import('@/components/page/markdown'),
+      component: () => import('@/views/newFrom/markdown'),
       meta: {
         parentTitle: '表单',
         title: 'Markdown编辑器',
@@ -56,7 +56,7 @@ export default {
     {
       path: 'nativeTable',
       name: 'nativeTable',
-      component: () => import('@/components/page/nativeTable'),
+      component: () => import('@/views/newFrom/nativeTable'),
       meta: {
         parentTitle: '表单',
         title: '原生表格',

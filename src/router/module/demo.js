@@ -10,7 +10,7 @@ export default {
     {
       path: 'shopping',
       name: 'shopping',
-      component: () => import('@/components/demo/shopping'),
+      component: () => import('@/views/demo/shopping'),
       meta: {
         parentTitle: 'Demo',
         title: '购物车',
@@ -21,7 +21,7 @@ export default {
     {
       path: 'magnifying',
       name: 'magnifying',
-      component: () => import('@/components/demo/magnifying'),
+      component: () => import('@/views/demo/magnifying'),
       meta: {
         parentTitle: 'Demo',
         title: '放大镜',
@@ -32,7 +32,7 @@ export default {
     {
       path: 'threeD',
       name: 'threeD',
-      component: () => import('@/components/demo/3D'),
+      component: () => import('@/views/demo/3D'),
       meta: {
         parentTitle: 'Demo',
         title: '3D旋转图',
@@ -43,7 +43,7 @@ export default {
     {
       path: 'upload',
       name: 'upload',
-      component: () => import('@/components/demo/upload'),
+      component: () => import('@/views/demo/upload'),
       meta: {
         parentTitle: 'Demo',
         title: '图片上传',
@@ -54,7 +54,7 @@ export default {
     {
       path: 'printer',
       name: 'printer',
-      component: () => import('@/components/demo/printer'),
+      component: () => import('@/views/demo/printer'),
       meta: {
         parentTitle: 'Demo',
         title: '打印机',
@@ -65,7 +65,7 @@ export default {
     {
       path: 'exportPdf',
       name: 'exportPdf',
-      component: () => import('@/components/demo/exportPdf'),
+      component: () => import('@/views/demo/exportPdf'),
       meta: {
         parentTitle: 'Demo',
         title: '导出PDF',
@@ -76,7 +76,7 @@ export default {
     {
       path: 'iconfont',
       name: 'iconfont',
-      component: () => import('@/components/demo/iconfont'),
+      component: () => import('@/views/demo/iconfont'),
       meta: {
         parentTitle: 'Demo',
         title: '矢量图标',
@@ -87,7 +87,7 @@ export default {
     {
       path: 'carousel',
       name: 'carousel',
-      component: () => import('@/components/demo/carousel'),
+      component: () => import('@/views/demo/carousel'),
       meta: {
         parentTitle: 'Carousel',
         title: '轮播图',
@@ -98,7 +98,7 @@ export default {
     {
       path: 'antiShake',
       name: 'antiShake',
-      component: () => import('@/components/demo/antiShake'),
+      component: () => import('@/views/demo/antiShake'),
       meta: {
         parentTitle: 'AntiShake',
         title: '自定义指令',
@@ -109,7 +109,7 @@ export default {
     {
       path: 'seamless',
       name: 'seamless',
-      component: () => import('@/components/demo/seamless'),
+      component: () => import('@/views/demo/seamless'),
       meta: {
         parentTitle: 'Seamless',
         title: '无缝滚动',
@@ -120,7 +120,7 @@ export default {
     {
       path: 'video',
       name: 'video',
-      component: () => import('@/components/demo/video'),
+      component: () => import('@/views/demo/video'),
       meta: {
         parentTitle: 'Video',
         title: '视频播放',
@@ -131,7 +131,7 @@ export default {
     {
       path: 'slots',
       name: 'slots',
-      component: () => import('@/components/demo/slots'),
+      component: () => import('@/views/demo/slots'),
       meta: {
         parentTitle: 'slots',
         title: '插槽',
@@ -142,7 +142,7 @@ export default {
     {
       path: 'navAnchor',
       name: 'navAnchor',
-      component: () => import('@/components/demo/navAnchor'),
+      component: () => import('@/views/demo/navAnchor'),
       meta: {
         parentTitle: 'navAnchor',
         title: '导航锚点',
@@ -153,7 +153,7 @@ export default {
     {
       path: 'writing',
       name: 'writing',
-      component: () => import('@/components/demo/writing'),
+      component: () => import('@/views/demo/writing'),
       meta: {
         parentTitle: 'writing',
         title: '基础写法',

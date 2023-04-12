@@ -17,7 +17,7 @@ export default {
     {
       path: 'dialog',
       name: 'dialog',
-      component: () => import('@/components/page/dragAndDrop/dialog'),
+      component: () => import('@/views/dragAndDrop/dialog'),
       meta: {
         parentTitle: '拖拽组件',
         title: '拖拽弹窗',
@@ -28,7 +28,7 @@ export default {
     {
       path: 'dragList',
       name: 'dragList',
-      component: () => import('@/components/page/dragAndDrop/dragList'),
+      component: () => import('@/views/dragAndDrop/dragList'),
       meta: {
         parentTitle: '拖拽组件',
         title: '拖拽列表',
@@ -39,7 +39,7 @@ export default {
     {
       path: 'dragList2',
       name: 'dragList2',
-      component: () => import('@/components/page/dragAndDrop/dragList2'),
+      component: () => import('@/views/dragAndDrop/dragList2'),
       meta: {
         parentTitle: '拖拽组件',
         title: '原生拖拽列表',
