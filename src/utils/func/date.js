@@ -80,3 +80,66 @@ export const getdiffdate = (stime, etime) => {
   }
   return diffdate
 }
+
+/**
+ *
+ * @param {时间戳} str
+ * @return 时间戳转日期（今天显示时分秒，>24 <48显示昨天，>48显示日期）
+ */
+export const format = str => {
+  const time = str * 1000 // 传入的是秒，要转成毫秒
+  const nowDate = new Date()
+  const point = new Date(new Date().setHours(0, 0, 0, 0)).getTime() // 今天
+  const lastPoint = new Date(new Date().setHours(0, 0, 0, 0) - 86400000).getTime() // 昨天
+  console.log(point, lastPoint, time)
+
+  if (parseTime(nowDate, '{y}-{m}-{d}') === parseTime(time, '{y}-{m}-{d}')) {
+    return parseTime(time, '{h}:{i}:{s}')
+  } else if (time < point && time > lastPoint) {
+    return '昨天'
+  } else {
+    return parseTime(time, '{y}-{m}-{d}')
+  }
+}
+export const parseTime = (time, cFormat) => {
+  if (arguments.length === 0 || !time) {
+    return null
+  }
+  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
+  // debugger
+  let date
+  if (typeof time === 'object') {
+    date = time
+  } else {
+    if (typeof time === 'string') {
+      if (/^[0-9]+$/.test(time)) {
+        time = parseInt(time)
+      } else {
+        time = time.replace(new RegExp(/-/gm), '/')
+      }
+    }
+
+    if (typeof time === 'number' && time.toString().length === 10) {
+      time = time * 1000
+    }
+    date = new Date(time)
+  }
+  const formatObj = {
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+    h: date.getHours(),
+    i: date.getMinutes(),
+    s: date.getSeconds(),
+    a: date.getDay()
+  }
+  const timeStr = format.replace(/{([ymdhisa])+}/g, (result, key) => {
+    const value = formatObj[key]
+    // Note: getDay() returns 0 on Sunday
+    if (key === 'a') {
+      return ['日', '一', '二', '三', '四', '五', '六'][value]
+    }
+    return value.toString().padStart(2, '0')
+  })
+  return timeStr
+}
