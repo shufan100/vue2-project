@@ -8,9 +8,14 @@ import axios from 'axios'
 // import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/element-ui/index.js'
+// 防止element-ui message重复弹框
+import { message } from '@/element-ui/resetMessage'
 
 // 路由权限
 import '@/router/routerPermissions.js'
+// ***** 自定义指令（拖拽、防抖、节流）****
+import '@/utils/directives'
+//
 
 /** ---------------------- 功能---------------------- */
 // 引入动画样式
@@ -22,14 +27,11 @@ import '@/assets/icon/iconfont.css'
 // 轮播图(npm install swiper@3 --save-dev)
 import 'swiper/dist/css/swiper.min.css'
 import 'swiper/dist/js/swiper.min.js'
-
-// ***** 自定义指令（拖拽、防抖、节流）****
-import '@/utils/directives'
-
 // ***** 中英文 ****
 import i18n from '@/lang'
 // mixin
 import indexMixin from './mixin/index'
+
 // ***挂载vue原型***
 import plugins from './utils/plugins'
 
@@ -46,6 +48,7 @@ Vue.use(plugins)
 
 // 挂载vue原型
 Vue.prototype.$axios = axios
+Vue.prototype.$newMessage = message
 // Vue.prototype.$store = store  // vue 会自定在实例身上加$store
 
 const vm = new Vue({
