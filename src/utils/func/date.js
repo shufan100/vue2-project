@@ -143,3 +143,19 @@ export const parseTime = (time, cFormat) => {
   })
   return timeStr
 }
+
+/**
+ *
+ * @param {时间戳} time
+ * @returns 时间戳转日期
+ */
+export const formatData = time => {
+  const now = new Date(time * 1000)
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const date = String(now.getDate()).padStart(2, '0')
+  const hh = String(now.getHours()).padStart(2, '0')
+  const mm = String(now.getMinutes()).padStart(2, '0')
+  const ss = String(now.getSeconds()).padStart(2, '0')
+  return `${year}/${month}/${date} ${hh}:${mm}:${ss}`
+}
