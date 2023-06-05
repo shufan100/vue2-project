@@ -48,7 +48,7 @@
  *    2.缺点：编译时间变长；包体积大一倍；包分析看不到源码
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
 // const WebpackObfuscator = require('webpack-obfuscator') // 压缩和混淆代码，支持es6压缩
 // const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进程压缩js
 
@@ -138,16 +138,16 @@ module.exports = () => {
       // 4-- 插件
       const plugins = [
         // 压缩和混淆代码，不支持es6压缩
-        // new UglifyJsPlugin({
-        //   uglifyOptions: {
-        //     warnings: false,
-        //     compress: {
-        //       drop_console: true, //是否删除代码中所有的console，默认为false
-        //       drop_debugger: false, //是否删除代码中所有的debugger，默认为false
-        //       pure_funcs: ['console.log']
-        //     }
-        //   }
-        // }),
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            warnings: false,
+            compress: {
+              drop_console: true, // 是否删除代码中所有的console，默认为false
+              drop_debugger: false, // 是否删除代码中所有的debugger，默认为false
+              pure_funcs: ['console.log', 'console.warn']
+            }
+          }
+        }),
 
         // 压缩和混淆代码，支持es6压缩(非常耗时)(包分析时要注释)
         // isProduction &&
