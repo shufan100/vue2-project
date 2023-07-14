@@ -2,7 +2,7 @@
  * @Author: shufan100 1549248097@qq.com
  * @Date: 2022-10-23 14:45:51
  * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2023-02-09 14:40:18
+ * @LastEditTime: 2023-07-14 15:32:46
  * @FilePath: \vue2-project\vue.config.js
  * @Description: 配置
  *
@@ -55,6 +55,7 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin') //  webpack编译磁盘缓存
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // plugin、loader的编译耗时
 const WebpackBar = require('webpackbar')
+const MyPlugin = require('./build/MyPlugin') // plugin、loader的编译耗时
 
 module.exports = () => {
   const env = process.env
@@ -190,7 +191,8 @@ module.exports = () => {
           // plugin、loader的编译耗时
           new SpeedMeasureWebpackPlugin(),
           // 打包进度
-          new WebpackBar()
+          new WebpackBar(),
+          new MyPlugin()
         ]
       }
     },

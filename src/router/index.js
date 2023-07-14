@@ -27,18 +27,18 @@ const routes = [
         meta: { title: '首页', path: 'home' }
       },
       ...RouterModule,
-
+      // 指定了相同的webpackChunkName，将403和404组件合并打包成一个js文件
       // 错误页面
       {
         path: '/403',
         name: '403',
-        component: () => import('@/views/errorPage/403'),
+        component: () => import(/* webpackChunkName: 'chunk-error' */ '@/views/errorPage/403'),
         meta: { parentTitle: '错误页面', title: '403', path: 'errorPage/403' }
       },
       {
         path: '/404',
         name: '404',
-        component: () => import('@/views/errorPage/404'),
+        component: () => import(/* webpackChunkName: 'chunk-error' */ '@/views/errorPage/404'),
         meta: { parentTitle: '错误页面', title: '404', path: 'errorPage/404' }
       }
     ]
