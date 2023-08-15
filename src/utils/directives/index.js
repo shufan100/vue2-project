@@ -96,8 +96,7 @@ Vue.directive('debounce', {
   }
 })
 
-// input防抖
-// 节流：控制变量 （n秒内触发1次）
+// 节流：控制变量 （n秒频繁内触发，只在开始触发1次）
 Vue.directive('throttle', {
   // el是真实dom节点 binding数据
   // 指令与元素成功绑定时（一上来）

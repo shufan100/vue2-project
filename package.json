@@ -28,6 +28,7 @@
     "pubsub-js": "^1.9.4",
     "qrcodejs2": "0.0.2",
     "vue": "^2.7.14",
+    "vue-color": "^2.8.1",
     "vue-cropperjs": "^3.0.0",
     "vue-i18n": "^8.24.2",
     "vue-pdf": "^4.2.0",
