@@ -1,3 +1,3 @@
 # vue2-project
 
-- vue2最高版本，支持Vue3写法
+- vue2 最高版本，支持 Vue3 写法

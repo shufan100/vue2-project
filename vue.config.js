@@ -2,7 +2,7 @@
  * @Author: shufan100 1549248097@qq.com
  * @Date: 2022-10-23 14:45:51
  * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2023-07-14 15:32:46
+ * @LastEditTime: 2023-08-17 10:09:13
  * @FilePath: \vue2-project\vue.config.js
  * @Description: 配置
  *
@@ -139,16 +139,16 @@ module.exports = () => {
       // 4-- 插件
       const plugins = [
         // 压缩和混淆代码，不支持es6压缩
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            warnings: false,
-            compress: {
-              drop_console: true, // 是否删除代码中所有的console，默认为false
-              drop_debugger: false, // 是否删除代码中所有的debugger，默认为false
-              pure_funcs: ['console.log', 'console.warn']
-            }
-          }
-        }),
+        // new UglifyJsPlugin({
+        //   uglifyOptions: {
+        //     warnings: false,
+        //     compress: {
+        //       drop_console: true, // 是否删除代码中所有的console，默认为false
+        //       drop_debugger: false, // 是否删除代码中所有的debugger，默认为false
+        //       pure_funcs: ['console.log', 'console.warn']
+        //     }
+        //   }
+        // }),
 
         // 压缩和混淆代码，支持es6压缩(非常耗时)(包分析时要注释)
         // isProduction &&
