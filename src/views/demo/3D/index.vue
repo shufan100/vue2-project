@@ -2,6 +2,7 @@
   <div>
     <el-button @click="messageClick">防重复提示</el-button>
     <el-button @click="messageClick2">默认提示</el-button>
+    <el-button @click="query">请求（默认取消上一次请求）</el-button>
 
     <div class="color">
       <div> 1.material
@@ -41,6 +42,7 @@
 </template>
 <script>
 import { Material, Compact, Swatches, Slider, Photoshop, Chrome, Sketch, Twitter, Grayscale } from 'vue-color'
+import { getData } from '@/api'
 
 export default {
   name: '',
@@ -95,6 +97,9 @@ export default {
     },
     messageClick2() {
       this.$message.warning('0000')
+    },
+    query() {
+      getData({})
     }
   }
 }

@@ -25,3 +25,12 @@ export const postTest = data => {
     data
   })
 }
+
+// 在线接口
+export const getData = data => {
+  return request({
+    url: 'http://jsonplaceholder.typicode.com/posts/2',
+    method: 'get',
+    data
+  })
+}
