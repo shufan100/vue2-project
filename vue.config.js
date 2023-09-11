@@ -48,14 +48,14 @@
  *    2.缺点：编译时间变长；包体积大一倍；包分析看不到源码
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
 // const WebpackObfuscator = require('webpack-obfuscator') // 压缩和混淆代码，支持es6压缩
 // const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进程压缩js
 
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin') //  webpack编译磁盘缓存
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // plugin、loader的编译耗时
 const WebpackBar = require('webpackbar')
-const MyPlugin = require('./build/MyPlugin') // plugin、loader的编译耗时
+// const MyPlugin = require('./build/MyPlugin') // 自定义plugin
 
 module.exports = () => {
   const env = process.env
@@ -212,50 +212,50 @@ module.exports = () => {
       config.plugins.push(...plugins)
 
       // 5-- 优化
-      config.optimization = {
-        splitChunks: {
-          // chunks: 'all',
-          // minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
-          // minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
-          // maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
-          // maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
-          // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
-          cacheGroups: {
-            // 对应打包出的app.js
-            // default: {
-            //   name: 'app',
-            //   priority: -20, // 打包优先级权重值，值越大，优先级越高
-            //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
-            // },
-            vendor: {
-              name: 'vendor112',
-              minSize: 20000,
-              // priority: -10, //  打包优先级权重值，值越大，优先级越高
-              test: /node_modules\/(.*)\.js/,
-              reuseExistingChunk: true // 复用其他chunk内已拥有的模块
-            }
-            // vue: {
-            //   name: 'vue',
-            //   chunks: 'all',
-            //   minSize: 200000,
-            //   test: /[\\/]node_modules[\\/]vue[\\/]/,
-            //   priority: -10
-            // },
+      // config.optimization = {
+      //   splitChunks: {
+      //     // chunks: 'all',
+      //     // minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
+      //     // minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
+      //     // maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
+      //     // maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
+      //     // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
+      //     cacheGroups: {
+      //       // 对应打包出的app.js
+      //       // default: {
+      //       //   name: 'app',
+      //       //   priority: -20, // 打包优先级权重值，值越大，优先级越高
+      //       //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+      //       // },
+      //       vendor: {
+      //         name: 'vendor112',
+      //         minSize: 20000,
+      //         // priority: -10, //  打包优先级权重值，值越大，优先级越高
+      //         test: /node_modules\/(.*)\.js/,
+      //         reuseExistingChunk: true // 复用其他chunk内已拥有的模块
+      //       }
+      //       // vue: {
+      //       //   name: 'vue',
+      //       //   chunks: 'all',
+      //       //   minSize: 200000,
+      //       //   test: /[\\/]node_modules[\\/]vue[\\/]/,
+      //       //   priority: -10
+      //       // },
 
-            // elementUI: {
-            //   // 将elementUI拆分为单个包
-            //   name: 'chunk-elementUI',
-            //   minSize: 200000,
-            //   // 重量需要大于libs和app，否则将打包到libs或app中
-            //   priority: 20,
-            //   // 为了适应cnpm
-            //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
-            // }
-          }
-        }
-      }
+      //       // elementUI: {
+      //       //   // 将elementUI拆分为单个包
+      //       //   name: 'chunk-elementUI',
+      //       //   minSize: 200000,
+      //       //   // 重量需要大于libs和app，否则将打包到libs或app中
+      //       //   priority: 20,
+      //       //   // 为了适应cnpm
+      //       //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+      //       // }
+      //     }
+      //   }
+      // }
 
-      console.log(config.plugins, '-end--')
+      // console.log(config.plugins, '-end--')
     },
 
     /** chainWebpack  只能函数：
@@ -280,7 +280,7 @@ module.exports = () => {
         // 包分析
         chainableConfig.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
       }
-      console.log(chainableConfig, '==chainableConfig=')
+      // console.log(chainableConfig, '==chainableConfig=')
     }
   }
 }
