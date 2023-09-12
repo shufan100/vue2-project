@@ -48,7 +48,7 @@
  *    2.缺点：编译时间变长；包体积大一倍；包分析看不到源码
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
 // const WebpackObfuscator = require('webpack-obfuscator') // 压缩和混淆代码，支持es6压缩
 // const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进程压缩js
 
@@ -60,7 +60,9 @@ const WebpackBar = require('webpackbar')
 module.exports = () => {
   const env = process.env
   console.log('环境变量------', env.NODE_ENV)
-  const isSourceMap = false
+  const ISPROD = process.env.NODE_ENV === 'production'
+  const isSourceMap = true
+
   return {
     // 当前应用是被部署在一个域名的根路径上就用'/',如果是部署在子路径上 '/my-app'（根据后端来）
     publicPath: env.VUE_APP_BASE, // 系统部署在子路径上
@@ -115,10 +117,10 @@ module.exports = () => {
      */
     configureWebpack: config => {
       // console.log(config, '-start--')
-      const isProduction = process.env.NODE_ENV === 'production'
+      // const isProduction = process.env.NODE_ENV === 'production'
 
       // 1-- 开发：cheap-module-source-map   生产：source-map 防止源代码泄漏
-      config.devtool = isSourceMap ? false : isProduction ? 'source-map' : 'cheap-module-source-map'
+      config.devtool = isSourceMap ? false : ISPROD ? 'source-map' : 'cheap-module-source-map'
 
       // 2-- 提取公共依赖包、通过csdn方式引入依赖，通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度
       config.externals = {
@@ -151,7 +153,6 @@ module.exports = () => {
         // }),
 
         // 压缩和混淆代码，支持es6压缩(非常耗时)(包分析时要注释)
-        // isProduction &&
         //   new WebpackObfuscator(
         //     {
         //       // 压缩代码
@@ -212,45 +213,73 @@ module.exports = () => {
       config.plugins.push(...plugins)
 
       // 5-- 优化
+      if (ISPROD) {
+        config.optimization = {
+          splitChunks: {
+            cacheGroups: {
+              common: {
+                // commons 一般是是个人定义的
+                name: 'chunk-common', // 打包后的文件名
+                chunks: 'initial',
+                minChunks: 1,
+                minSize: 0,
+                maxInitialRequests: 5, // 入口js文件最大并行请求数量。默认30
+                priority: 1, // 打包优先级权重值，值越大，优先级越高
+                reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+              },
+              vendors: {
+                // vendor 是导入的 npm 包
+                name: 'chunk-vendors',
+                test: /[\\/]node_modules[\\/]/,
+                chunks: 'initial',
+                maxSize: 600000,
+                maxInitialRequests: 20, // 入口js文件最大并行请求数量。默认30
+                priority: 2, // 打包优先级权重值，值越大，优先级越高
+                reuseExistingChunk: true, // 遇到重复包直接引用，不重新打包
+                enforce: true
+              }
+            }
+          }
+        }
+      }
       // config.optimization = {
       //   splitChunks: {
-      //     // chunks: 'all',
-      //     // minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
-      //     // minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
-      //     // maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
-      //     // maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
+      //     chunks: 'all',
+      //     minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
+      //     minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
+      //     maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
+      //     maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
       //     // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
       //     cacheGroups: {
-      //       // 对应打包出的app.js
-      //       // default: {
-      //       //   name: 'app',
-      //       //   priority: -20, // 打包优先级权重值，值越大，优先级越高
-      //       //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
-      //       // },
-      //       vendor: {
-      //         name: 'vendor112',
+      // 对应打包出的app.js
+      // default: {
+      //   name: 'app',
+      //   priority: -20, // 打包优先级权重值，值越大，优先级越高
+      //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+      // },
+      //       vendors: {
+      //         name: 'chunk-vendors',
       //         minSize: 20000,
       //         // priority: -10, //  打包优先级权重值，值越大，优先级越高
       //         test: /node_modules\/(.*)\.js/,
       //         reuseExistingChunk: true // 复用其他chunk内已拥有的模块
       //       }
-      //       // vue: {
-      //       //   name: 'vue',
-      //       //   chunks: 'all',
-      //       //   minSize: 200000,
-      //       //   test: /[\\/]node_modules[\\/]vue[\\/]/,
-      //       //   priority: -10
-      //       // },
-
-      //       // elementUI: {
-      //       //   // 将elementUI拆分为单个包
-      //       //   name: 'chunk-elementUI',
-      //       //   minSize: 200000,
-      //       //   // 重量需要大于libs和app，否则将打包到libs或app中
-      //       //   priority: 20,
-      //       //   // 为了适应cnpm
-      //       //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
-      //       // }
+      // vue: {
+      //   name: 'vue',
+      //   chunks: 'all',
+      //   minSize: 200000,
+      //   test: /[\\/]node_modules[\\/]vue[\\/]/,
+      //   priority: -10
+      // },
+      // elementUI: {
+      //   // 将elementUI拆分为单个包
+      //   name: 'chunk-elementUI',
+      //   minSize: 200000,
+      //   // 重量需要大于libs和app，否则将打包到libs或app中
+      //   priority: 20,
+      //   // 为了适应cnpm
+      //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+      // }
       //     }
       //   }
       // }
