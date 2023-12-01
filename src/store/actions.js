@@ -7,16 +7,16 @@ export default {
     context.commit('isEnglishMutations', newData)
   },
 
-  jiasum (context, value) {
+  jiasum(context, value) {
     context.dispatch('jiasum2', value)
   },
-  jiasum1 (context) {
+  jiasum1(context) {
     context.dispatch('jiasum2', 2)
   },
-  jiasum2 (context, value) {
+  jiasum2(context, value) {
     console.log('context:>>>>', context, value)
     if (context.state.isEnglish === 'en') {
       context.commit('JIASUM', value)
     }
-  }
+  },
 }

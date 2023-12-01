@@ -6,6 +6,7 @@
    1、hard-source-webpack-plugin
 2. 开启多线程打包
    1、 happypack
+3. 代码拆分 splitChunks
 
 ### 二、打包体积优化：
 
@@ -19,7 +20,6 @@
 3. 压缩 js、css、html、json 文件体积
    1、 compression-webpack-plugin
 4. 压缩图片
-5. 代码拆分 splitChunks
 
 ### 三、编译速度优化 + 打包体积优化：
 

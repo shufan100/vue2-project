@@ -29,7 +29,7 @@ export default {
       list: [],
       list2: [],
       val: 1,
-      value: ''
+      value: '',
     }
   },
   created() {
@@ -65,8 +65,8 @@ export default {
       // window.addEventListener('message', async (e) => {
       //   if (e.data.token) { }
       // })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>

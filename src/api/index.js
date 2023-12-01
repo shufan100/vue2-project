@@ -1,4 +1,4 @@
-import request from '@/utils/axios/request'
+import request from '@/utils/axios/request';
 
 // export function list(query) { //fetchList 自定义名字
 //     return request({
@@ -9,28 +9,23 @@ import request from '@/utils/axios/request'
 //   }
 
 // 测试1
-export const getTest = data => {
-  return request({
+export const getTest = data =>
+  request({
     url: '/test',
     method: 'get',
-    data
-  })
-}
+    data,
+  });
 
 // 测试2
-export const postTest = data => {
-  return request({
+export const postTest = data =>
+  request({
     url: '/postTest1',
     method: 'post',
-    data
-  })
-}
-
-// 在线接口
-export const getData = data => {
-  return request({
-    url: 'http://jsonplaceholder.typicode.com/posts/2',
+    data,
+  });
+export const getPageList = data =>
+  request({
+    url: 'http://jsonplaceholder.typicode.com/posts/1',
     method: 'get',
-    data
-  })
-}
+    data,
+  });

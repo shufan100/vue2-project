@@ -1,18 +1,14 @@
 /* eslint-disable no-tabs */
 import axios from 'axios'
-// import qs from 'qs'
+import qs from 'qs'
 import router from '@/router'
 
-/** {取消上一次请求}
- *  1.定义Map 用于存储正在进行的请求
- *  2.创建一个名为 generateRequestKey 的辅助函数，用于根据请求信息生成唯一的请求 key
- *  3.在请求拦截器中，我们首先根据请求信息生成一个唯一的请求 key。然后检查此请求是否已经存在于 pendingRequests Map 中。
- *    如果存在，则取消之前的请求。最后，我们创建一个新的取消令牌源，并将其与请求 key 一起存储在 pendingRequests Map 中。
- *  4. 在响应拦截器中，我们根据响应信息中的请求配置生成请求 key，并从 pendingRequests Map 中删除对应的请求。这样，我们可以确保在请求完成时清理已完成的请求。
+/** 取消重复请求
+ *
+ *
  */
-//! 1.用于存储正在进行的请求
-const pendingRequests = new Map()
-//! 2.用于存储正在进行的请求
+const pendingRequests = new Map() // 用于存储正在进行的请求
+// 用于根据请求信息生成唯一的请求 key
 function generateRequestKey(config) {
   const { method, url, params, data } = config
   return [method, url, JSON.stringify(params), JSON.stringify(data)].join('&')
@@ -47,30 +43,46 @@ const rest = axios.create({
 // request(请求)拦截器
 rest.interceptors.request.use(
   config => {
+    // config.headers['Auth-type'] = 'Token-auth'
+    // config.headers.Authorization = 'bearer3389dd48-6dbc-4426-8b81-833adc7da44e'
+    // config.headers['x-unique-equipment-code'] = 'bc9d4a61'
+
     if (config.type === 'mock') {
       config.baseURL = '/dev-api'
     }
     // router.push('HiChild') // 请求的话
     // store.dispatch('showLoading', true) // 请求开启loading
 
-    // 提交文件类型
-    if (config.data instanceof FormData) {
-      config.headers = {
-        'Content-Type': 'multipart/form-data'
-        // Authorization: store.state.token ? store.state.token : ''
-      }
-    }
+    // 判断改变入参类型
+    // if (config.method === 'post') {
+    //   config.data = qs.stringify(config.data)
+    // }
 
+    // 提交文件类型
+    // if (config.data instanceof FormData) {
+    //   config.headers = {
+    //     'Content-Type': 'multipart/form-data'
+    //     // Authorization: store.state.token ? store.state.token : ''
+    //   }
+    // } else {
+    //   // 常规请求
+    //   config.headers = {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //     // Authorization: store.state.token ? store.state.token : ''
+    //   }
+    //   config.data = qs.stringify(config.data)
+    // }
     config.withCredentials = true // 关闭loading
     config.timeout = 5000
 
-    //! 3.在请求拦截器中，我们首先根据请求信息生成一个唯一的请求 key。然后检查此请求是否已经存在于 pendingRequests Map 中。
-    //! 如果存在，则取消之前的请求。最后，我们创建一个新的取消令牌源，并将其与请求 key 一起存储在 pendingRequests Map 中
+    // 根据请求信息生成一个唯一的请求 key;
+    // 检查此请求是否已经存在于 pendingRequests Map 中。如果存在，则取消之前的请求
     const requestKey = generateRequestKey(config)
     if (pendingRequests.has(requestKey)) {
       const cancelTokenSource = pendingRequests.get(requestKey)
       cancelTokenSource.cancel('Canceled previous request')
     }
+
     const source = axios.CancelToken.source()
     config.cancelToken = source.token
     pendingRequests.set(requestKey, source)
@@ -87,13 +99,11 @@ rest.interceptors.request.use(
 // respone(响应)拦截器
 rest.interceptors.response.use(
   response => {
-    //! 4.在响应拦截器中，我们根据响应信息中的请求配置生成请求 key，并从 pendingRequests Map 中删除对应的请求。这样，我们可以确保在请求完成时清理已完成的请求。
-    const requestKey = generateRequestKey(response.config)
-    pendingRequests.delete(requestKey)
-
-    if (!response.data?.success) {
+    if (!response.data.success) {
       return Promise.resolve(response)
     }
+    const requestKey = generateRequestKey(response.config)
+    pendingRequests.delete(requestKey)
     return response.data
   },
   error => {
@@ -103,8 +113,12 @@ rest.interceptors.response.use(
         path: '/login'
       })
     }
-    // store.dispatch('hideloading', false)
-    return Promise.reject(error)
+    if (axios.isCancel(error)) {
+      console.log('Request canceled:', error.message)
+    } else {
+      // store.dispatch('hideloading', false)
+      return Promise.reject(error)
+    }
   }
 )
 

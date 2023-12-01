@@ -5,6 +5,6 @@ export function getList() {
   return request({
     url: '/excel/list',
     method: 'get',
-    type: 'mock'
+    type: 'mock',
   })
 }

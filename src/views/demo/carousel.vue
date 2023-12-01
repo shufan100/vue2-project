@@ -2,20 +2,20 @@
   <div id="carousel">
     <h2>拖拽轮播</h2>
     <div class="rolling">
-      <div v-if="swiperIndex>0" class="rollingicon rolling-left " @click="goLeft2">
-        <i class="el-icon-arrow-left "></i>
+      <div v-if="swiperIndex > 0" class="rollingicon rolling-left" @click="goLeft2">
+        <i class="el-icon-arrow-left"></i>
       </div>
       <div class="swiper-container" id="homeSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide inner-box" v-for="(item,index) in recommendThemeList" :key="index">
-            <span>{{ index+1 }}</span>
+          <div class="swiper-slide inner-box" v-for="(item, index) in recommendThemeList" :key="index">
+            <span>{{ index + 1 }}</span>
             <img :src="item.cover" alt="" />
           </div>
         </div>
         <div class="swiper-button-prev1"></div>
         <div class="swiper-button-next1"></div>
       </div>
-      <div v-show="swiperIndex !=5" class=" rollingicon rolling-right " @click="goRight2">
+      <div v-show="swiperIndex != 5" class="rollingicon rolling-right" @click="goRight2">
         <i class="el-icon-arrow-left"></i>
       </div>
     </div>
@@ -35,14 +35,13 @@
             <img :class="{ image: idx == index }" v-for="(item, idx) in effectImgList" :src="item.cover" :key="idx" @mouseenter="imgCilck(idx)" />
           </div>
         </div>
-
       </el-card>
       <!-- 上拉滚动 -->
       <el-card class="carousel-buttom-right box-card">
         <h2>上拉滚动</h2>
         <template v-if="continuousPatternList.length > 0">
           <div class="subitem" v-for="(item, index) in continuousPatternList" :key="item.artId">
-            <div class="gallery-mian" @mouseenter="fourMouseenter(item, index)" @mouseleave="galleryTop = 0;">
+            <div class="gallery-mian" @mouseenter="fourMouseenter(item, index)" @mouseleave="galleryTop = 0">
               <div class="gallery" :ref="`gallery${index}`" :style="{ top: galleryIndexg == index ? galleryTop + 'px' : '0px' }">
                 <div class="gallery-image">
                   <img :src="item.coverList[0]" />
@@ -63,23 +62,41 @@
   </div>
 </template>
 
-<script type='text/javascript' src='src/assets/swiper2.7.6/idangerous.swiper.min.js'></script>
+<script type="text/javascript" src="src/assets/swiper2.7.6/idangerous.swiper.min.js"></script>
 <script>
 export default {
-  data () {
+  data() {
     return {
       // 轮播图
       recommendThemeList: [
-        { title: '主题', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
-        { title: '111', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinrygyztemzsgeydqnsxnv4hsr3tlbmhiltkobtv6mrsgr4dcobqa.jpg' },
+        {
+          title: '主题',
+          cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg',
+        },
+        {
+          title: '111',
+          cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinrygyztemzsgeydqnsxnv4hsr3tlbmhiltkobtv6mrsgr4dcobqa.jpg',
+        },
         { title: '试试', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20211130/ge3dgobsguzdknjygaztenbrha3tkltkobswoxzsgi2hqmrsgq.jpg' },
         { title: '测试', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/IywTu/creation/20211122/ge3dgnzvgyydsmzqge4dsnrzgq3toltkobswoxzsgi2hqmrsgq.jpg' },
-        { title: '的观点', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
+        {
+          title: '的观点',
+          cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg',
+        },
         { title: '法', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
-        { title: '熊猫', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
+        {
+          title: '熊猫',
+          cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg',
+        },
         { title: '伐', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/guzdmobtguydmmryha2tiusupjbgi4cknnyheltkobtv6mrsgr4dcobqa.jpg' },
-        { title: '效力', cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg' },
-        { title: '44', cover: 'http://tu.chdesign.cn//Thumbnail/upload/match/20210823/g43timbqgbrdcyjygaztinzsgjrggoldgyztcyjyhfrtezbzmyzs42tqm5ptemrupaytqma.jpg' },
+        {
+          title: '效力',
+          cover: 'http://tu.chdesign.cn/test/Thumbnail/test/upload/theme/20180712/gm2tinjqg4ztonbwha3tm6culbcfi6snpblwultkobtv6mrsgr4dcobqa.jpg',
+        },
+        {
+          title: '44',
+          cover: 'http://tu.chdesign.cn//Thumbnail/upload/match/20210823/g43timbqgbrdcyjygaztinzsgjrggoldgyztcyjyhfrtezbzmyzs42tqm5ptemrupaytqma.jpg',
+        },
       ],
       swiperIndex: 0,
       swiper: null,
@@ -102,84 +119,83 @@ export default {
           artId: 101,
           title: '草莓草莓草莓草莓草莓草莓草莓草莓草莓草莓',
           coverList: [
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163005906216280690.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163005906452288141.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163006188506722264.png",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163006190682495002.jpeg"
-          ]
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163005906216280690.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163005906452288141.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163006188506722264.png',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163006190682495002.jpeg',
+          ],
         },
         {
           artId: 202,
           title: '国际化的甘肃科技馆还是公司控股还是',
           coverList: [
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004851125492535.png",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004860891614325.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004861546939014.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004862268124234.jpeg"
-          ]
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004851125492535.png',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004860891614325.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004861546939014.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004862268124234.jpeg',
+          ],
         },
         {
           artId: 303,
           title: '看几点开始加工时间大概是',
           coverList: [
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004763662769875.png",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004765415627614.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004766016044789.jpeg",
-            "http://tu.chdesign.cn/test/CUMS/OA/20210827/163004766540264656.jpeg"
-          ]
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004763662769875.png',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004765415627614.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004766016044789.jpeg',
+            'http://tu.chdesign.cn/test/CUMS/OA/20210827/163004766540264656.jpeg',
+          ],
         },
       ],
-
     }
   },
-  created () {
+  created() {
     this.init()
   },
   methods: {
-    init () {
+    init() {
       this.$nextTick(() => {
         this.getBanner()
         this.startChange()
       })
     },
     // 轮播图
-    getBanner () {
+    getBanner() {
       const homeSwiper = document.getElementById('homeSwiper')
       this.swiper = new Swiper(homeSwiper, {
         slidesPerView: 5,
         spaceBetween: 20,
         navigation: {
           nextEl: '.swiper-button-next1',
-          prevEl: '.swiper-button-prev1'
+          prevEl: '.swiper-button-prev1',
         },
         onTouchEnd: (swiper, event) => {
           setTimeout(() => {
             this.swiperIndex = swiper.activeIndex == -0 ? 0 : swiper.activeIndex
             console.log(swiper.activeIndex)
           }, 100)
-        }
+        },
       })
     },
-    goLeft2 () {
+    goLeft2() {
       this.swiper.slidePrev()
       this.swiperIndex = this.swiper.activeIndex
       console.log(this.swiperIndex)
     },
-    goRight2 () {
+    goRight2() {
       this.swiper.slideNext()
       this.swiperIndex = this.swiper.activeIndex
       console.log(this.swiperIndex)
     },
     // 大图渐变
     // hede > 大图渐变 > 小图点击
-    imgCilck (num) {
+    imgCilck(num) {
       clearInterval(this.timerIndex)
       this.index = num
       this.startChange()
       this.currImgs.splice(0, 1, this.effectImgList[this.index])
     },
     // hede > 大图渐变 > 加载
-    startChange () {
+    startChange() {
       var _this = this
       this.timerIndex = setInterval(function () {
         if (_this.index < _this.effectImgList.length - 1) {
@@ -191,7 +207,7 @@ export default {
       }, 4000)
     },
     // 四方连续鼠标移入
-    fourMouseenter (item, index) {
+    fourMouseenter(item, index) {
       let galleryDescriptionHeight = this.$refs[`gallery-description${index}`][0].offsetHeight
       // console.log(galleryDescriptionHeight, this.$refs[`gallery${index}`][0], '00');
       this.galleryIndexg = index
@@ -199,10 +215,10 @@ export default {
 
       // this.threeShow = item.artId + item.title + index
     },
-  }
+  },
 }
 </script>
-<style  lang="less" scoped>
+<style lang="less" scoped>
 .transform() {
   transform: scale(1.1, 1.1);
   -ms-transform: scale(1.1, 1.1); /* IE 9 */
@@ -270,11 +286,7 @@ export default {
         z-index: 99;
         width: 224px;
         height: 96px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(0, 0, 0, 0.5) 100%
-        );
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
         border-radius: 0px 0px 10px 10px;
         line-height: 150px;
       }
@@ -353,11 +365,7 @@ export default {
             z-index: 99;
             width: 224px;
             height: 96px;
-            background: linear-gradient(
-              180deg,
-              rgba(255, 255, 255, 0) 0%,
-              rgba(0, 0, 0, 0.5) 100%
-            );
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
             border-radius: 0px 0px 10px 10px;
             line-height: 150px;
           }

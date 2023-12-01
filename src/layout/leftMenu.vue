@@ -78,7 +78,7 @@ export default {
         {
           icon: 'el-icon-s-platform',
           index: '/home',
-          title: '首页'
+          title: '首页',
         },
         {
           icon: 'el-icon-s-order',
@@ -87,28 +87,38 @@ export default {
           subs: [
             {
               index: '/form1',
-              title: 'Form表单'
+              title: 'Form表单',
             },
             {
               index: '/table',
-              title: '基础表格'
+              title: '基础表格',
             },
             {
               icon: 'el-icon-lx-cascades',
               index: '/editor',
-              title: '富文本编辑器'
+              title: '富文本编辑器',
+            },
+            {
+              icon: 'el-icon-lx-cascades',
+              index: '/tinymce',
+              title: 'tinymce编辑器',
+            },
+            {
+              icon: 'el-icon-lx-cascades',
+              index: '/ckEditor',
+              title: 'ckEditor编辑器',
             },
             {
               icon: 'el-icon-lx-cascades',
               index: '/markdown',
-              title: 'Markdown编辑器'
+              title: 'Markdown编辑器',
             },
             {
               icon: 'el-icon-lx-cascades',
               index: '/nativeTable',
-              title: '原生表格'
-            }
-          ]
+              title: '原生表格',
+            },
+          ],
         },
         {
           icon: 'el-icon-s-comment',
@@ -117,23 +127,23 @@ export default {
           subs: [
             {
               index: '/userInfo',
-              title: '个人信息'
+              title: '个人信息',
             },
             {
               index: '/modifyInfo',
-              title: '修改信息'
-            }
-          ]
+              title: '修改信息',
+            },
+          ],
         },
         {
           icon: 'el-icon-bell',
           index: '/msgCenter',
-          title: '消息中心'
+          title: '消息中心',
         },
         {
           icon: 'el-icon-share',
           index: '/share',
-          title: '分享功能'
+          title: '分享功能',
         },
         {
           icon: 'el-icon-menu',
@@ -142,61 +152,61 @@ export default {
           subs: [
             {
               index: '/writing',
-              title: '基础写法'
+              title: '基础写法',
             },
             {
               index: '/shopping',
-              title: '购物车'
+              title: '购物车',
             },
             {
               index: '/magnifying',
-              title: '放大镜'
+              title: '放大镜',
             },
             {
               index: '/threeD',
-              title: '3D旋转图'
+              title: '3D旋转图',
             },
             {
               index: '/upload',
-              title: '图片上传'
+              title: '图片上传',
             },
             {
               index: '/printer',
-              title: '打印机'
+              title: '打印机',
             },
             {
               index: '/exportPdf',
-              title: '导出PDF'
+              title: '导出PDF',
             },
             {
               index: '/iconfont',
-              title: '矢量图标'
+              title: '矢量图标',
             },
             {
               index: '/carousel',
-              title: '轮播图'
+              title: '轮播图',
             },
             {
               index: '/antiShake',
-              title: '自定义指令'
+              title: '自定义指令',
             },
             {
               index: '/seamless',
-              title: '无缝滚动'
+              title: '无缝滚动',
             },
             {
               index: '/video',
-              title: '视频播放'
+              title: '视频播放',
             },
             {
               index: '/slots',
-              title: '插槽'
+              title: '插槽',
             },
             {
               index: '/navAnchor',
-              title: '导航锚点'
-            }
-          ]
+              title: '导航锚点',
+            },
+          ],
         },
         {
           icon: 'el-icon-s-tools',
@@ -205,17 +215,17 @@ export default {
           subs: [
             {
               index: '/dialog',
-              title: '拖拽弹窗'
+              title: '拖拽弹窗',
             },
             {
               index: '/dragList',
-              title: '拖拽列表'
+              title: '拖拽列表',
             },
             {
               index: '/dragList2',
-              title: '原生拖拽列表'
-            }
-          ]
+              title: '原生拖拽列表',
+            },
+          ],
         },
         {
           icon: 'el-icon-s-promotion',
@@ -224,9 +234,9 @@ export default {
           subs: [
             {
               index: '/echartsMap',
-              title: '高德地图'
-            }
-          ]
+              title: '高德地图',
+            },
+          ],
         },
         {
           icon: 'el-icon-s-goods',
@@ -235,13 +245,13 @@ export default {
           subs: [
             {
               index: '/pagePermissions',
-              title: '页面权限'
+              title: '页面权限',
             },
             {
               index: '/btnPermissions',
-              title: '按钮权限'
-            }
-          ]
+              title: '按钮权限',
+            },
+          ],
         },
         {
           icon: 'el-icon-error',
@@ -250,18 +260,18 @@ export default {
           subs: [
             {
               index: '/404',
-              title: '404'
-            }
-          ]
-        }
-      ]
+              title: '404',
+            },
+          ],
+        },
+      ],
     }
   },
   computed: {
     onRoutes() {
       return this.$route.path.replace('/', '')
     },
-    ...mapState(['sidebarOpened', 'sidebarWidth'])
+    ...mapState(['sidebarOpened', 'sidebarWidth']),
   },
   mounted() {},
   methods: {
@@ -270,8 +280,8 @@ export default {
     },
     handleClose(key, keyPath) {
       // console.log(key, keyPath);
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>

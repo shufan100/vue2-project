@@ -1,0 +1,9 @@
+{
+  // 推荐插件安装
+  "recommendations": [
+    "stylelint.vscode-stylelint",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "octref.vetur"
+  ]
+}

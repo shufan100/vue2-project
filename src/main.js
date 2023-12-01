@@ -50,10 +50,10 @@ Vue.use(plugins)
 Vue.prototype.$axios = axios
 Vue.prototype.$newMessage = message
 // Vue.prototype.$store = store  // vue 会自定在实例身上加$store
-
+let a = { a: 121 }
 const vm = new Vue({
   data: {
-    msgs: 'hello msg'
+    msgs: 'hello msg',
   },
   router,
   store, // 这边就是引入的store，vue会自动加在实例身上，名为$store
@@ -64,6 +64,6 @@ const vm = new Vue({
   // },
   beforeCreate() {
     Vue.prototype.$bus = this // 安装全局事件总线
-  }
+  },
 }).$mount('#app')
 console.log('vm:', vm)

@@ -1,0 +1,28 @@
+{
+  "editor.formatOnSave": true, // 保存时格式化
+  "editor.minimap.enabled": true,
+  "editor.fontSize": 14,
+  "editor.lineHeight": 22,
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // 定义一个默认格式化程序
+
+  // "prettier.enable": true, //是否启用prettier风格
+  // "prettier.tabWidth": 2,
+  // "prettier.semi": false,
+  // "prettier.singleQuote": true,
+  // "prettier.printWidth": 160,
+  // "prettier.trailingComma": "es5",
+  // "prettier.bracketSpacing": true, // 对象前后使用空格  false:{a: 1, b: 2} true:{ a: 1, b: 2 }
+  // "prettier.arrowParens": "avoid",
+  "eslint.enable": true, // eslint生效
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // vue文件默认使用--eslint
+  "[vue]": {
+    // "editor.defaultFormatter": "esbenp.prettier-vscode" // 编辑器默认使用prettier规则
+    // 保存时使用eslint自动修正
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  }
+}

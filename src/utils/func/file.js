@@ -13,5 +13,5 @@ export const sizeformat = val => {
   return (val / Math.pow(k, i)).toPrecision(3) + sizes[i]
 }
 
-// 2、获取文件类型后族
+// 2、获取文件类型后缀
 export const suffix = str => str.substring(str.lastIndexOf('.'))

@@ -2,7 +2,7 @@
  * @Author: shufan100 1549248097@qq.com
  * @Date: 2022-10-23 14:45:51
  * @LastEditors: shufan100 1549248097@qq.com
- * @LastEditTime: 2023-08-17 10:09:13
+ * @LastEditTime: 2023-02-09 14:40:18
  * @FilePath: \vue2-project\vue.config.js
  * @Description: 配置
  *
@@ -48,45 +48,52 @@
  *    2.缺点：编译时间变长；包体积大一倍；包分析看不到源码
  */
 const CompressionPlugin = require('compression-webpack-plugin') // gzip
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩和混淆代码，不支持es6压缩)
 // const WebpackObfuscator = require('webpack-obfuscator') // 压缩和混淆代码，支持es6压缩
 // const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin') // 多进程压缩js
+// 开辟一个线程池，拿到系统CPU的核数，happypack 将编译工作利用所有线程(利用cpu内核进行多进程打包，提示构建速度)
+const HappyPack = require('happypack')
+const os = require('os')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin') //  webpack编译磁盘缓存
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // plugin、loader的编译耗时
-const WebpackBar = require('webpackbar')
-// const MyPlugin = require('./build/MyPlugin') // 自定义plugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin // 编译分析
+const WebpackBar = require('webpackbar') // 编译进度
 
 module.exports = () => {
   const env = process.env
   console.log('环境变量------', env.NODE_ENV)
-  const ISPROD = process.env.NODE_ENV === 'production'
-  const isSourceMap = true
-
+  console.log('CPU 内核数------', os.cpus().length)
+  const isProduction = process.env.NODE_ENV === 'production'
+  // const isSourceMap = false
   return {
     // 当前应用是被部署在一个域名的根路径上就用'/',如果是部署在子路径上 '/my-app'（根据后端来）
     publicPath: env.VUE_APP_BASE, // 系统部署在子路径上
     outputDir: 'dist', // build打包后的文件名(生产环境构建文件的目录)(编译前会自动先将之前的dist包删除)
     assetsDir: 'assets', // 放置生成的静态资源 (js、css、img、fonts)
     lintOnSave: false, // 是否开启eslint (否在开发环境下通过 eslint-loader 在每次保存时 lint 代码) （值为boolean | 'warning' | 'default' | 'error'）
-    productionSourceMap: isSourceMap, // 生产环境--编译后生成的map映射文件，提示打印文件位置) 默认true  // 开发环境无效
-    // 开发环境--开启代理服务器（ 生产环境无效）
+    productionSourceMap: false, // 生产环境--编译后生成的map映射文件，提示打印文件位置) 默认true  // 开发环境无效
+    parallel: isProduction ? require('os').cpus().length > 1 : false, // 开发无效；生产默认为 Babel 或 TypeScript 使用 thread-loader（多进程打包）
+    /**
+     * 开发环境--开启代理服务器（ 生产环境无效）
+     */
     devServer: {
       open: true, // 是否自动弹出浏览器页面
       // host: "localhost",
       host: '0.0.0.0',
-      port: '8080',
+      port: 8004,
       https: false, // 是否使用https协议
       hotOnly: false, // 是否开启热更新
       proxy: {
         '/api': {
           // 请求前缀（匹配所有以 '/api'开头的请求路径）
-          target: 'http://localhost:5000', // 5000端口服务器（代理目标的基础路径）
-          ws: true, // 用于支持websockets
+          target: 'http://gateway.hyit.group/', // 5000端口服务器（代理目标的基础路径）
+          // ws: true, // 用于支持websockets
           changeOrigin: true, // (默认true)告诉服务器请求来自哪里：false就暴露自己实际的请求地址（服务器的请求头收到的是localhost:8080），true就说自己的和请求的服务器一样的地址（服务器的请求头收到的是localhost:5000）
           pathRewrite: {
             // 重写路径 比如'/api/aaa/ccc'重写为'/aaa/ccc'
-            '^/api': ''
+            '^/api': '/'
           }
         },
         '/jpi': {
@@ -99,7 +106,6 @@ module.exports = () => {
         }
       }
     },
-
     /** configureWebpack  两种写法：
      * 介绍：
      *    -- 进行简单的修改和添加 webpack 配置，是直接修改 webpack 配置对象；（如：配置入口、输出、加载器规则等）
@@ -117,10 +123,10 @@ module.exports = () => {
      */
     configureWebpack: config => {
       // console.log(config, '-start--')
-      // const isProduction = process.env.NODE_ENV === 'production'
 
       // 1-- 开发：cheap-module-source-map   生产：source-map 防止源代码泄漏
-      config.devtool = isSourceMap ? false : ISPROD ? 'source-map' : 'cheap-module-source-map'
+      // config.devtool = isProduction ? 'source-map' : 'cheap-module-source-map'
+      config.devtool = isProduction ? false : 'cheap-module-source-map'
 
       // 2-- 提取公共依赖包、通过csdn方式引入依赖，通过csdn来加载这些资源，减少服务请求资源，提升白屏加载速度
       config.externals = {
@@ -133,12 +139,15 @@ module.exports = () => {
       // 3-- 打包文件大小提示
       config.performance = {
         hints: 'warning', // 有性能问题时输出(warning:警告 error:错误  false:关闭)
-        maxEntrypointSize: 500000, // 入口文件的最大体积
-        maxAssetSize: 300000 // 生成最大文件体积 (单位 bytes)
+        maxEntrypointSize: 5000000, // 入口文件的最大体积
+        maxAssetSize: 3000000 // 生成最大文件体积 (单位 bytes)
         // assetFilter: function (assetFilename) { return assetFilename.endsWith('.js') } // 过滤要检查的文件
       }
 
       // 4-- 插件
+      if (process.env.analyzer) {
+        config.plugins.push(new BundleAnalyzerPlugin())
+      }
       const plugins = [
         // 压缩和混淆代码，不支持es6压缩
         // new UglifyJsPlugin({
@@ -196,36 +205,37 @@ module.exports = () => {
         //     }
         //   }
         // }),
+        // 多进程编译
+        new HappyPack({
+          id: 'happybabel',
+          loaders: ['babel-loader', 'vue-loader'],
+          threadPool: happyThreadPool
+        }),
         // gzip压缩
         new CompressionPlugin({
           test: /\.(js|css|html|json)(\?.*)?$/i, // 需要压缩的文件正则
           threshold: 10240, // 对超过10k的文件进行gzip压缩
           deleteOriginalAssets: false // 不删除源文件
         }),
-
-        // webpack编译磁盘缓存
-        new HardSourceWebpackPlugin(),
-        // plugin、loader的编译耗时
-        new SpeedMeasureWebpackPlugin(),
-        // 编译进度条
-        new WebpackBar()
+        new HardSourceWebpackPlugin(), // webpack编译磁盘缓存
+        // new SpeedMeasureWebpackPlugin(), // plugin、loader的编译耗时
+        new WebpackBar() // 编译进度条
       ]
       config.plugins.push(...plugins)
-
       // 5-- 优化
-      if (ISPROD) {
+      if (isProduction) {
         config.optimization = {
+          // 分包
           splitChunks: {
             cacheGroups: {
               common: {
-                // commons 一般是是个人定义的
-                name: 'chunk-common', // 打包后的文件名
+                name: 'chunk-common',
                 chunks: 'initial',
                 minChunks: 1,
                 minSize: 0,
-                maxInitialRequests: 5, // 入口js文件最大并行请求数量。默认30
-                priority: 1, // 打包优先级权重值，值越大，优先级越高
-                reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+                maxInitialRequests: 5,
+                priority: 1,
+                reuseExistingChunk: true
               },
               vendors: {
                 // vendor 是导入的 npm 包
@@ -233,56 +243,55 @@ module.exports = () => {
                 test: /[\\/]node_modules[\\/]/,
                 chunks: 'initial',
                 maxSize: 600000,
-                maxInitialRequests: 20, // 入口js文件最大并行请求数量。默认30
-                priority: 2, // 打包优先级权重值，值越大，优先级越高
-                reuseExistingChunk: true, // 遇到重复包直接引用，不重新打包
+                maxInitialRequests: 20,
+                priority: 2,
+                reuseExistingChunk: true,
                 enforce: true
               }
             }
           }
+          // splitChunks: {
+          //   // chunks: 'all',
+          //   // minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
+          //   // minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
+          //   // maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
+          //   // maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
+          //   // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
+          //   cacheGroups: {
+          //     // 对应打包出的app.js
+          //     // default: {
+          //     //   name: 'app',
+          //     //   priority: -20, // 打包优先级权重值，值越大，优先级越高
+          //     //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
+          //     // },
+          //     vendor: {
+          //       name: 'vendor112',
+          //       minSize: 20000,
+          //       // priority: -10, //  打包优先级权重值，值越大，优先级越高
+          //       test: /node_modules\/(.*)\.js/,
+          //       reuseExistingChunk: true // 复用其他chunk内已拥有的模块
+          //     }
+          //     // vue: {
+          //     //   name: 'vue',
+          //     //   chunks: 'all',
+          //     //   minSize: 200000,
+          //     //   test: /[\\/]node_modules[\\/]vue[\\/]/,
+          //     //   priority: -10
+          //     // },
+
+          //     // elementUI: {
+          //     //   // 将elementUI拆分为单个包
+          //     //   name: 'chunk-elementUI',
+          //     //   minSize: 200000,
+          //     //   // 重量需要大于libs和app，否则将打包到libs或app中
+          //     //   priority: 20,
+          //     //   // 为了适应cnpm
+          //     //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
+          //     // }
+          //   }
+          // }
         }
       }
-      // config.optimization = {
-      //   splitChunks: {
-      //     chunks: 'all',
-      //     minSize: 1024 * 1, // 分割js文件的大小20kb、默认30kb
-      //     minChunks: 1, // 提取的chunk最少被引用1次，满足条件才会代码分割
-      //     maxAsyncRequests: 6, // 按需加载时的最大并行请求数。默认30
-      //     maxInitialRequests: 4, // 入口js文件最大并行请求数量。默认30
-      //     // { automaticNameDelimiter?, automaticNameMaxLength?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxInitialRequests?, maxSize?, minChunks?, minSize?, name? }
-      //     cacheGroups: {
-      // 对应打包出的app.js
-      // default: {
-      //   name: 'app',
-      //   priority: -20, // 打包优先级权重值，值越大，优先级越高
-      //   reuseExistingChunk: true // 遇到重复包直接引用，不重新打包
-      // },
-      //       vendors: {
-      //         name: 'chunk-vendors',
-      //         minSize: 20000,
-      //         // priority: -10, //  打包优先级权重值，值越大，优先级越高
-      //         test: /node_modules\/(.*)\.js/,
-      //         reuseExistingChunk: true // 复用其他chunk内已拥有的模块
-      //       }
-      // vue: {
-      //   name: 'vue',
-      //   chunks: 'all',
-      //   minSize: 200000,
-      //   test: /[\\/]node_modules[\\/]vue[\\/]/,
-      //   priority: -10
-      // },
-      // elementUI: {
-      //   // 将elementUI拆分为单个包
-      //   name: 'chunk-elementUI',
-      //   minSize: 200000,
-      //   // 重量需要大于libs和app，否则将打包到libs或app中
-      //   priority: 20,
-      //   // 为了适应cnpm
-      //   test: /[\\/]node_modules[\\/]_?element-ui(.*)/
-      // }
-      //     }
-      //   }
-      // }
 
       // console.log(config.plugins, '-end--')
     },
@@ -304,11 +313,6 @@ module.exports = () => {
      *  3、chainWebpack 是一个非常强大和灵活的 webpack 配置修改工具，可以进行更为复杂的配置修改操作。
      */
     chainWebpack: chainableConfig => {
-      // 当环境变量中analyzer 为true 时 运行该配置
-      if (process.env.analyzer) {
-        // 包分析
-        chainableConfig.plugin('webpack-bundle-analyzer').use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
-      }
       // console.log(chainableConfig, '==chainableConfig=')
     }
   }

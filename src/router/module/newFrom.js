@@ -18,7 +18,7 @@ export default {
       path: 'form1',
       name: 'form1',
       component: () => import('@/views/newFrom/form'),
-      meta: { parentTitle: '表单', title: 'Form表单', permissions: true }
+      meta: { parentTitle: '表单', title: 'Form表单', permissions: true },
     },
     {
       path: 'table',
@@ -28,8 +28,8 @@ export default {
         parentTitle: '表单',
         title: '基础表格',
         path: 'form/table',
-        permissions: true
-      }
+        permissions: true,
+      },
     },
     {
       path: 'editor',
@@ -39,8 +39,30 @@ export default {
         parentTitle: '表单',
         title: '富文本编辑器',
         path: 'form/editor',
-        permissions: true
-      }
+        permissions: true,
+      },
+    },
+    {
+      path: 'tinymce',
+      name: 'tinymce',
+      component: () => import('@/views/newFrom/tinymceEditor'),
+      meta: {
+        parentTitle: '表单',
+        title: 'tinymce编辑器',
+        path: 'form/tinymce',
+        permissions: true,
+      },
+    },
+    {
+      path: 'ckEditor',
+      name: 'ckEditor',
+      component: () => import('@/views/newFrom/ckEditor'),
+      meta: {
+        parentTitle: '表单',
+        title: 'CKEditor编辑器',
+        path: 'form/ckEditor',
+        permissions: true,
+      },
     },
     {
       path: 'markdown',
@@ -50,9 +72,10 @@ export default {
         parentTitle: '表单',
         title: 'Markdown编辑器',
         path: 'form/markdown',
-        permissions: true
-      }
+        permissions: true,
+      },
     },
+
     {
       path: 'nativeTable',
       name: 'nativeTable',
@@ -61,8 +84,8 @@ export default {
         parentTitle: '表单',
         title: '原生表格',
         path: 'form/nativeTable',
-        permissions: true
-      }
-    }
-  ]
+        permissions: true,
+      },
+    },
+  ],
 }
