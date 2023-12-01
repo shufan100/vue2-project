@@ -40,11 +40,7 @@ Vue.mixin(indexMixin)
 // Vue.use(ElementUI)
 Vue.use(plugins)
 
-// 签名
-// import VueSignaturePad from 'vue-signature-pad'
-// Vue.use(VueSignaturePad)
-// import VueSignature from 'vue-signature-pad'
-// Vue.use(VueSignature)
+
 
 // 挂载vue原型
 Vue.prototype.$axios = axios

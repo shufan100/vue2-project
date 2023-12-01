@@ -206,11 +206,11 @@ module.exports = () => {
         //   }
         // }),
         // 多进程编译
-        new HappyPack({
-          id: 'happybabel',
-          loaders: ['babel-loader', 'vue-loader'],
-          threadPool: happyThreadPool
-        }),
+        // new HappyPack({
+        //   id: 'happybabel',
+        //   loaders: ['babel-loader', 'vue-loader'],
+        //   threadPool: happyThreadPool
+        // }),
         // gzip压缩
         new CompressionPlugin({
           test: /\.(js|css|html|json)(\?.*)?$/i, // 需要压缩的文件正则
